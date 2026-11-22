@@ -80,71 +80,74 @@
 </head>
 <body class="bg-[#faf9f6] text-neutral-800 antialiased selection:bg-brand selection:text-white">
 
-    <!-- Top Announcement Bar (شريط إخباري متحرك مستمر لا نهائي) -->
-    <div class="bg-neutral-900 text-neutral-200 text-xs sm:text-sm py-2.5 overflow-hidden border-b border-neutral-800 relative z-30 select-none">
-        <div class="ticker-wrapper" dir="ltr">
-            <div class="ticker-track items-center">
-                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
-                </span>
-                <span class="text-neutral-600">✦</span>
-                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
-                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-                    <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
-                </span>
-                <span class="text-neutral-600">✦</span>
-                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
-                </span>
-                <span class="text-neutral-600">✦</span>
-                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
-                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-                    <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
-                </span>
-                <span class="text-neutral-600">✦</span>
-            </div>
-            <div class="ticker-track items-center" aria-hidden="true">
-                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
-                </span>
-                <span class="text-neutral-600">✦</span>
-                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
-                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-                    <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
-                </span>
-                <span class="text-neutral-600">✦</span>
-                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
-                </span>
-                <span class="text-neutral-600">✦</span>
-                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
-                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-                    <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
-                </span>
-                <span class="text-neutral-600">✦</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Minimal Header -->
-    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-30 border-b border-neutral-100 shadow-xs">
-        <div class="max-w-4xl mx-auto px-6 py-3.5 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain">
-                <div>
-                    <span class="text-xl font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
-                    <span class="block text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-1">Calisthenics Gear</span>
+    <!-- Sticky Top Navigation & Infinite News Ticker Wrapper -->
+    <div class="sticky top-0 z-40 shadow-xs">
+        <!-- Top Announcement Bar (شريط إخباري متحرك مستمر لا نهائي) -->
+        <div class="bg-neutral-900 text-neutral-200 text-xs sm:text-sm py-2 overflow-hidden border-b border-neutral-800 select-none">
+            <div class="ticker-wrapper" dir="ltr">
+                <div class="ticker-track items-center">
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                </div>
+                <div class="ticker-track items-center" aria-hidden="true">
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
                 </div>
             </div>
-            <div class="text-xs text-neutral-500 font-medium hidden sm:flex items-center gap-1.5 bg-neutral-100 px-3 py-1 rounded-full">
-                <span>⚡ توصيل 58 ولاية</span>
-            </div>
         </div>
-    </header>
+
+        <!-- Minimal Header -->
+        <header class="bg-white/95 backdrop-blur-md border-b border-neutral-100">
+            <div class="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain">
+                    <div>
+                        <span class="text-xl font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
+                        <span class="block text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-1">Calisthenics Gear</span>
+                    </div>
+                </div>
+                <div class="text-xs text-neutral-500 font-medium hidden sm:flex items-center gap-1.5 bg-neutral-100 px-3 py-1 rounded-full">
+                    <span>⚡ توصيل 58 ولاية</span>
+                </div>
+            </div>
+        </header>
+    </div>
 
     <main class="max-w-3xl mx-auto px-4 md:px-6 py-6 md:py-10 space-y-10">
 
