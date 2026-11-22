@@ -1,3 +1,4 @@
+// VIGOR Calisthenics Gear - Serverless Order API v1.0.1 (Live Production Sync)
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(orderData),
+      body: typeof orderData === 'string' ? orderData : JSON.stringify(orderData),
     });
 
     const result = await response.text();
