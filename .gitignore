@@ -6,6 +6,11 @@ __pycache__/
 venv/
 ENV/
 
+# Environment & Secrets
+.env
+.env.local
+*.env
+
 # System / IDE
 .DS_Store
 Thumbs.db

@@ -19,7 +19,14 @@
                             hover: '#d06730',
                             light: '#fdf6f0',
                             dark: '#93431b',
-                            subtle: '#ba592615'
+                            subtle: '#ba592625'
+                        },
+                        dark: {
+                            bg: '#0f1115',
+                            card: '#161920',
+                            surface: '#1c202a',
+                            border: '#262b37',
+                            muted: '#9ca3af'
                         }
                     },
                     fontFamily: {
@@ -55,7 +62,7 @@
     <header class="bg-white/90 backdrop-blur-md sticky top-0 z-30 border-b border-neutral-100 shadow-xs">
         <div class="max-w-4xl mx-auto px-6 py-3.5 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <img src="logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain">
+                <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain">
                 <div>
                     <span class="text-xl font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
                     <span class="block text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-1">Calisthenics Gear</span>
@@ -67,17 +74,36 @@
         </div>
     </header>
 
-    <main class="max-w-3xl mx-auto px-6 py-10 space-y-12">
+    <main class="max-w-3xl mx-auto px-4 md:px-6 py-6 md:py-10 space-y-10">
 
         <!-- Minimalist Product Hero -->
-        <section id="productHeroSection" class="space-y-6">
-            <div class="flex flex-col md:flex-row gap-8 items-start bg-white p-6 md:p-8 rounded-3xl border border-neutral-150 shadow-sm">
+        <section id="productHeroSection" class="bg-white p-5 md:p-8 rounded-3xl border border-neutral-150 shadow-sm space-y-6">
+            
+            <!-- Title & Trust Highlights (Placed cleanly above images) -->
+            <div class="border-b border-neutral-100 pb-5 space-y-2">
+                <h1 class="text-2xl md:text-3xl font-heading font-bold text-neutral-900 leading-tight">
+                    بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!
+                </h1>
+                <div class="flex flex-wrap items-center gap-2.5 text-xs font-medium pt-1">
+                    <span class="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+                        ✓ متوفر في المخزون
+                    </span>
+                    <span class="text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-full border border-neutral-200">
+                        🛡️ ضمان عام كامل
+                    </span>
+                    <span class="text-brand font-bold bg-brand/10 px-2.5 py-1 rounded-full border border-brand/20">
+                        ⚡ توصيل سريع لـ 58 ولاية
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 items-start">
                 
                 <!-- Product Image Gallery -->
                 <div class="w-full md:w-1/2 space-y-3">
                     <div onclick="openLightbox()" 
                          class="relative bg-neutral-100 rounded-2xl overflow-hidden border border-neutral-200 aspect-[3/4] flex items-center justify-center group cursor-zoom-in">
-                        <img id="mainProductImg" src="product-1.jpg" alt="بار فيكس الغرفة Vigor" 
+                        <img id="mainProductImg" src="assets/product-1.jpg" alt="بار فيكس الغرفة Vigor" 
                              class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
                         
                         <!-- Hint to enlarge -->
@@ -91,59 +117,48 @@
 
                     <!-- Thumbnails -->
                     <div class="grid grid-cols-3 gap-2">
-                        <button type="button" onclick="changeImage('product-1.jpg', this)" 
+                        <button type="button" onclick="changeImage('assets/product-1.jpg', this)" 
                                 class="thumb-btn border-2 border-brand rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition hover:opacity-90">
-                            <img src="product-1.jpg" alt="صورة 1" class="w-full h-full object-cover rounded-lg">
+                            <img src="assets/product-1.jpg" alt="صورة 1" class="w-full h-full object-cover rounded-lg">
                         </button>
-                        <button type="button" onclick="changeImage('product-2.jpg', this)" 
+                        <button type="button" onclick="changeImage('assets/product-2.jpg', this)" 
                                 class="thumb-btn border-2 border-transparent hover:border-brand/40 rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition">
-                            <img src="product-2.jpg" alt="صورة 2" class="w-full h-full object-cover rounded-lg">
+                            <img src="assets/product-2.jpg" alt="صورة 2" class="w-full h-full object-cover rounded-lg">
                         </button>
-                        <button type="button" onclick="changeImage('product-3.jpg', this)" 
+                        <button type="button" onclick="changeImage('assets/product-3.jpg', this)" 
                                 class="thumb-btn border-2 border-transparent hover:border-brand/40 rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition">
-                            <img src="product-3.jpg" alt="صورة 3" class="w-full h-full object-cover rounded-lg">
+                            <img src="assets/product-3.jpg" alt="صورة 3" class="w-full h-full object-cover rounded-lg">
                         </button>
                     </div>
                 </div>
 
                 <!-- Product Details -->
                 <div class="w-full md:w-1/2 space-y-5">
-                    <div>
-                        <span class="text-xs font-semibold text-brand tracking-wide uppercase">عتاد تدريب احترافي</span>
-                        <h1 class="text-2xl md:text-3xl font-heading font-bold text-neutral-900 leading-tight mt-1">
-                            بار فيكس الغرفة الجداري (Pull-up Bar)
-                        </h1>
-                        <p class="text-neutral-500 text-sm leading-relaxed font-text mt-2">
-                            بار صلب مخصص للغرفة والمنزل. مثالي لتمارين الظهر، الذراعين، والأكتاف مع ثبات قوي وتصميم هندسي آمن.
-                        </p>
-                    </div>
+                    <p class="text-neutral-600 text-sm leading-relaxed font-text">
+                        مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى <strong>200 كلغ في الميزان</strong> وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ <strong>180 ألف (1,800 دج)</strong> مع ضمان عام كامل!
+                    </p>
 
                     <!-- Specifications Badges -->
                     <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
+                            <span class="text-neutral-400 block text-[10px]">نوعية الحديد</span>
+                            <span class="font-bold text-neutral-800">فولاذ خشين فائق الصلابة</span>
+                        </div>
+                        <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
+                            <span class="text-neutral-400 block text-[10px]">قدرة التحمل</span>
+                            <span class="font-bold text-neutral-800">يرفد حتى 200 كلغ</span>
+                        </div>
                         <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
                             <span class="text-neutral-400 block text-[10px]">الأبعاد الهندسية</span>
                             <span class="font-bold text-neutral-800">80 cm × 32 cm</span>
                         </div>
                         <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
-                            <span class="text-neutral-400 block text-[10px]">قدرة التحمل</span>
-                            <span class="font-bold text-neutral-800">تصل حتى 200 كلغ</span>
-                        </div>
-                        <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
                             <span class="text-neutral-400 block text-[10px]">فترة الضمان</span>
                             <span class="font-bold text-emerald-700">عام كامل (12 شهر)</span>
                         </div>
-                        <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
-                            <span class="text-neutral-400 block text-[10px]">نوع التثبيت</span>
-                            <span class="font-bold text-neutral-800">تثبيت جداري فائق الثبات</span>
-                        </div>
                     </div>
 
-                    <!-- Price Block -->
-                    <div class="pt-2 border-t border-neutral-100 flex items-baseline gap-3">
-                        <span class="text-3xl font-bold font-heading text-neutral-900">1,800 <span class="text-base font-normal text-neutral-500">دج</span></span>
-                        <span class="text-xs text-neutral-500 font-medium bg-neutral-100 px-2.5 py-1 rounded-full">(180 ألف)</span>
-                        <span class="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">سعر ترويجي خاص</span>
-                    </div>
+
                 </div>
 
             </div>
@@ -167,21 +182,16 @@
                                class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
                     </div>
 
-                    <!-- Phone Number with Strict Algerian Validation -->
+                    <!-- Phone Number with Algerian Validation -->
                     <div>
-                        <div class="flex items-center justify-between mb-1.5">
-                            <label class="block text-xs font-semibold text-neutral-700">رقم الهاتف * (10 أرقام)</label>
-                            <span id="phoneOperatorBadge" class="text-[11px] font-bold text-neutral-400 transition-colors">05 / 06 / 07</span>
-                        </div>
-                        <div class="relative">
-                            <input type="tel" id="custPhone" required maxlength="10" placeholder="05 / 06 / 07 XX XX XX" 
-                                   class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-base font-semibold tracking-wider text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition text-right dir-ltr">
-                            <span id="phoneValidIcon" class="hidden absolute left-3 top-1/2 -translate-y-1/2 text-emerald-600 font-bold text-lg">✓</span>
-                        </div>
-                        <!-- Live Error Message -->
-                        <div id="phoneError" class="hidden text-xs text-red-600 font-bold mt-2 flex items-center gap-2 bg-red-50 p-2.5 rounded-xl border border-red-200">
-                            <span class="text-base flex-shrink-0">⚠️</span>
-                            <span id="phoneErrorMsg">رقم الهاتف غير صحيح! يجب أن يبدأ بـ 05 أو 06 أو 07 ويتكون من 10 أرقام.</span>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">رقم الهاتف *</label>
+                        <input type="tel" id="custPhone" required maxlength="10" placeholder="05 / 06 / 07 XX XX XX" 
+                               class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                        
+                        <!-- Error Message (Only shows if there's an error) -->
+                        <div id="phoneError" class="hidden text-xs text-red-600 font-medium mt-2 flex items-center gap-1.5 bg-red-50 p-2.5 rounded-xl border border-red-200">
+                            <span>⚠️</span>
+                            <span id="phoneErrorMsg">يرجى إدخال رقم هاتف جزائري صحيح (10 أرقام يبدأ بـ 05 أو 06 أو 07).</span>
                         </div>
                     </div>
 
@@ -216,11 +226,20 @@
                         </div>
                     </div>
 
-                    <!-- Commune / Address -->
-                    <div>
-                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">البلدية أو العنوان التفصيلي</label>
+                    <!-- Commune / Address (For Home Delivery) -->
+                    <div id="communeBlock">
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">البلدية أو العنوان التفصيلي *</label>
                         <input type="text" id="custCommune" placeholder="اسم البلدية أو الحي السكني" 
                                class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                    </div>
+
+                    <!-- Anderson Station Dropdown (For Stop Desk) -->
+                    <div id="stationBlock" class="hidden">
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">اختر مكتب أندرسون المتاح في ولايتك *</label>
+                        <select id="custStation" 
+                                class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            <option value="">اختر أقرب مكتب أندرسون إليك...</option>
+                        </select>
                     </div>
 
                     <!-- Quantity -->
@@ -306,13 +325,18 @@
         <p>التوصيل السريع لـ 58 ولاية عبر شبكة Anderson Express.</p>
     </footer>
 
-    <!-- Sticky Bottom Bar (كبير ومثبت في المنتصف) -->
+    <!-- Sticky Action Button (كبير ومستطيل مع تدوير خفيف وعائم بدون شريط خلفي) -->
     <div id="stickyBottomBar" 
-         class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-neutral-200/80 px-4 py-3.5 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]">
-        <div class="max-w-xl mx-auto">
+         class="fixed bottom-4 md:bottom-6 left-0 right-0 z-40 px-4 pointer-events-none transition-all duration-300">
+        <div class="max-w-xl mx-auto pointer-events-auto">
             <button id="stickyActionBtn" onclick="handleStickyButtonClick()" 
-                    class="w-full bg-brand hover:bg-brand-hover active:scale-[0.98] text-white font-heading font-bold text-lg md:text-xl py-4 px-6 rounded-2xl shadow-xl shadow-brand/25 transition-all duration-200 flex items-center justify-center gap-2.5">
-                <span id="stickyActionText">اشتري الآن 🛒</span>
+                    class="w-full bg-brand hover:bg-brand-hover active:scale-[0.99] text-white font-heading font-bold text-lg md:text-xl py-4 px-6 rounded-xl shadow-xl shadow-brand/25 transition-all duration-200 flex items-center justify-center gap-2.5">
+                <span id="stickyActionText" class="inline-flex items-center justify-center gap-2.5">
+                    <svg class="w-6 h-6 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span>اشتري الآن</span>
+                </span>
             </button>
         </div>
     </div>
@@ -350,7 +374,7 @@
 
         <!-- Image Container -->
         <div class="relative max-w-4xl max-h-[85vh] flex items-center justify-center" onclick="event.stopPropagation()">
-            <img id="lightboxImg" src="product-1.jpg" alt="تكبير الصورة" 
+            <img id="lightboxImg" src="assets/product-1.jpg" alt="تكبير الصورة" 
                  class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-white/10 transition-all duration-150">
         </div>
 
@@ -365,7 +389,7 @@
 
     <!-- Script loading exact 58 wilayas data from JSON -->
     <script>
-        const productImages = ['product-1.jpg', 'product-2.jpg', 'product-3.jpg'];
+        const productImages = ['assets/product-1.jpg', 'assets/product-2.jpg', 'assets/product-3.jpg'];
         let currentImgIndex = 0;
 
         function syncThumbnails() {
@@ -467,6 +491,16 @@
                     return;
                 }
 
+                const selectedType = document.querySelector('input[name="deliveryType"]:checked')?.value || 'domicile';
+                if (selectedType === 'stopdesk') {
+                    const stationSelect = document.getElementById('custStation');
+                    if (!stationSelect.value) {
+                        stationSelect.focus();
+                        stationSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
+                    }
+                }
+
                 // All valid -> submit form
                 const form = document.getElementById('orderForm');
                 form.requestSubmit();
@@ -477,19 +511,32 @@
         const stickyBtn = document.getElementById('stickyActionBtn');
         const stickyBtnText = document.getElementById('stickyActionText');
 
+        const buyNowContent = `
+            <svg class="w-6 h-6 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span>اشتري الآن</span>
+        `;
+        const confirmOrderContent = `
+            <svg class="w-6 h-6 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>تأكيد الطلبية</span>
+        `;
+
         // Dynamically switch button between "اشتري الآن" and "تأكيد الطلبية"
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     isAtOrderForm = true;
-                    stickyBtnText.textContent = "تأكيد الطلبية ✓";
-                    stickyBtn.classList.remove('bg-brand', 'hover:bg-brand-hover');
-                    stickyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+                    stickyBtnText.innerHTML = confirmOrderContent;
+                    stickyBtn.classList.remove('bg-brand', 'hover:bg-brand-hover', 'shadow-brand/25');
+                    stickyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500', 'shadow-emerald-600/25');
                 } else {
                     isAtOrderForm = false;
-                    stickyBtnText.textContent = "اشتري الآن 🛒";
-                    stickyBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
-                    stickyBtn.classList.add('bg-brand', 'hover:bg-brand-hover');
+                    stickyBtnText.innerHTML = buyNowContent;
+                    stickyBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500', 'shadow-emerald-600/25');
+                    stickyBtn.classList.add('bg-brand', 'hover:bg-brand-hover', 'shadow-brand/25');
                 }
             });
         }, { threshold: 0.2 });
@@ -499,18 +546,24 @@
         }
 
         let wilayasData = [];
+        let andersonStations = {};
         const productBasePrice = 1800;
 
-        // Fetch extracted Wilayas
+        // Fetch extracted Wilayas & Official Anderson Stations from PDF
         fetch('wilayas_data.json')
             .then(res => res.json())
             .then(data => {
                 wilayasData = data;
                 populateWilayas(data);
             })
-            .catch(err => {
-                console.error("Error loading wilayas", err);
-            });
+            .catch(err => console.error("Error loading wilayas", err));
+
+        fetch('anderson_stations.json')
+            .then(res => res.json())
+            .then(data => {
+                andersonStations = data;
+            })
+            .catch(err => console.error("Error loading stations", err));
 
         function populateWilayas(list) {
             const select = document.getElementById('custWilaya');
@@ -530,6 +583,11 @@
         const sumTotal = document.getElementById('sumTotalPrice');
         const sumProduct = document.getElementById('sumProductPrice');
         const qtySelect = document.getElementById('custQty');
+        const stationBlock = document.getElementById('stationBlock');
+        const stationSelect = document.getElementById('custStation');
+        const communeBlock = document.getElementById('communeBlock');
+        const stopDeskRadio = document.querySelector('input[name="deliveryType"][value="stopdesk"]');
+        const stopDeskLabel = stopDeskRadio ? stopDeskRadio.closest('label') : null;
 
         function updatePricing() {
             const selectedCode = parseInt(wilayaSelect.value);
@@ -539,6 +597,8 @@
 
             if (!selectedCode) {
                 deliveryBlock.classList.add('hidden');
+                stationBlock.classList.add('hidden');
+                communeBlock.classList.remove('hidden');
                 sumDelivery.textContent = "اختر الولاية أولاً";
                 sumTotal.textContent = `${productCost.toLocaleString()} دج`;
                 return;
@@ -548,7 +608,34 @@
             if (w) {
                 deliveryBlock.classList.remove('hidden');
                 homeBadge.textContent = `${w.domicile} دج`;
-                deskBadge.textContent = `${w.stopdesk} دج`;
+
+                // Check Anderson stations for this wilaya
+                const stations = andersonStations[selectedCode] || [];
+                if (stations.length === 0) {
+                    if (stopDeskRadio) {
+                        stopDeskRadio.disabled = true;
+                        if (stopDeskLabel) stopDeskLabel.classList.add('opacity-40', 'cursor-not-allowed');
+                        document.querySelector('input[name="deliveryType"][value="domicile"]').checked = true;
+                    }
+                    deskBadge.textContent = "غير متوفر";
+                } else {
+                    if (stopDeskRadio) {
+                        stopDeskRadio.disabled = false;
+                        if (stopDeskLabel) stopDeskLabel.classList.remove('opacity-40', 'cursor-not-allowed');
+                    }
+                    deskBadge.textContent = `${w.stopdesk} دج`;
+
+                    // Populate matching stations in pure Arabic
+                    stationSelect.innerHTML = '<option value="">اختر أقرب مكتب أندرسون إليك...</option>';
+                    stations.forEach(st => {
+                        const opt = document.createElement('option');
+                        const displayName = st.name_ar || st.name;
+                        const displayCommune = st.commune_ar || st.commune;
+                        opt.value = `${displayName} (${displayCommune})`;
+                        opt.textContent = `📍 ${displayName} - بلدية ${displayCommune}`;
+                        stationSelect.appendChild(opt);
+                    });
+                }
 
                 const selectedType = document.querySelector('input[name="deliveryType"]:checked').value;
                 const shippingCost = (selectedType === 'domicile') ? w.domicile : w.stopdesk;
@@ -556,6 +643,15 @@
                 sumDelivery.textContent = `${shippingCost.toLocaleString()} دج`;
                 const total = productCost + shippingCost;
                 sumTotal.textContent = `${total.toLocaleString()} دج`;
+
+                // Toggle Station vs Home Address view
+                if (selectedType === 'stopdesk' && stations.length > 0) {
+                    stationBlock.classList.remove('hidden');
+                    communeBlock.classList.add('hidden');
+                } else {
+                    stationBlock.classList.add('hidden');
+                    communeBlock.classList.remove('hidden');
+                }
             }
         }
 
@@ -565,73 +661,67 @@
             radio.addEventListener('change', updatePricing);
         });
 
-        // Airtight Algerian Phone Validation
+        // Clean Algerian Phone Validation
         const phoneInput = document.getElementById('custPhone');
         const phoneError = document.getElementById('phoneError');
         const phoneErrorMsg = document.getElementById('phoneErrorMsg');
-        const phoneBadge = document.getElementById('phoneOperatorBadge');
-        const phoneValidIcon = document.getElementById('phoneValidIcon');
+
+        const normalPhoneClass = "w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition";
+        const errorPhoneClass = "w-full bg-red-50/50 border-2 border-red-400 rounded-xl px-4 py-3 text-sm text-red-900 focus:outline-none transition";
 
         function checkDzPhoneLive(showErrors = false) {
-            // Force numbers only (strip any letter or symbol instantly)
             let val = phoneInput.value.replace(/[^0-9]/g, '');
             phoneInput.value = val;
 
             if (!val) {
                 phoneError.classList.add('hidden');
-                phoneBadge.textContent = "05 / 06 / 07";
-                phoneBadge.className = "text-[11px] font-bold text-neutral-400";
-                phoneValidIcon.classList.add('hidden');
-                phoneInput.className = "w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-base font-semibold tracking-wider text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition text-right dir-ltr";
+                phoneInput.className = normalPhoneClass;
                 return false;
             }
 
-            // Strict check on the first 2 digits
+            // Check prefix (must start with 05, 06, or 07)
             if (val.length >= 2) {
                 const prefix = val.substring(0, 2);
-                if (prefix === "05") {
-                    phoneBadge.textContent = "🟢 أوريدو (Ooredoo)";
-                    phoneBadge.className = "text-[11px] font-bold text-emerald-600";
-                } else if (prefix === "06") {
-                    phoneBadge.textContent = "🟢 موبيليس (Mobilis)";
-                    phoneBadge.className = "text-[11px] font-bold text-emerald-600";
-                } else if (prefix === "07") {
-                    phoneBadge.textContent = "🟢 جازي (Djezzy)";
-                    phoneBadge.className = "text-[11px] font-bold text-emerald-600";
-                } else {
-                    phoneBadge.textContent = "🔴 رقم خاطئ";
-                    phoneBadge.className = "text-[11px] font-bold text-red-600";
-                    phoneErrorMsg.textContent = `رقم خاطئ! يبدأ بـ (${prefix})، ويجب أن يبدأ بـ 05 أو 06 أو 07.`;
-                    phoneError.classList.remove('hidden');
-                    phoneValidIcon.classList.add('hidden');
-                    phoneInput.className = "w-full bg-red-50 border-2 border-red-500 rounded-xl px-4 py-3 text-base font-semibold tracking-wider text-red-900 focus:outline-none transition text-right dir-ltr";
+                if (prefix !== "05" && prefix !== "06" && prefix !== "07") {
+                    if (showErrors || val.length >= 2) {
+                        phoneErrorMsg.textContent = `رقم الهاتف غير صحيح! يجب أن يبدأ بـ 05 أو 06 أو 07.`;
+                        phoneError.classList.remove('hidden');
+                        phoneInput.className = errorPhoneClass;
+                    }
                     return false;
                 }
             }
 
-            // Check total length (must be exactly 10 digits)
+            // Check full length (10 digits)
             if (val.length === 10) {
                 phoneError.classList.add('hidden');
-                phoneValidIcon.classList.remove('hidden');
-                phoneInput.className = "w-full bg-emerald-50/50 border-2 border-emerald-500 rounded-xl px-4 py-3 text-base font-semibold tracking-wider text-neutral-900 focus:outline-none transition text-right dir-ltr";
+                phoneInput.className = normalPhoneClass;
                 return true;
             } else {
-                phoneValidIcon.classList.add('hidden');
-                if (showErrors || val.length > 2) {
-                    phoneErrorMsg.textContent = `رقم الهاتف غير مكتمل! كتبت ${val.length} أرقام، ويجب أن يتكون من 10 أرقام تماماً.`;
+                if (showErrors) {
+                    phoneErrorMsg.textContent = `رقم الهاتف غير مكتمل! يجب أن يتكون من 10 أرقام.`;
                     phoneError.classList.remove('hidden');
-                    phoneInput.className = "w-full bg-red-50 border-2 border-red-500 rounded-xl px-4 py-3 text-base font-semibold tracking-wider text-red-900 focus:outline-none transition text-right dir-ltr";
+                    phoneInput.className = errorPhoneClass;
                 } else {
                     phoneError.classList.add('hidden');
-                    phoneInput.className = "w-full bg-neutral-50 border border-neutral-300 rounded-xl px-4 py-3 text-base font-semibold tracking-wider text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition text-right dir-ltr";
+                    phoneInput.className = normalPhoneClass;
                 }
                 return false;
             }
         }
 
-        // Live checking as user types
         phoneInput.addEventListener('input', () => {
-            checkDzPhoneLive(phoneInput.value.length >= 2);
+            if (phoneInput.value.length === 10) {
+                checkDzPhoneLive(false);
+            } else if (phoneInput.value.length >= 2) {
+                const prefix = phoneInput.value.substring(0, 2);
+                if (prefix !== "05" && prefix !== "06" && prefix !== "07") {
+                    checkDzPhoneLive(true);
+                } else {
+                    phoneError.classList.add('hidden');
+                    phoneInput.className = normalPhoneClass;
+                }
+            }
         });
 
         phoneInput.addEventListener('blur', () => {
@@ -661,6 +751,36 @@
             document.getElementById('summaryCustPhone').textContent = phone;
             document.getElementById('summaryCustWilaya').textContent = wilayaText;
             document.getElementById('summaryCustTotal').textContent = total;
+
+            const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || 'domicile';
+            let finalAddress = document.getElementById('custCommune').value;
+            if (deliveryType === 'stopdesk') {
+                const stationSelect = document.getElementById('custStation');
+                if (stationSelect.value) {
+                    finalAddress = `مكتب أندرسون: ${stationSelect.value}`;
+                }
+            }
+
+            // Send order data to Google Sheets Webhook in background
+            const orderPayload = {
+                name: name,
+                phone: phone,
+                wilaya: wilayaText,
+                commune: finalAddress,
+                deliveryType: deliveryType,
+                quantity: document.getElementById('custQty').value,
+                totalPrice: total
+            };
+
+            const webhookUrl = window.VIGOR_WEBHOOK_URL || "";
+            if (webhookUrl) {
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderPayload)
+                }).catch(err => console.log('Sheets Sync:', err));
+            }
 
             // Hide product hero section, form header, form inputs and sticky bottom button
             document.getElementById('productHeroSection').classList.add('hidden');
