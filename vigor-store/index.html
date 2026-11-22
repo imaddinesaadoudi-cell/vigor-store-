@@ -50,16 +50,77 @@
             font-family: 'IBM Plex Sans Arabic', sans-serif;
             font-weight: 700;
         }
+
+        /* Infinite Smooth Marquee Ticker */
+        @keyframes tickerMarquee {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(-100%, 0, 0);
+            }
+        }
+        .ticker-track {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: tickerMarquee 32s linear infinite;
+            will-change: transform;
+        }
+        .ticker-wrapper:hover .ticker-track {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="bg-[#faf9f6] text-neutral-800 antialiased selection:bg-brand selection:text-white">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-neutral-900 text-neutral-300 text-xs py-2 px-4 text-center border-b border-neutral-800">
-        <span class="inline-flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            توصيل متوفر لـ 58 ولاية عبر أندرسون إكسبريس | الدفع عند الاستلام بعد المعاينة
-        </span>
+    <!-- Top Announcement Bar (شريط إخباري متحرك مستمر لا نهائي) -->
+    <div class="bg-neutral-900 text-neutral-200 text-xs sm:text-sm py-2.5 overflow-hidden border-b border-neutral-800 relative z-30 select-none">
+        <div class="ticker-wrapper flex overflow-hidden whitespace-nowrap">
+            <div class="ticker-track flex items-center shrink-0">
+                <span class="inline-flex items-center gap-2 mx-4">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
+                </span>
+                <span class="text-neutral-600">✦</span>
+                <span class="inline-flex items-center gap-2 mx-4">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                    <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
+                </span>
+                <span class="text-neutral-600">✦</span>
+                <span class="inline-flex items-center gap-2 mx-4">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
+                </span>
+                <span class="text-neutral-600">✦</span>
+                <span class="inline-flex items-center gap-2 mx-4">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                    <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
+                </span>
+                <span class="text-neutral-600">✦</span>
+            </div>
+            <div class="ticker-track flex items-center shrink-0" aria-hidden="true">
+                <span class="inline-flex items-center gap-2 mx-4">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
+                </span>
+                <span class="text-neutral-600">✦</span>
+                <span class="inline-flex items-center gap-2 mx-4">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                    <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
+                </span>
+                <span class="text-neutral-600">✦</span>
+                <span class="inline-flex items-center gap-2 mx-4">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
+                </span>
+                <span class="text-neutral-600">✦</span>
+                <span class="inline-flex items-center gap-2 mx-4">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                    <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
+                </span>
+                <span class="text-neutral-600">✦</span>
+            </div>
+        </div>
     </div>
 
     <!-- Minimal Header -->
