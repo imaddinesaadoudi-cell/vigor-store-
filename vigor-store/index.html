@@ -60,10 +60,17 @@
                 transform: translate3d(-100%, 0, 0);
             }
         }
+        .ticker-wrapper {
+            width: 100%;
+            display: flex;
+            overflow: hidden;
+            direction: ltr !important;
+        }
         .ticker-track {
-            display: inline-flex;
+            display: flex;
+            flex-shrink: 0;
             white-space: nowrap;
-            animation: tickerMarquee 32s linear infinite;
+            animation: tickerMarquee 26s linear infinite;
             will-change: transform;
         }
         .ticker-wrapper:hover .ticker-track {
@@ -75,46 +82,46 @@
 
     <!-- Top Announcement Bar (شريط إخباري متحرك مستمر لا نهائي) -->
     <div class="bg-neutral-900 text-neutral-200 text-xs sm:text-sm py-2.5 overflow-hidden border-b border-neutral-800 relative z-30 select-none">
-        <div class="ticker-wrapper flex overflow-hidden whitespace-nowrap">
-            <div class="ticker-track flex items-center shrink-0">
-                <span class="inline-flex items-center gap-2 mx-4">
+        <div class="ticker-wrapper" dir="ltr">
+            <div class="ticker-track items-center">
+                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
                 </span>
                 <span class="text-neutral-600">✦</span>
-                <span class="inline-flex items-center gap-2 mx-4">
+                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
                     <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                     <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
                 </span>
                 <span class="text-neutral-600">✦</span>
-                <span class="inline-flex items-center gap-2 mx-4">
+                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
                 </span>
                 <span class="text-neutral-600">✦</span>
-                <span class="inline-flex items-center gap-2 mx-4">
+                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
                     <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                     <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
                 </span>
                 <span class="text-neutral-600">✦</span>
             </div>
-            <div class="ticker-track flex items-center shrink-0" aria-hidden="true">
-                <span class="inline-flex items-center gap-2 mx-4">
+            <div class="ticker-track items-center" aria-hidden="true">
+                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
                 </span>
                 <span class="text-neutral-600">✦</span>
-                <span class="inline-flex items-center gap-2 mx-4">
+                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
                     <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                     <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
                 </span>
                 <span class="text-neutral-600">✦</span>
-                <span class="inline-flex items-center gap-2 mx-4">
+                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
                 </span>
                 <span class="text-neutral-600">✦</span>
-                <span class="inline-flex items-center gap-2 mx-4">
+                <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
                     <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
                     <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
                 </span>
