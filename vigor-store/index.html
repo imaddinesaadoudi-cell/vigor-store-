@@ -847,15 +847,14 @@
                 totalPrice: total
             };
 
-            // Send order data securely via Serverless API (/api/order)
-            fetch('/api/order', {
+            // Send order data directly to Google Sheets Webhook
+            const VIGOR_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxMS6bTk_btJzPXnbyndi2HIEVPYdFT-lNYvUgqYv8flh9_PADYvS83GSW20Bl2bM8x/exec";
+            fetch(VIGOR_WEBHOOK_URL, {
                 method: 'POST',
+                mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderPayload)
-            })
-            .then(res => res.json())
-            .then(data => console.log('Order status:', data))
-            .catch(err => console.log('Order sync error:', err));
+            }).catch(err => console.log('Sheets Sync:', err));
 
             // Hide product hero section, form header, form inputs and sticky bottom button
             document.getElementById('productHeroSection').classList.add('hidden');
