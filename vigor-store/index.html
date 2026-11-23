@@ -134,7 +134,7 @@
 
         <!-- Minimal Header -->
         <header class="bg-white/95 backdrop-blur-md border-b border-neutral-100">
-            <div class="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain">
                     <div>
@@ -142,8 +142,21 @@
                         <span class="block text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-1">Calisthenics Gear</span>
                     </div>
                 </div>
-                <div class="text-xs text-neutral-500 font-medium hidden sm:flex items-center gap-1.5 bg-neutral-100 px-3 py-1 rounded-full">
-                    <span>⚡ توصيل 58 ولاية</span>
+                
+                <div class="flex items-center gap-2">
+                    <!-- Products Catalog Button -->
+                    <button type="button" onclick="openCatalogModal()" 
+                            class="inline-flex items-center gap-1.5 bg-brand hover:bg-brand-hover text-white text-xs sm:text-sm font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl shadow-sm shadow-brand/20 transition active:scale-95">
+                        <svg class="w-4 h-4 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
+                        </svg>
+                        <span>المنتجات</span>
+                        <span id="headerProductsBadge" class="hidden bg-white/20 text-white text-[10px] px-1.5 py-0.5 rounded-full font-mono">1</span>
+                    </button>
+
+                    <div class="text-xs text-neutral-500 font-medium hidden sm:flex items-center gap-1.5 bg-neutral-100 px-3 py-1.5 rounded-xl border border-neutral-200">
+                        <span>⚡ توصيل 58 ولاية</span>
+                    </div>
                 </div>
             </div>
         </header>
@@ -393,7 +406,50 @@
             </div>
         </section>
 
+        <!-- Other Products Showcase Section -->
+        <section id="otherProductsSection" class="bg-white p-6 md:p-8 rounded-3xl border border-neutral-150 shadow-sm space-y-5">
+            <div class="border-b border-neutral-100 pb-3 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">📦</span>
+                    <h3 class="text-lg md:text-xl font-bold font-heading text-neutral-900">جميع منتجات VIGOR المتوفرة</h3>
+                </div>
+                <span class="text-xs text-brand font-bold bg-brand/10 px-2.5 py-1 rounded-full">الدفع عند الاستلام</span>
+            </div>
+            <div id="bottomCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
     </main>
+
+    <!-- Products Catalog Modal / Slide-over -->
+    <div id="catalogModal" 
+         class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        <div class="bg-[#faf9f6] w-full max-w-2xl max-h-[85vh] rounded-3xl border border-neutral-200 shadow-2xl overflow-hidden flex flex-col" onclick="event.stopPropagation()">
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-5 bg-white border-b border-neutral-100 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="text-2xl">📦</span>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold font-heading text-neutral-900">كتالوج منتجات VIGOR</h3>
+                        <p class="text-xs text-neutral-500">اختر المنتج الذي ترغب في طلبه وسيتم تجهيز الاستمارة له مباشرة</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeCatalogModal()" class="p-2 rounded-xl text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition" title="إغلاق">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Modal Products List -->
+            <div class="p-4 sm:p-6 overflow-y-auto flex-1">
+                <div id="modalCatalogContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+        <!-- Outside click closes -->
+        <div class="absolute inset-0 -z-10" onclick="closeCatalogModal()"></div>
+    </div>
 
     <footer class="border-t border-neutral-200/60 bg-white py-8 pb-28 text-center text-xs text-neutral-400 space-y-1">
         <p>© 2026 VIGOR Calisthenics Gear. جميع الحقوق محفوظة.</p>
@@ -855,7 +911,9 @@
             }
 
             // Send order data to Google Sheets Webhook in background
+            const currentProdName = document.getElementById('mainProductTitle')?.textContent?.trim() || 'بار فيكس الغرفة';
             const orderPayload = {
+                productName: currentProdName,
                 name: name,
                 phone: phone,
                 wilaya: wilayaText,
@@ -870,6 +928,7 @@
                 const existingOrders = JSON.parse(localStorage.getItem('vigor_orders') || '[]');
                 existingOrders.unshift({
                     id: 'ORD-' + Date.now().toString().slice(-4),
+                    productName: currentProdName,
                     name: name,
                     phone: phone,
                     wilaya: wilayaText,
@@ -945,63 +1004,186 @@
             }
         } catch(e) {}
 
-        // 2. Dynamic Product Settings & Images from Admin CMS (with Real-time Live Sync)
-        function applyActiveProductConfig() {
-            try {
-                const prodConfig = JSON.parse(localStorage.getItem('vigor_active_product') || localStorage.getItem('vigor_product_config') || 'null');
-                if (prodConfig) {
-                    if (prodConfig.title && document.getElementById('mainProductTitle')) {
-                        document.getElementById('mainProductTitle').textContent = prodConfig.title;
-                        document.title = prodConfig.title + " | VIGOR Calisthenics Gear";
-                    }
-                    if (prodConfig.description && document.getElementById('mainProductDesc')) {
-                        document.getElementById('mainProductDesc').textContent = prodConfig.description;
-                    }
-                    if (prodConfig.ironQuality && document.getElementById('specIronQuality')) {
-                        document.getElementById('specIronQuality').textContent = prodConfig.ironQuality;
-                    }
-                    if (prodConfig.capacity && document.getElementById('specCapacity')) {
-                        document.getElementById('specCapacity').textContent = prodConfig.capacity;
-                    }
-                    if (prodConfig.dimensions && document.getElementById('specDimensions')) {
-                        document.getElementById('specDimensions').textContent = prodConfig.dimensions;
-                    }
-                    if (prodConfig.warranty) {
-                        if (document.getElementById('specWarranty')) document.getElementById('specWarranty').textContent = prodConfig.warranty;
-                        if (document.getElementById('warrantyBadge')) document.getElementById('warrantyBadge').textContent = '🛡️ ' + prodConfig.warranty;
-                    }
-                    if (prodConfig.stockStatus && document.getElementById('stockBadge')) {
-                        document.getElementById('stockBadge').textContent = '✓ ' + prodConfig.stockStatus;
-                    }
-                    if (prodConfig.price) {
-                        productBasePrice = parseInt(prodConfig.price) || 1800;
-                        updateQtyOptions(productBasePrice);
-                        if (typeof updatePricing === 'function') updatePricing();
-                    }
+        // ================= MULTI-PRODUCT STORE CATALOG & MODAL =================
+        const DEFAULT_STORE_PRODUCTS = [
+            {
+                id: "vigor-pullup-bar",
+                title: "بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!",
+                price: 1800,
+                oldPrice: 2500,
+                stockStatus: "متوفر في المخزون",
+                ironQuality: "فولاذ خشين فائق الصلابة",
+                capacity: "يرفد حتى 200 كلغ",
+                dimensions: "80 cm × 32 cm",
+                warranty: "عام كامل (12 شهر)",
+                description: "مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى 200 كلغ في الميزان وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ 180 ألف (1,800 دج) مع ضمان عام كامل!",
+                images: [
+                    "assets/product-1.jpg",
+                    "assets/product-2.jpg",
+                    "assets/product-3.jpg"
+                ],
+                isActive: true
+            }
+        ];
 
-                    // Dynamic Gallery Images (from Admin upload or URLs)
-                    if (Array.isArray(prodConfig.images) && prodConfig.images.length > 0) {
-                        productImages = [...prodConfig.images];
-                        currentImgIndex = 0;
-                        syncThumbnails();
-                        for (let i = 0; i < productImages.length && i < 3; i++) {
-                            const thumb = document.getElementById(`thumbImg${i + 1}`);
-                            if (thumb) thumb.src = productImages[i];
-                        }
+        function getStoreProductsCatalog() {
+            try {
+                const raw = localStorage.getItem('vigor_products_catalog');
+                if (raw) {
+                    const list = JSON.parse(raw);
+                    if (Array.isArray(list) && list.length > 0) {
+                        const valid = list.filter(p => p && typeof p === 'object' && p.title && String(p.title).trim().length > 0);
+                        if (valid.length > 0) return valid;
                     }
                 }
-            } catch(e) {
-                console.log('Error applying active product config:', e);
+            } catch (e) {}
+            return DEFAULT_STORE_PRODUCTS;
+        }
+
+        function openCatalogModal() {
+            renderStoreProductsCatalog();
+            const modal = document.getElementById('catalogModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
             }
         }
 
-        // Apply immediately on load
-        applyActiveProductConfig();
+        function closeCatalogModal() {
+            const modal = document.getElementById('catalogModal');
+            if (modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.classList.add('hidden'), 200);
+            }
+        }
+
+        function selectProductToOrder(productId) {
+            const products = getStoreProductsCatalog();
+            const prod = products.find(p => p.id === productId) || products[0];
+            if (!prod) return;
+
+            // Set as active in localStorage so it stays active
+            localStorage.setItem('vigor_active_product', JSON.stringify(prod));
+            applyActiveProductData(prod);
+
+            // Close modal if open
+            closeCatalogModal();
+
+            // Scroll smoothly to order form
+            const formSection = document.getElementById('order-form');
+            if (formSection) {
+                formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function applyActiveProductData(prod) {
+            if (!prod) return;
+            if (prod.title && document.getElementById('mainProductTitle')) {
+                document.getElementById('mainProductTitle').textContent = prod.title;
+                document.title = prod.title + " | VIGOR Calisthenics Gear";
+            }
+            if (prod.description && document.getElementById('mainProductDesc')) {
+                document.getElementById('mainProductDesc').textContent = prod.description;
+            }
+            if (prod.ironQuality && document.getElementById('specIronQuality')) {
+                document.getElementById('specIronQuality').textContent = prod.ironQuality;
+            }
+            if (prod.capacity && document.getElementById('specCapacity')) {
+                document.getElementById('specCapacity').textContent = prod.capacity;
+            }
+            if (prod.dimensions && document.getElementById('specDimensions')) {
+                document.getElementById('specDimensions').textContent = prod.dimensions;
+            }
+            if (prod.warranty) {
+                if (document.getElementById('specWarranty')) document.getElementById('specWarranty').textContent = prod.warranty;
+                if (document.getElementById('warrantyBadge')) document.getElementById('warrantyBadge').textContent = '🛡️ ' + prod.warranty;
+            }
+            if (prod.stockStatus && document.getElementById('stockBadge')) {
+                document.getElementById('stockBadge').textContent = '✓ ' + prod.stockStatus;
+            }
+            if (prod.price) {
+                productBasePrice = parseInt(prod.price) || 1800;
+                updateQtyOptions(productBasePrice);
+                if (typeof updatePricing === 'function') updatePricing();
+            }
+
+            // Dynamic Gallery Images
+            if (Array.isArray(prod.images) && prod.images.length > 0) {
+                productImages = [...prod.images];
+                currentImgIndex = 0;
+                syncThumbnails();
+                for (let i = 0; i < productImages.length && i < 3; i++) {
+                    const thumb = document.getElementById(`thumbImg${i + 1}`);
+                    if (thumb) thumb.src = productImages[i];
+                }
+            }
+        }
+
+        function renderStoreProductsCatalog() {
+            const products = getStoreProductsCatalog();
+            const modalContainer = document.getElementById('modalCatalogContainer');
+            const bottomContainer = document.getElementById('bottomCatalogGrid');
+            const badge = document.getElementById('headerProductsBadge');
+            if (badge) {
+                badge.textContent = products.length;
+                badge.classList.remove('hidden');
+            }
+
+            const cardsHtml = products.map(prod => {
+                const mainImg = (prod.images && prod.images[0]) ? prod.images[0] : 'assets/product-1.jpg';
+                const safeTitle = (prod.title || '').replace(/"/g, '&quot;');
+                const priceFormatted = Number(prod.price || 1800).toLocaleString();
+                const oldPriceFormatted = prod.oldPrice ? `<span class="line-through text-neutral-400 text-xs mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : '';
+
+                return `
+                    <div class="bg-white rounded-2xl p-4 border border-neutral-200/90 shadow-sm hover:shadow-md hover:border-brand/50 transition flex flex-col justify-between space-y-3 group text-right">
+                        <div class="space-y-3 cursor-pointer" onclick="selectProductToOrder('${prod.id}')">
+                            <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-150">
+                                <img src="${mainImg}" alt="${safeTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                <span class="absolute top-2 right-2 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+                                    ${prod.stockStatus || 'متوفر في المخزون'}
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-neutral-900 text-sm leading-snug line-clamp-2 group-hover:text-brand transition">${safeTitle}</h4>
+                            <div class="flex items-baseline gap-1.5">
+                                <span class="font-bold text-brand text-base">${priceFormatted} دج</span>
+                                ${oldPriceFormatted}
+                            </div>
+                        </div>
+                        <button type="button" onclick="selectProductToOrder('${prod.id}')" 
+                                class="w-full py-2.5 px-4 bg-brand hover:bg-brand-hover active:scale-[0.99] text-white text-xs font-bold rounded-xl shadow-sm shadow-brand/20 transition flex items-center justify-center gap-1.5">
+                            <span>طلب هذا المنتج</span>
+                            <span>🛒</span>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            if (modalContainer) modalContainer.innerHTML = cardsHtml;
+            if (bottomContainer) bottomContainer.innerHTML = cardsHtml;
+        }
+
+        // Apply active product on load
+        try {
+            const activeProd = JSON.parse(localStorage.getItem('vigor_active_product') || localStorage.getItem('vigor_product_config') || 'null');
+            if (activeProd) {
+                applyActiveProductData(activeProd);
+            }
+        } catch(e) {}
+
+        // Render catalog on load
+        renderStoreProductsCatalog();
 
         // Real-time synchronization across browser tabs (Live Sync!)
         window.addEventListener('storage', function(e) {
             if (e.key === 'vigor_active_product' || e.key === 'vigor_product_config') {
-                applyActiveProductConfig();
+                try {
+                    const prod = JSON.parse(localStorage.getItem('vigor_active_product') || 'null');
+                    if (prod) applyActiveProductData(prod);
+                } catch(e) {}
+            }
+            if (e.key === 'vigor_products_catalog') {
+                renderStoreProductsCatalog();
             }
         });
     </script>
