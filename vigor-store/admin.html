@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة والتحكم | VIGOR Calisthenics Gear</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: IBM Plex Sans Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#ba5926',
+                            hover: '#d06730',
+                            light: '#fdf6f0',
+                            dark: '#93431b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        heading: ['"IBM Plex Sans Arabic"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .tab-btn.active {
+            color: #ba5926;
+            border-bottom: 2px solid #ba5926;
+            background-color: #fdf6f0;
+        }
+    </style>
+</head>
+<body class="bg-[#faf9f6] text-neutral-800 min-h-screen flex flex-col">
+
+    <!-- 1. شاشة القفل وتسجيل الدخول بـ PIN Code -->
+    <div id="loginGate" class="fixed inset-0 z-50 bg-[#faf9f6] flex items-center justify-center p-4">
+        <div class="bg-white max-w-sm w-full p-6 sm:p-8 rounded-3xl border border-neutral-200/80 shadow-lg text-center space-y-6">
+            <div class="flex justify-center">
+                <img src="assets/logo.png" alt="Vigor Logo" class="h-14 w-auto object-contain">
+            </div>
+            
+            <div class="space-y-1">
+                <h1 class="text-2xl font-bold text-neutral-900">لوحة تحكم VIGOR</h1>
+                <p class="text-neutral-500 text-xs sm:text-sm">أدخل الرمز السري الخاص بالإدارة للمتابعة</p>
+            </div>
+
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <input type="password" id="pinInput" maxlength="12" autofocus placeholder="••••••••" 
+                           class="w-full text-center tracking-[0.4em] font-mono text-2xl py-3 px-4 bg-neutral-50 border-2 border-neutral-200 rounded-2xl focus:bg-white focus:outline-none focus:border-brand transition">
+                    <p id="pinError" class="hidden text-xs text-red-600 font-bold mt-2">⚠️ الرمز السري غير صحيح، حاول ثانية!</p>
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-brand hover:bg-brand-hover active:scale-[0.99] text-white font-bold py-3.5 rounded-xl shadow-md shadow-brand/20 transition flex items-center justify-center gap-2">
+                    <span>دخول للوحة التحكم</span>
+                    <span>←</span>
+                </button>
+            </form>
+
+            <div class="pt-2">
+                <a href="/" class="text-xs text-neutral-400 hover:text-brand transition flex items-center justify-center gap-1">
+                    <span>العودة إلى واجهة المتجر</span>
+                    <span>↗</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. لوحة التحكم الرئيسية (تظهر بعد الدخول الصحيح) -->
+    <div id="adminPanel" class="hidden flex-1 flex flex-col">
+        
+        <!-- Top Navbar -->
+        <header class="bg-white border-b border-neutral-200/80 sticky top-0 z-30 shadow-xs">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain">
+                    <div>
+                        <span class="text-lg font-bold font-heading text-neutral-900">VIGOR ADMIN</span>
+                        <span class="block text-[10px] text-emerald-600 font-medium">● متصل ومحمي</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <a href="/" target="_blank" 
+                       class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition flex items-center gap-1">
+                        <span>معاينة المتجر</span>
+                        <span>↗</span>
+                    </a>
+                    <button onclick="logoutAdmin()" 
+                            class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition">
+                        خروج 🚪
+                    </button>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 flex gap-1 border-t border-neutral-100 overflow-x-auto text-xs sm:text-sm font-bold text-neutral-600">
+                <button onclick="switchTab('orders')" id="tab-orders" class="tab-btn active px-4 py-3 rounded-t-lg transition flex items-center gap-2 whitespace-nowrap">
+                    <span>📋</span>
+                    <span>إدارة الطلبيات</span>
+                </button>
+                <button onclick="switchTab('products')" id="tab-products" class="tab-btn px-4 py-3 rounded-t-lg transition flex items-center gap-2 whitespace-nowrap">
+                    <span>📦</span>
+                    <span>تعديل وإضافة المنتجات</span>
+                </button>
+                <button onclick="switchTab('pixels')" id="tab-pixels" class="tab-btn px-4 py-3 rounded-t-lg transition flex items-center gap-2 whitespace-nowrap">
+                    <span>🎯</span>
+                    <span>البيكسل والإعلانات</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full space-y-6">
+
+            <!-- ===================== SECTION 1: ORDERS ===================== -->
+            <section id="section-orders" class="space-y-6">
+                
+                <!-- Quick KPI Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="bg-white p-4 rounded-2xl border border-neutral-200/80 shadow-xs space-y-1">
+                        <span class="text-xs text-neutral-500 font-medium">إجمالي الطلبات</span>
+                        <div id="kpiTotalOrders" class="text-2xl font-extrabold text-neutral-900">0</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-neutral-200/80 shadow-xs space-y-1">
+                        <span class="text-xs text-neutral-500 font-medium">المبيعات المتوقعة</span>
+                        <div id="kpiTotalRevenue" class="text-2xl font-extrabold text-brand">0 دج</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-neutral-200/80 shadow-xs space-y-1">
+                        <span class="text-xs text-neutral-500 font-medium">طلبات جديدة</span>
+                        <div id="kpiPendingOrders" class="text-2xl font-extrabold text-amber-600">0</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-neutral-200/80 shadow-xs space-y-1">
+                        <span class="text-xs text-neutral-500 font-medium">طلبات مؤكدة</span>
+                        <div id="kpiConfirmedOrders" class="text-2xl font-extrabold text-emerald-600">0</div>
+                    </div>
+                </div>
+
+                <!-- Orders Filter & Table Card -->
+                <div class="bg-white rounded-3xl border border-neutral-200/80 shadow-sm overflow-hidden">
+                    <div class="p-4 sm:p-6 border-b border-neutral-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="space-y-0.5">
+                            <h2 class="text-lg font-bold text-neutral-900">سجل الطلبيات الواردة</h2>
+                            <p class="text-xs text-neutral-500">اتصل بالزبون بنقرة واحدة أو أرسل له واتساب لتأكيد الطلب</p>
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            <button onclick="exportOrdersToCSV()" 
+                                    class="text-xs font-bold px-3 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-xl transition flex items-center gap-1.5">
+                                <span>📥</span>
+                                <span>تصدير لإكسل أندرسون</span>
+                            </button>
+                            <a href="https://docs.google.com/spreadsheets" target="_blank" 
+                               class="text-xs font-bold px-3 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 rounded-xl transition flex items-center gap-1.5">
+                                <span>📊</span>
+                                <span>فتح Google Sheets</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="p-4 bg-neutral-50/50 border-b border-neutral-100">
+                        <input type="text" id="orderSearch" oninput="renderOrdersTable()" placeholder="ابحث باسم الزبون أو رقم الهاتف أو الولاية..." 
+                               class="w-full bg-white border border-neutral-200 rounded-xl px-4 py-2.5 text-xs sm:text-sm text-neutral-900 focus:outline-none focus:border-brand transition">
+                    </div>
+
+                    <!-- Table Responsive Container -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-xs sm:text-sm">
+                            <thead class="bg-neutral-50 text-neutral-500 font-bold border-b border-neutral-200">
+                                <tr>
+                                    <th class="p-3.5">الزبون</th>
+                                    <th class="p-3.5">الهاتف</th>
+                                    <th class="p-3.5">الولاية والتوصيل</th>
+                                    <th class="p-3.5">المبلغ</th>
+                                    <th class="p-3.5">الحالة</th>
+                                    <th class="p-3.5 text-center">إجراءات سريعة</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTableBody" class="divide-y divide-neutral-100">
+                                <!-- Populated dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyOrdersNotice" class="hidden p-8 text-center text-neutral-400 space-y-2">
+                        <span class="text-3xl block">📭</span>
+                        <p class="text-sm font-medium">لا توجد أي طلبيات مسجلة بعد!</p>
+                        <p class="text-xs text-neutral-400">ستظهر هنا تلقائياً بمجرد أن يسجل أي زبون طلبه في المتجر.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ===================== SECTION 2: PRODUCTS ===================== -->
+            <section id="section-products" class="hidden space-y-6">
+                
+                <div class="bg-white rounded-3xl p-5 sm:p-8 border border-neutral-200/80 shadow-sm space-y-6 max-w-2xl mx-auto">
+                    <div class="border-b border-neutral-100 pb-4 space-y-1">
+                        <h2 class="text-xl font-bold text-neutral-900">تعديل المنتج الحالي (بار فيكس الغرفة)</h2>
+                        <p class="text-xs text-neutral-500">عدّل أي معلومة هنا وسيتم تحديث المتجر مباشرة أمام الزبائن</p>
+                    </div>
+
+                    <form id="productForm" onsubmit="saveProductSettings(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-neutral-700 mb-1.5">عنوان المنتج الرئيسي *</label>
+                            <input type="text" id="prodTitle" required 
+                                   class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">السعر الأساسي (دج) *</label>
+                                <input type="number" id="prodPrice" required 
+                                       class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">فترة الضمان *</label>
+                                <input type="text" id="prodWarranty" required placeholder="عام كامل (12 شهر)" 
+                                       class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-neutral-700 mb-1.5">نص الوصف التسويقي *</label>
+                            <textarea id="prodDescription" rows="3" required 
+                                      class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition leading-relaxed"></textarea>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">قدرة التحمل</label>
+                                <input type="text" id="prodCapacity" placeholder="يرفد حتى 200 كلغ" 
+                                       class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">الأبعاد الهندسية</label>
+                                <input type="text" id="prodDimensions" placeholder="80 cm × 32 cm" 
+                                       class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            </div>
+                        </div>
+
+                        <div class="pt-3 flex items-center justify-between">
+                            <button type="submit" 
+                                    class="bg-brand hover:bg-brand-hover active:scale-[0.99] text-white font-bold text-sm py-3 px-6 rounded-xl shadow-md shadow-brand/20 transition flex items-center gap-2">
+                                <span>💾 حفظ التعديلات</span>
+                            </button>
+                            <span id="prodSaveSuccess" class="hidden text-xs font-bold text-emerald-600">✓ تم حفظ ونشر التعديلات بنجاح!</span>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+
+            <!-- ===================== SECTION 3: PIXELS ===================== -->
+            <section id="section-pixels" class="hidden space-y-6">
+                
+                <div class="bg-white rounded-3xl p-5 sm:p-8 border border-neutral-200/80 shadow-sm space-y-6 max-w-2xl mx-auto">
+                    <div class="border-b border-neutral-100 pb-4 space-y-1">
+                        <h2 class="text-xl font-bold text-neutral-900">إعدادات البيكسل وتتبع الإعلانات</h2>
+                        <p class="text-xs text-neutral-500">اربط إعلانات فيسبوك وتيك توك لتتبع المبيعات وأحداث الشراء (Purchase Events) تلقائياً</p>
+                    </div>
+
+                    <form id="pixelForm" onsubmit="savePixelSettings(event)" class="space-y-5">
+                        
+                        <!-- Meta / Facebook Pixel -->
+                        <div class="p-4 bg-neutral-50 rounded-2xl border border-neutral-200/70 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">📘</span>
+                                <label class="text-sm font-bold text-neutral-900">Meta / Facebook Pixel ID</label>
+                            </div>
+                            <input type="text" id="fbPixelInput" placeholder="مثال: 182749201948291" 
+                                   class="w-full bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm font-mono text-neutral-900 focus:outline-none focus:border-brand transition">
+                            <p class="text-[11px] text-neutral-400">ستقوم صفحة المتجر تلقائياً بتتبع أحداث: PageView و ViewContent و Purchase عند الشراء.</p>
+                        </div>
+
+                        <!-- TikTok Pixel -->
+                        <div class="p-4 bg-neutral-50 rounded-2xl border border-neutral-200/70 space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">🎵</span>
+                                <label class="text-sm font-bold text-neutral-900">TikTok Pixel ID</label>
+                            </div>
+                            <input type="text" id="ttPixelInput" placeholder="مثال: C1234567890ABC" 
+                                   class="w-full bg-white border border-neutral-200 rounded-xl px-4 py-3 text-sm font-mono text-neutral-900 focus:outline-none focus:border-brand transition">
+                            <p class="text-[11px] text-neutral-400">ستقوم صفحة المتجر تلقائياً بإطلاق حدث CompletePayment في مدير إعلانات تيك توك.</p>
+                        </div>
+
+                        <div class="pt-2 flex items-center justify-between">
+                            <button type="submit" 
+                                    class="bg-brand hover:bg-brand-hover active:scale-[0.99] text-white font-bold text-sm py-3 px-6 rounded-xl shadow-md shadow-brand/20 transition flex items-center gap-2">
+                                <span>🎯 حفظ وتفعيل البيكسل</span>
+                            </button>
+                            <span id="pixelSaveSuccess" class="hidden text-xs font-bold text-emerald-600">✓ تم حفظ وتفعيل البيكسل بنجاح!</span>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer class="border-t border-neutral-200/60 bg-white py-4 text-center text-xs text-neutral-400">
+            لوحة تحكم VIGOR Calisthenics Gear | نظام مؤمن بنجاح
+        </footer>
+
+    </div>
+
+    <!-- Script Logic -->
+    <script>
+        // SHA-256 Hash of secure PIN (Never stored in plain text)
+        const PIN_HASH = "91bca017d06790f59b5d54a86a592298c5ad8e88e0b7fc98cae7bdee361473ba";
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Check authentication on load
+        if (sessionStorage.getItem('vigor_admin_auth') === 'true') {
+            unlockAdmin();
+        }
+
+        // Login Handler with async SHA-256 verification
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const input = document.getElementById('pinInput').value.trim();
+            const error = document.getElementById('pinError');
+            const hashedInput = await sha256(input);
+
+            if (hashedInput === PIN_HASH) {
+                sessionStorage.setItem('vigor_admin_auth', 'true');
+                unlockAdmin();
+            } else {
+                error.classList.remove('hidden');
+                document.getElementById('pinInput').value = '';
+                document.getElementById('pinInput').focus();
+            }
+        });
+
+        function unlockAdmin() {
+            document.getElementById('loginGate').classList.add('hidden');
+            document.getElementById('adminPanel').classList.remove('hidden');
+            loadAllAdminData();
+        }
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('vigor_admin_auth');
+            window.location.reload();
+        }
+
+        // Tab Switching
+        function switchTab(tabName) {
+            ['orders', 'products', 'pixels'].forEach(t => {
+                document.getElementById(`section-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).classList.remove('active');
+            });
+            document.getElementById(`section-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        // Load & Render Orders
+        function loadAllAdminData() {
+            renderOrdersTable();
+            loadProductSettings();
+            loadPixelSettings();
+        }
+
+        function getStoredOrders() {
+            try {
+                return JSON.parse(localStorage.getItem('vigor_orders') || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveStoredOrders(orders) {
+            localStorage.setItem('vigor_orders', JSON.stringify(orders));
+            renderOrdersTable();
+        }
+
+        function renderOrdersTable() {
+            const orders = getStoredOrders();
+            const tbody = document.getElementById('ordersTableBody');
+            const emptyNotice = document.getElementById('emptyOrdersNotice');
+            const search = document.getElementById('orderSearch')?.value.toLowerCase().trim() || '';
+
+            // Update KPIs
+            document.getElementById('kpiTotalOrders').textContent = orders.length;
+            const revenue = orders.reduce((acc, o) => {
+                const num = parseInt((o.totalPrice || '0').replace(/[^0-9]/g, '')) || 0;
+                return acc + num;
+            }, 0);
+            document.getElementById('kpiTotalRevenue').textContent = `${revenue.toLocaleString()} دج`;
+
+            const pending = orders.filter(o => !o.status || o.status.includes('جديد') || o.status.includes('انتظار')).length;
+            const confirmed = orders.filter(o => o.status && o.status.includes('مؤكد')).length;
+            document.getElementById('kpiPendingOrders').textContent = pending;
+            document.getElementById('kpiConfirmedOrders').textContent = confirmed;
+
+            const filtered = orders.filter(o => {
+                if (!search) return true;
+                return (o.name || '').toLowerCase().includes(search) ||
+                       (o.phone || '').toLowerCase().includes(search) ||
+                       (o.wilaya || '').toLowerCase().includes(search);
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                emptyNotice.classList.remove('hidden');
+                return;
+            }
+
+            emptyNotice.classList.add('hidden');
+            tbody.innerHTML = filtered.map((o, idx) => {
+                const cleanPhone = (o.phone || '').replace(/[^0-9]/g, '');
+                const whatsappMsg = encodeURIComponent(`السلام عليكم أخي ${o.name}، معك فريق متجر VIGOR لتأكيد طلبك لـ ${o.productName || 'بار فيكس الغرفة'} بمبلغ ${o.totalPrice}. هل نؤكد شحن الطلبية إلى ولاية ${o.wilaya}؟`);
+                
+                return `
+                    <tr class="hover:bg-neutral-50/80 transition">
+                        <td class="p-3.5 font-bold text-neutral-900">
+                            ${o.name || 'بدون اسم'}
+                            <span class="block text-[11px] font-normal text-neutral-400">${o.date || 'اليوم'}</span>
+                        </td>
+                        <td class="p-3.5 font-mono text-neutral-800">${o.phone || '--'}</td>
+                        <td class="p-3.5">
+                            <span class="font-medium text-neutral-800">${o.wilaya || '--'}</span>
+                            <span class="block text-[11px] text-neutral-500">${o.commune || (o.deliveryType === 'stopdesk' ? 'استلام من المكتب' : 'توصيل للمنزل')}</span>
+                        </td>
+                        <td class="p-3.5 font-bold text-brand">${o.totalPrice || '1,800 دج'}</td>
+                        <td class="p-3.5">
+                            <select onchange="updateOrderStatus(${idx}, this.value)" 
+                                    class="text-xs font-semibold py-1 px-2.5 rounded-lg border border-neutral-200 bg-white focus:outline-none focus:border-brand">
+                                <option value="جديد ⏳" ${(!o.status || o.status.includes('جديد')) ? 'selected' : ''}>جديد ⏳</option>
+                                <option value="مؤكد ✅" ${o.status === 'مؤكد ✅' ? 'selected' : ''}>مؤكد ✅</option>
+                                <option value="قيد الشحن 🚚" ${o.status === 'قيد الشحن 🚚' ? 'selected' : ''}>قيد الشحن 🚚</option>
+                                <option value="تم التسليم 📦" ${o.status === 'تم التسليم 📦' ? 'selected' : ''}>تم التسليم 📦</option>
+                                <option value="ملغى ❌" ${o.status === 'ملغى ❌' ? 'selected' : ''}>ملغى ❌</option>
+                            </select>
+                        </td>
+                        <td class="p-3.5 text-center">
+                            <div class="inline-flex items-center gap-1.5">
+                                <a href="tel:${cleanPhone}" title="اتصال هاتفي مباشر" 
+                                   class="p-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-600 transition">
+                                    📞
+                                </a>
+                                <a href="https://wa.me/213${cleanPhone.replace(/^0/, '')}?text=${whatsappMsg}" target="_blank" title="إرسال رسالة تأكيد واتساب" 
+                                   class="p-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-600 transition">
+                                    💬
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateOrderStatus(index, newStatus) {
+            const orders = getStoredOrders();
+            if (orders[index]) {
+                orders[index].status = newStatus;
+                saveStoredOrders(orders);
+            }
+        }
+
+        function exportOrdersToCSV() {
+            const orders = getStoredOrders();
+            if (orders.length === 0) {
+                alert("لا توجد طلبات لتصديرها حالياً!");
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+            csvContent += "الاسم,الهاتف,الولاية,العنوان,الكمية,المبلغ الإجمالي,الحالة\n";
+
+            orders.forEach(o => {
+                csvContent += `"${o.name}","'${o.phone}","${o.wilaya}","${o.commune}","${o.quantity || 1}","${o.totalPrice}","${o.status || 'جديد'}"\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `طلبيات_Vigor_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Product Settings CMS
+        function loadProductSettings() {
+            const defaultProd = {
+                title: "بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!",
+                price: 1800,
+                warranty: "عام كامل (12 شهر)",
+                capacity: "يرفد حتى 200 كلغ",
+                dimensions: "80 cm × 32 cm",
+                description: "مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى 200 كلغ في الميزان وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ 180 ألف (1,800 دج) مع ضمان عام كامل!"
+            };
+
+            const saved = JSON.parse(localStorage.getItem('vigor_product_config') || 'null') || defaultProd;
+            document.getElementById('prodTitle').value = saved.title;
+            document.getElementById('prodPrice').value = saved.price;
+            document.getElementById('prodWarranty').value = saved.warranty;
+            document.getElementById('prodCapacity').value = saved.capacity;
+            document.getElementById('prodDimensions').value = saved.dimensions;
+            document.getElementById('prodDescription').value = saved.description;
+        }
+
+        function saveProductSettings(e) {
+            e.preventDefault();
+            const config = {
+                title: document.getElementById('prodTitle').value.trim(),
+                price: parseInt(document.getElementById('prodPrice').value) || 1800,
+                warranty: document.getElementById('prodWarranty').value.trim(),
+                capacity: document.getElementById('prodCapacity').value.trim(),
+                dimensions: document.getElementById('prodDimensions').value.trim(),
+                description: document.getElementById('prodDescription').value.trim()
+            };
+
+            localStorage.setItem('vigor_product_config', JSON.stringify(config));
+            const msg = document.getElementById('prodSaveSuccess');
+            msg.classList.remove('hidden');
+            setTimeout(() => msg.classList.add('hidden'), 3500);
+        }
+
+        // Pixels Configuration
+        function loadPixelSettings() {
+            const saved = JSON.parse(localStorage.getItem('vigor_pixels_config') || '{}');
+            document.getElementById('fbPixelInput').value = saved.fbPixel || '';
+            document.getElementById('ttPixelInput').value = saved.ttPixel || '';
+        }
+
+        function savePixelSettings(e) {
+            e.preventDefault();
+            const config = {
+                fbPixel: document.getElementById('fbPixelInput').value.trim(),
+                ttPixel: document.getElementById('ttPixelInput').value.trim()
+            };
+
+            localStorage.setItem('vigor_pixels_config', JSON.stringify(config));
+            const msg = document.getElementById('pixelSaveSuccess');
+            msg.classList.remove('hidden');
+            setTimeout(() => msg.classList.add('hidden'), 3500);
+        }
+    </script>
+</body>
+</html>

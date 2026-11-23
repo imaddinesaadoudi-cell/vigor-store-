@@ -156,7 +156,7 @@
             
             <!-- Title & Trust Highlights (Placed cleanly above images) -->
             <div class="border-b border-neutral-100 pb-5 space-y-2">
-                <h1 class="text-2xl md:text-3xl font-heading font-bold text-neutral-900 leading-tight">
+                <h1 id="mainProductTitle" class="text-2xl md:text-3xl font-heading font-bold text-neutral-900 leading-tight">
                     بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!
                 </h1>
                 <div class="flex flex-wrap items-center gap-2.5 text-xs font-medium pt-1">
@@ -209,7 +209,7 @@
 
                 <!-- Product Details -->
                 <div class="w-full md:w-1/2 space-y-5">
-                    <p class="text-neutral-600 text-sm leading-relaxed font-text">
+                    <p id="mainProductDesc" class="text-neutral-600 text-sm leading-relaxed font-text">
                         مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى <strong>200 كلغ في الميزان</strong> وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ <strong>180 ألف (1,800 دج)</strong> مع ضمان عام كامل!
                     </p>
 
@@ -221,15 +221,15 @@
                         </div>
                         <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
                             <span class="text-neutral-400 block text-[10px]">قدرة التحمل</span>
-                            <span class="font-bold text-neutral-800">يرفد حتى 200 كلغ</span>
+                            <span id="specCapacity" class="font-bold text-neutral-800">يرفد حتى 200 كلغ</span>
                         </div>
                         <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
                             <span class="text-neutral-400 block text-[10px]">الأبعاد الهندسية</span>
-                            <span class="font-bold text-neutral-800">80 cm × 32 cm</span>
+                            <span id="specDimensions" class="font-bold text-neutral-800">80 cm × 32 cm</span>
                         </div>
                         <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
                             <span class="text-neutral-400 block text-[10px]">فترة الضمان</span>
-                            <span class="font-bold text-emerald-700">عام كامل (12 شهر)</span>
+                            <span id="specWarranty" class="font-bold text-emerald-700">عام كامل (12 شهر)</span>
                         </div>
                     </div>
 
@@ -847,6 +847,36 @@
                 totalPrice: total
             };
 
+            // Save order locally for Admin Dashboard
+            try {
+                const existingOrders = JSON.parse(localStorage.getItem('vigor_orders') || '[]');
+                existingOrders.unshift({
+                    id: 'ORD-' + Date.now().toString().slice(-4),
+                    name: name,
+                    phone: phone,
+                    wilaya: wilayaText,
+                    commune: finalAddress,
+                    deliveryType: deliveryType,
+                    quantity: document.getElementById('custQty').value,
+                    totalPrice: total,
+                    status: 'جديد ⏳',
+                    date: new Date().toLocaleDateString('ar-DZ')
+                });
+                localStorage.setItem('vigor_orders', JSON.stringify(existingOrders));
+            } catch (err) {
+                console.log('Local storage save:', err);
+            }
+
+            // Track Pixel Purchase / Conversion
+            try {
+                if (window.fbq) {
+                    fbq('track', 'Purchase', { value: 1800, currency: 'DZD' });
+                }
+                if (window.ttq) {
+                    ttq.track('CompletePayment', { value: 1800, currency: 'DZD' });
+                }
+            } catch(e) {}
+
             // Send order data directly to Google Sheets Webhook
             const VIGOR_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxMS6bTk_btJzPXnbyndi2HIEVPYdFT-lNYvUgqYv8flh9_PADYvS83GSW20Bl2bM8x/exec";
             fetch(VIGOR_WEBHOOK_URL, {
@@ -872,6 +902,56 @@
                 behavior: 'smooth'
             });
         });
+
+        // 1. Dynamic Pixel Injection (Meta & TikTok Pixels)
+        try {
+            const pixelConfig = JSON.parse(localStorage.getItem('vigor_pixels_config') || '{}');
+            if (pixelConfig.fbPixel) {
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', pixelConfig.fbPixel);
+                fbq('track', 'PageView');
+            }
+            if (pixelConfig.ttPixel) {
+                !function (w, d, t) {
+                    w.TiktokAnalyticsObject=t;var tt=w[t]=w[t]||[];tt.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],tt.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<tt.methods.length;i++)tt.setAndDefer(tt,tt.methods[i]);tt.instance=function(t){for(var e=tt._i[t]||[],n=0;n<tt.methods.length;n++)tt.setAndDefer(e,tt.methods[n]);return e},tt.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";tt._i=tt._i||{},tt._i[e]=[],tt._i[e]._u=i,s=d.createElement("script"),s.type="text/javascript",s.async=!0,s.src=i+"?sdkid="+e+"&lib="+t;var c=d.getElementsByTagName("script")[0];c.parentNode.insertBefore(s,c)};
+                    tt.load(pixelConfig.ttPixel);
+                    tt.page();
+                }(window, document, 'ttq');
+            }
+        } catch(e) {}
+
+        // 2. Dynamic Product Settings from Admin CMS
+        try {
+            const prodConfig = JSON.parse(localStorage.getItem('vigor_product_config') || 'null');
+            if (prodConfig) {
+                if (prodConfig.title && document.getElementById('mainProductTitle')) {
+                    document.getElementById('mainProductTitle').textContent = prodConfig.title;
+                }
+                if (prodConfig.description && document.getElementById('mainProductDesc')) {
+                    document.getElementById('mainProductDesc').textContent = prodConfig.description;
+                }
+                if (prodConfig.capacity && document.getElementById('specCapacity')) {
+                    document.getElementById('specCapacity').textContent = prodConfig.capacity;
+                }
+                if (prodConfig.dimensions && document.getElementById('specDimensions')) {
+                    document.getElementById('specDimensions').textContent = prodConfig.dimensions;
+                }
+                if (prodConfig.warranty && document.getElementById('specWarranty')) {
+                    document.getElementById('specWarranty').textContent = prodConfig.warranty;
+                }
+                if (prodConfig.price && typeof baseProductPrice !== 'undefined') {
+                    baseProductPrice = parseInt(prodConfig.price) || 1800;
+                    if (typeof updateOrderSummary === 'function') updateOrderSummary();
+                }
+            }
+        } catch(e) {}
     </script>
 </body>
 </html>
