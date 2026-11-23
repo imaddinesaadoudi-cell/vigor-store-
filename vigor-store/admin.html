@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>لوحة الإدارة والتحكم | VIGOR Calisthenics Gear</title>
     
     <!-- Tailwind CSS -->
@@ -471,16 +474,35 @@
         // SHA-256 Hash of secure PIN (Never stored in plain text)
         const PIN_HASH = "91bca017d06790f59b5d54a86a592298c5ad8e88e0b7fc98cae7bdee361473ba";
 
+        // Global Products Defaults
+        const DEFAULT_PRODUCTS = [
+            {
+                id: "vigor-pullup-bar",
+                title: "بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!",
+                price: 1800,
+                oldPrice: 2500,
+                stockStatus: "متوفر في المخزون",
+                ironQuality: "فولاذ خشين فائق الصلابة",
+                capacity: "يرفد حتى 200 كلغ",
+                dimensions: "80 cm × 32 cm",
+                warranty: "عام كامل (12 شهر)",
+                description: "مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى 200 كلغ في الميزان وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ 180 ألف (1,800 دج) مع ضمان عام كامل!",
+                images: [
+                    "assets/product-1.jpg",
+                    "assets/product-2.jpg",
+                    "assets/product-3.jpg"
+                ],
+                isActive: true
+            }
+        ];
+
+        let currentUploadedImages = ["assets/product-1.jpg", "assets/product-2.jpg", "assets/product-3.jpg"];
+
         async function sha256(message) {
             const msgBuffer = new TextEncoder().encode(message);
             const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
             const hashArray = Array.from(new Uint8Array(hashBuffer));
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
-
-        // Check authentication on load
-        if (sessionStorage.getItem('vigor_admin_auth') === 'true') {
-            unlockAdmin();
         }
 
         // Login Handler with async SHA-256 verification
@@ -514,15 +536,23 @@
         // Tab Switching
         function switchTab(tabName) {
             ['orders', 'products', 'pixels'].forEach(t => {
-                document.getElementById(`section-${t}`).classList.add('hidden');
-                document.getElementById(`tab-${t}`).classList.remove('active');
+                const sec = document.getElementById(`section-${t}`);
+                if (sec) sec.classList.add('hidden');
+                const tab = document.getElementById(`tab-${t}`);
+                if (tab) tab.classList.remove('active');
             });
-            document.getElementById(`section-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-${tabName}`).classList.add('active');
+            const targetSec = document.getElementById(`section-${tabName}`);
+            if (targetSec) targetSec.classList.remove('hidden');
+            const targetTab = document.getElementById(`tab-${tabName}`);
+            if (targetTab) targetTab.classList.add('active');
 
             if (tabName === 'products') {
+                renderProductsCatalog();
                 const editor = document.getElementById('productEditorBox');
-                if (editor) editor.classList.add('hidden');
+                if (editor) {
+                    editor.classList.add('hidden');
+                    editor.style.display = 'none';
+                }
             }
         }
 
@@ -654,34 +684,36 @@
         }
 
         // ======================== PRODUCT CATALOG & CMS LOGIC ========================
-        const DEFAULT_PRODUCTS = [
-            {
-                id: "vigor-pullup-bar",
-                title: "بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!",
-                price: 1800,
-                oldPrice: 2500,
-                stockStatus: "متوفر في المخزون",
-                ironQuality: "فولاذ خشين فائق الصلابة",
-                capacity: "يرفد حتى 200 كلغ",
-                dimensions: "80 cm × 32 cm",
-                warranty: "عام كامل (12 شهر)",
-                description: "مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى 200 كلغ في الميزان وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ 180 ألف (1,800 دج) مع ضمان عام كامل!",
-                images: [
-                    "assets/product-1.jpg",
-                    "assets/product-2.jpg",
-                    "assets/product-3.jpg"
-                ],
-                isActive: true
-            }
-        ];
-
-        let currentUploadedImages = ["assets/product-1.jpg", "assets/product-2.jpg", "assets/product-3.jpg"];
-
         function getStoredProducts() {
             try {
-                const list = JSON.parse(localStorage.getItem('vigor_products_catalog'));
-                if (Array.isArray(list) && list.length > 0) return list;
-            } catch (e) {}
+                const raw = localStorage.getItem('vigor_products_catalog');
+                if (raw) {
+                    const list = JSON.parse(raw);
+                    if (Array.isArray(list) && list.length > 0) {
+                        const valid = list.filter(p => p && typeof p === 'object' && p.title && String(p.title).trim().length > 0);
+                        if (valid.length > 0) {
+                            return valid.map((p, idx) => ({
+                                id: p.id || ('prod_' + (idx + 1)),
+                                title: String(p.title || DEFAULT_PRODUCTS[0].title),
+                                price: parseInt(p.price) || 1800,
+                                oldPrice: p.oldPrice ? parseInt(p.oldPrice) : null,
+                                stockStatus: p.stockStatus || 'متوفر في المخزون',
+                                ironQuality: p.ironQuality || '',
+                                capacity: p.capacity || '',
+                                dimensions: p.dimensions || '',
+                                warranty: p.warranty || 'عام كامل (12 شهر)',
+                                description: p.description || '',
+                                images: (Array.isArray(p.images) && p.images.length > 0) 
+                                    ? p.images 
+                                    : ["assets/product-1.jpg", "assets/product-2.jpg", "assets/product-3.jpg"],
+                                isActive: p.isActive !== undefined ? !!p.isActive : (idx === 0)
+                            }));
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error reading catalog:', e);
+            }
             return DEFAULT_PRODUCTS;
         }
 
@@ -700,74 +732,103 @@
             renderProductsCatalog();
             // Keep editor hidden until user clicks on a product
             const editor = document.getElementById('productEditorBox');
-            if (editor) editor.classList.add('hidden');
+            if (editor) {
+                editor.classList.add('hidden');
+                editor.style.display = 'none';
+            }
         }
 
         function renderProductsCatalog() {
-            const products = getStoredProducts();
-            const container = document.getElementById('productsCatalogContainer');
-            const badge = document.getElementById('productsCountBadge');
-            if (badge) badge.textContent = `${products.length} منتج`;
+            try {
+                const products = getStoredProducts();
+                const container = document.getElementById('productsCatalogContainer');
+                const badge = document.getElementById('productsCountBadge');
+                if (badge) badge.textContent = `${products.length} منتج`;
 
-            if (!container) return;
-            container.innerHTML = products.map((prod) => {
-                const mainImg = (prod.images && prod.images[0]) ? prod.images[0] : 'assets/product-1.jpg';
-                const isActive = !!prod.isActive;
-                return `
-                    <div onclick="editProduct('${prod.id}')" 
-                         class="group cursor-pointer bg-neutral-50 rounded-2xl p-4 border ${isActive ? 'border-brand/40 ring-2 ring-brand/10 bg-brand/[0.02]' : 'border-neutral-200/80'} flex flex-col justify-between space-y-4 hover:shadow-lg hover:border-brand/60 transition duration-200">
-                        <div class="space-y-3">
-                            <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-white border border-neutral-200">
-                                <img src="${mainImg}" alt="${prod.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                                <div class="absolute top-2 right-2">
-                                    ${isActive 
-                                        ? `<span class="bg-brand text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">⭐ معروض في المتجر</span>`
-                                        : `<span class="bg-neutral-800/80 text-white text-[10px] font-medium px-2 py-0.5 rounded-full backdrop-blur">مسودة</span>`
-                                    }
+                if (!container) return;
+                container.innerHTML = products.map((prod) => {
+                    const mainImg = (prod.images && prod.images[0]) ? prod.images[0] : 'assets/product-1.jpg';
+                    const isActive = !!prod.isActive;
+                    const safeTitle = (prod.title || '').replace(/"/g, '&quot;');
+                    const safePrice = Number(prod.price || 1800).toLocaleString();
+                    const oldPriceHtml = prod.oldPrice ? `<span class="line-through text-neutral-400 text-[10px] mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : '';
+
+                    return `
+                        <div onclick="editProduct('${prod.id}')" 
+                             class="group cursor-pointer bg-neutral-50 rounded-2xl p-4 border ${isActive ? 'border-brand/40 ring-2 ring-brand/10 bg-brand/[0.02]' : 'border-neutral-200/80'} flex flex-col justify-between space-y-4 hover:shadow-lg hover:border-brand/60 transition duration-200">
+                            <div class="space-y-3">
+                                <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-white border border-neutral-200">
+                                    <img src="${mainImg}" alt="${safeTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                    <div class="absolute top-2 right-2">
+                                        ${isActive 
+                                            ? `<span class="bg-brand text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">⭐ معروض في المتجر</span>`
+                                            : `<span class="bg-neutral-800/80 text-white text-[10px] font-medium px-2 py-0.5 rounded-full backdrop-blur">مسودة</span>`
+                                        }
+                                    </div>
+                                    <div class="absolute bottom-2 left-2 bg-neutral-950/80 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg backdrop-blur">
+                                        ${safePrice} دج
+                                        ${oldPriceHtml}
+                                    </div>
                                 </div>
-                                <div class="absolute bottom-2 left-2 bg-neutral-950/80 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg backdrop-blur">
-                                    ${Number(prod.price || 0).toLocaleString()} دج
-                                    ${prod.oldPrice ? `<span class="line-through text-neutral-400 text-[10px] mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : ''}
+
+                                <div>
+                                    <h4 class="font-bold text-neutral-900 text-sm line-clamp-2 leading-snug group-hover:text-brand transition">${safeTitle}</h4>
+                                    <p class="text-[11px] text-neutral-500 mt-1 flex items-center gap-1.5">
+                                        <span class="inline-block w-2 h-2 rounded-full ${prod.stockStatus && prod.stockStatus.includes('نفذ') ? 'bg-red-500' : 'bg-emerald-500'}"></span>
+                                        <span>${prod.stockStatus || 'متوفر في المخزون'}</span>
+                                    </p>
                                 </div>
                             </div>
 
-                            <div>
-                                <h4 class="font-bold text-neutral-900 text-sm line-clamp-2 leading-snug group-hover:text-brand transition">${prod.title}</h4>
-                                <p class="text-[11px] text-neutral-500 mt-1 flex items-center gap-1.5">
-                                    <span class="inline-block w-2 h-2 rounded-full ${prod.stockStatus && prod.stockStatus.includes('نفذ') ? 'bg-red-500' : 'bg-emerald-500'}"></span>
-                                    <span>${prod.stockStatus || 'متوفر في المخزون'}</span>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="pt-2 border-t border-neutral-200/60 flex items-center justify-between gap-2" onclick="event.stopPropagation()">
-                            <div class="flex items-center gap-1.5">
-                                <button type="button" onclick="editProduct('${prod.id}')" 
-                                        class="px-3.5 py-1.5 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-lg transition flex items-center gap-1 shadow-sm">
-                                    <span>✏️ تعديل ومحرر الصور</span>
-                                </button>
-                                ${!isActive ? `
-                                    <button type="button" onclick="setActiveProduct('${prod.id}')" 
-                                            class="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg transition" title="عرض هذا المنتج في واجهة المتجر">
-                                        ⭐ تفعيل
+                            <div class="pt-2 border-t border-neutral-200/60 flex items-center justify-between gap-2" onclick="event.stopPropagation()">
+                                <div class="flex items-center gap-1.5">
+                                    <button type="button" onclick="editProduct('${prod.id}')" 
+                                            class="px-3.5 py-1.5 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-lg transition flex items-center gap-1 shadow-sm">
+                                        <span>✏️ تعديل ومحرر الصور</span>
+                                    </button>
+                                    ${!isActive ? `
+                                        <button type="button" onclick="setActiveProduct('${prod.id}')" 
+                                                class="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg transition" title="عرض هذا المنتج في واجهة المتجر">
+                                            ⭐ تفعيل
+                                        </button>
+                                    ` : ''}
+                                </div>
+                                ${products.length > 1 ? `
+                                    <button type="button" onclick="deleteProduct('${prod.id}')" title="حذف المنتج" 
+                                            class="p-1.5 text-neutral-400 hover:text-red-600 transition">
+                                        🗑️
                                     </button>
                                 ` : ''}
                             </div>
-                            ${products.length > 1 ? `
-                                <button type="button" onclick="deleteProduct('${prod.id}')" title="حذف المنتج" 
-                                        class="p-1.5 text-neutral-400 hover:text-red-600 transition">
-                                    🗑️
-                                </button>
-                            ` : ''}
                         </div>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error('Error rendering products catalog, auto-repairing:', err);
+                try {
+                    localStorage.removeItem('vigor_products_catalog');
+                    const container = document.getElementById('productsCatalogContainer');
+                    if (container) {
+                        container.innerHTML = DEFAULT_PRODUCTS.map(prod => `
+                            <div onclick="editProduct('${prod.id}')" class="group cursor-pointer bg-neutral-50 rounded-2xl p-4 border border-brand/40 ring-2 ring-brand/10 bg-brand/[0.02] flex flex-col justify-between space-y-4">
+                                <div class="space-y-3">
+                                    <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-white border border-neutral-200">
+                                        <img src="${prod.images[0]}" alt="${prod.title}" class="w-full h-full object-cover">
+                                    </div>
+                                    <h4 class="font-bold text-neutral-900 text-sm">${prod.title}</h4>
+                                    <div class="text-brand font-bold text-sm">1,800 دج</div>
+                                </div>
+                                <button type="button" onclick="editProduct('${prod.id}')" class="px-3.5 py-1.5 bg-brand text-white text-xs font-bold rounded-lg">✏️ تعديل ومحرر الصور</button>
+                            </div>
+                        `).join('');
+                    }
+                } catch(e) {}
+            }
         }
 
         function populateProductEditor(prod) {
             document.getElementById('editingProductId').value = prod.id;
-            document.getElementById('editorFormHeading').textContent = `تعديل: ${prod.title.slice(0, 35)}...`;
+            document.getElementById('editorFormHeading').textContent = `تعديل: ${(prod.title || '').slice(0, 35)}...`;
             document.getElementById('prodTitle').value = prod.title || '';
             document.getElementById('prodPrice').value = prod.price || 1800;
             document.getElementById('prodOldPrice').value = prod.oldPrice || '';
@@ -792,44 +853,74 @@
         }
 
         function editProduct(id) {
-            const products = getStoredProducts();
-            const prod = products.find(p => p.id === id);
-            if (prod) {
-                populateProductEditor(prod);
-                const editor = document.getElementById('productEditorBox');
-                editor.classList.remove('hidden');
-                editor.scrollIntoView({ behavior: 'smooth' });
+            try {
+                const products = getStoredProducts();
+                const prod = products.find(p => p.id === id) || products[0];
+                if (prod) {
+                    populateProductEditor(prod);
+                    const editor = document.getElementById('productEditorBox');
+                    if (editor) {
+                        editor.classList.remove('hidden');
+                        editor.style.display = 'block';
+                        editor.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            } catch (err) {
+                console.error('Error editing product:', err);
             }
         }
 
         function prepareNewProductForm() {
-            const newId = 'prod_' + Date.now();
-            document.getElementById('editingProductId').value = newId;
-            document.getElementById('editorFormHeading').textContent = 'إضافة منتج جديد للكتالوج';
-            document.getElementById('prodTitle').value = '';
-            document.getElementById('prodPrice').value = '';
-            document.getElementById('prodOldPrice').value = '';
-            document.getElementById('prodStockStatus').value = 'متوفر في المخزون';
-            document.getElementById('prodIronQuality').value = '';
-            document.getElementById('prodCapacity').value = '';
-            document.getElementById('prodDimensions').value = '';
-            document.getElementById('prodWarranty').value = 'عام كامل (12 شهر)';
-            document.getElementById('prodDescription').value = '';
+            try {
+                const newId = 'prod_' + Date.now();
+                const idEl = document.getElementById('editingProductId');
+                if (idEl) idEl.value = newId;
 
-            currentUploadedImages = ["assets/product-1.jpg", "assets/product-2.jpg", "assets/product-3.jpg"];
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById(`previewImg${i}`).src = currentUploadedImages[i - 1];
-                document.getElementById(`urlInput${i}`).value = '';
+                const headingEl = document.getElementById('editorFormHeading');
+                if (headingEl) headingEl.textContent = 'إضافة منتج جديد للكتالوج';
+
+                const fields = ['prodTitle', 'prodPrice', 'prodOldPrice', 'prodIronQuality', 'prodCapacity', 'prodDimensions', 'prodDescription'];
+                fields.forEach(f => {
+                    const el = document.getElementById(f);
+                    if (el) el.value = '';
+                });
+
+                const stockEl = document.getElementById('prodStockStatus');
+                if (stockEl) stockEl.value = 'متوفر في المخزون';
+
+                const warEl = document.getElementById('prodWarranty');
+                if (warEl) warEl.value = 'عام كامل (12 شهر)';
+
+                currentUploadedImages = ["assets/product-1.jpg", "assets/product-2.jpg", "assets/product-3.jpg"];
+                for (let i = 1; i <= 3; i++) {
+                    const p = document.getElementById(`previewImg${i}`);
+                    if (p) p.src = currentUploadedImages[i - 1];
+                    const u = document.getElementById(`urlInput${i}`);
+                    if (u) u.value = '';
+                }
+
+                const editor = document.getElementById('productEditorBox');
+                if (editor) {
+                    editor.classList.remove('hidden');
+                    editor.style.display = 'block';
+                    editor.scrollIntoView({ behavior: 'smooth' });
+                }
+
+                setTimeout(() => {
+                    const titleEl = document.getElementById('prodTitle');
+                    if (titleEl) titleEl.focus();
+                }, 100);
+            } catch (err) {
+                console.error('Error preparing new product form:', err);
             }
-
-            const editor = document.getElementById('productEditorBox');
-            editor.classList.remove('hidden');
-            editor.scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('prodTitle').focus();
         }
 
         function cancelProductEdit() {
-            document.getElementById('productEditorBox').classList.add('hidden');
+            const editor = document.getElementById('productEditorBox');
+            if (editor) {
+                editor.classList.add('hidden');
+                editor.style.display = 'none';
+            }
             document.getElementById('section-products').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -948,6 +1039,11 @@
             const msg = document.getElementById('pixelSaveSuccess');
             msg.classList.remove('hidden');
             setTimeout(() => msg.classList.add('hidden'), 3500);
+        }
+
+        // Initialize Authentication & Load Data on startup after all functions are ready
+        if (sessionStorage.getItem('vigor_admin_auth') === 'true') {
+            unlockAdmin();
         }
     </script>
 </body>
