@@ -73,9 +73,6 @@
             animation: tickerMarquee 26s linear infinite;
             will-change: transform;
         }
-        .ticker-wrapper:hover .ticker-track {
-            animation-play-state: paused;
-        }
     </style>
 </head>
 <body class="bg-[#faf9f6] text-neutral-800 antialiased selection:bg-brand selection:text-white">
@@ -1247,6 +1244,20 @@
             }
         } catch(e) {
             console.error('Active product init:', e);
+        }
+
+        // Responsive Ticker Touch & Hover handlers (يحبس عند اللمس ويعاود يديماري فوراً كي تنحي صباعك)
+        const tickerEl = document.querySelector('.ticker-wrapper');
+        if (tickerEl) {
+            const tracks = tickerEl.querySelectorAll('.ticker-track');
+            const pauseTicker = () => tracks.forEach(t => t.style.animationPlayState = 'paused');
+            const resumeTicker = () => tracks.forEach(t => t.style.animationPlayState = 'running');
+
+            tickerEl.addEventListener('mouseenter', pauseTicker);
+            tickerEl.addEventListener('mouseleave', resumeTicker);
+            tickerEl.addEventListener('touchstart', pauseTicker, { passive: true });
+            tickerEl.addEventListener('touchend', resumeTicker, { passive: true });
+            tickerEl.addEventListener('touchcancel', resumeTicker, { passive: true });
         }
 
         // Render catalog on load

@@ -64,9 +64,6 @@
             animation: tickerMarquee 26s linear infinite;
             will-change: transform;
         }
-        .ticker-wrapper:hover .ticker-track {
-            animation-play-state: paused;
-        }
     </style>
 </head>
 <body class="bg-[#faf9f6] text-neutral-800 antialiased selection:bg-brand selection:text-white min-h-screen flex flex-col justify-between">
@@ -150,38 +147,19 @@
         <!-- Hero Section for Store Catalog -->
         <div class="text-center max-w-2xl mx-auto space-y-3">
             <div class="inline-flex items-center gap-2 bg-brand/10 text-brand px-3.5 py-1 rounded-full text-xs font-bold border border-brand/20">
-                <span>📦 كتالوج متجر VIGOR الرسمي</span>
+                <span>🔥 متجر VIGOR الرسمي</span>
             </div>
             <h1 class="text-2xl sm:text-4xl font-heading font-bold text-neutral-900 leading-tight">
-                عتاد الكاليسثنيكس والتمارين المنزلية الأصلي
+                احصل على جسم رياضي من دارك مع العتاد الاحترافي لـ VIGOR 💪
             </h1>
             <p class="text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-lg mx-auto">
-                حديد خشين فائق الصلابة يتحمل حتى 200 كلغ. اختر المنتج واطلبه مباشرة بالدفع عند الاستلام مع ضمان عام كامل واستبدال فوري.
+                مرحباً بك في متجر VIGOR الرسمي. تصفح عتاد الكاليسثنيكس الأصلي، اختر المنتج واطلبه الآن مع توصيل سريع لـ 58 ولاية والدفع بعد المعاينة عند الاستلام.
             </p>
         </div>
 
         <!-- Products Grid Container -->
         <div id="productsCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Populated dynamically via JS -->
-        </div>
-
-        <!-- Trust Badges Section -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-neutral-200/60 text-center">
-            <div class="bg-white p-5 rounded-2xl border border-neutral-150 shadow-xs space-y-1.5">
-                <span class="text-3xl">📦</span>
-                <h4 class="font-bold text-neutral-900 text-sm">الدفع نقداً عند الاستلام (COD)</h4>
-                <p class="text-xs text-neutral-400">افحص سلعتك وتأكد من جودتها بيدك قبل أن تدفع ديناراً واحداً</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl border border-neutral-150 shadow-xs space-y-1.5">
-                <span class="text-3xl">🛡️</span>
-                <h4 class="font-bold text-neutral-900 text-sm">ضمان حقيقي لمدة عام كامل</h4>
-                <p class="text-xs text-neutral-400">استبدال فوري وخدمة ما بعد البيع مرافقة لك على مدار السنة</p>
-            </div>
-            <div class="bg-white p-5 rounded-2xl border border-neutral-150 shadow-xs space-y-1.5">
-                <span class="text-3xl">⚡</span>
-                <h4 class="font-bold text-neutral-900 text-sm">توصيل سريع لـ 58 ولاية</h4>
-                <p class="text-xs text-neutral-400">لباب المنزل أو لـ 126 مكتب ستوب ديسك عبر شبكة Anderson Express</p>
-            </div>
         </div>
 
     </main>
@@ -283,6 +261,20 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // Responsive Ticker Touch & Hover handlers (يحبس عند اللمس ويعاود يديماري فوراً كي تنحي صباعك)
+        const tickerEl = document.querySelector('.ticker-wrapper');
+        if (tickerEl) {
+            const tracks = tickerEl.querySelectorAll('.ticker-track');
+            const pauseTicker = () => tracks.forEach(t => t.style.animationPlayState = 'paused');
+            const resumeTicker = () => tracks.forEach(t => t.style.animationPlayState = 'running');
+
+            tickerEl.addEventListener('mouseenter', pauseTicker);
+            tickerEl.addEventListener('mouseleave', resumeTicker);
+            tickerEl.addEventListener('touchstart', pauseTicker, { passive: true });
+            tickerEl.addEventListener('touchend', resumeTicker, { passive: true });
+            tickerEl.addEventListener('touchcancel', resumeTicker, { passive: true });
         }
 
         // Render on load
