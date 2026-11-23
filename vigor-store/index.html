@@ -160,10 +160,10 @@
                     بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!
                 </h1>
                 <div class="flex flex-wrap items-center gap-2.5 text-xs font-medium pt-1">
-                    <span class="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+                    <span id="stockBadge" class="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
                         ✓ متوفر في المخزون
                     </span>
-                    <span class="text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-full border border-neutral-200">
+                    <span id="warrantyBadge" class="text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-full border border-neutral-200">
                         🛡️ ضمان عام كامل
                     </span>
                     <span class="text-brand font-bold bg-brand/10 px-2.5 py-1 rounded-full border border-brand/20">
@@ -192,17 +192,17 @@
 
                     <!-- Thumbnails -->
                     <div class="grid grid-cols-3 gap-2">
-                        <button type="button" onclick="changeImage('assets/product-1.jpg', this)" 
+                        <button type="button" onclick="changeImageByIndex(0, this)" 
                                 class="thumb-btn border-2 border-brand rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition hover:opacity-90">
-                            <img src="assets/product-1.jpg" alt="صورة 1" class="w-full h-full object-cover rounded-lg">
+                            <img id="thumbImg1" src="assets/product-1.jpg" alt="صورة 1" class="w-full h-full object-cover rounded-lg">
                         </button>
-                        <button type="button" onclick="changeImage('assets/product-2.jpg', this)" 
+                        <button type="button" onclick="changeImageByIndex(1, this)" 
                                 class="thumb-btn border-2 border-transparent hover:border-brand/40 rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition">
-                            <img src="assets/product-2.jpg" alt="صورة 2" class="w-full h-full object-cover rounded-lg">
+                            <img id="thumbImg2" src="assets/product-2.jpg" alt="صورة 2" class="w-full h-full object-cover rounded-lg">
                         </button>
-                        <button type="button" onclick="changeImage('assets/product-3.jpg', this)" 
+                        <button type="button" onclick="changeImageByIndex(2, this)" 
                                 class="thumb-btn border-2 border-transparent hover:border-brand/40 rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition">
-                            <img src="assets/product-3.jpg" alt="صورة 3" class="w-full h-full object-cover rounded-lg">
+                            <img id="thumbImg3" src="assets/product-3.jpg" alt="صورة 3" class="w-full h-full object-cover rounded-lg">
                         </button>
                     </div>
                 </div>
@@ -217,7 +217,7 @@
                     <div class="grid grid-cols-2 gap-2 text-xs">
                         <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
                             <span class="text-neutral-400 block text-[10px]">نوعية الحديد</span>
-                            <span class="font-bold text-neutral-800">فولاذ خشين فائق الصلابة</span>
+                            <span id="specIronQuality" class="font-bold text-neutral-800">فولاذ خشين فائق الصلابة</span>
                         </div>
                         <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
                             <span class="text-neutral-400 block text-[10px]">قدرة التحمل</span>
@@ -464,7 +464,7 @@
 
     <!-- Script loading exact 58 wilayas data from JSON -->
     <script>
-        const productImages = ['assets/product-1.jpg', 'assets/product-2.jpg', 'assets/product-3.jpg'];
+        let productImages = ['assets/product-1.jpg', 'assets/product-2.jpg', 'assets/product-3.jpg'];
         let currentImgIndex = 0;
 
         function syncThumbnails() {
@@ -480,6 +480,13 @@
                     b.classList.add('border-transparent');
                 }
             });
+        }
+
+        function changeImageByIndex(idx, btn) {
+            if (idx >= 0 && idx < productImages.length) {
+                currentImgIndex = idx;
+                syncThumbnails();
+            }
         }
 
         function changeImage(src, btn) {
@@ -622,7 +629,18 @@
 
         let wilayasData = [];
         let andersonStations = {};
-        const productBasePrice = 1800;
+        let productBasePrice = 1800;
+
+        function updateQtyOptions(base) {
+            const q = document.getElementById('custQty');
+            if (!q) return;
+            const p1 = base;
+            const p2 = Math.round(base * 1.88);
+            const p3 = Math.round(base * 2.77);
+            q.options[0].textContent = `1 قطعة (${p1.toLocaleString()} دج)`;
+            q.options[1].textContent = `2 قطع (${p2.toLocaleString()} دج - تخفيض خاص) ⭐`;
+            q.options[2].textContent = `3 قطع (${p3.toLocaleString()} دج - أفضل عرض) 🔥`;
+        }
 
         // Fetch extracted Wilayas & Official Anderson Stations from PDF
         fetch('wilayas_data.json')
@@ -667,7 +685,7 @@
         function updatePricing() {
             const selectedCode = parseInt(wilayaSelect.value);
             const qty = parseInt(qtySelect.value);
-            let productCost = (qty === 1) ? 1800 : (qty === 2 ? 3400 : 5000);
+            let productCost = (qty === 1) ? productBasePrice : (qty === 2 ? Math.round(productBasePrice * 1.88) : Math.round(productBasePrice * 2.77));
             sumProduct.textContent = `${productCost.toLocaleString()} دج`;
 
             if (!selectedCode) {
@@ -927,9 +945,9 @@
             }
         } catch(e) {}
 
-        // 2. Dynamic Product Settings from Admin CMS
+        // 2. Dynamic Product Settings & Images from Admin CMS
         try {
-            const prodConfig = JSON.parse(localStorage.getItem('vigor_product_config') || 'null');
+            const prodConfig = JSON.parse(localStorage.getItem('vigor_active_product') || localStorage.getItem('vigor_product_config') || 'null');
             if (prodConfig) {
                 if (prodConfig.title && document.getElementById('mainProductTitle')) {
                     document.getElementById('mainProductTitle').textContent = prodConfig.title;
@@ -937,21 +955,42 @@
                 if (prodConfig.description && document.getElementById('mainProductDesc')) {
                     document.getElementById('mainProductDesc').textContent = prodConfig.description;
                 }
+                if (prodConfig.ironQuality && document.getElementById('specIronQuality')) {
+                    document.getElementById('specIronQuality').textContent = prodConfig.ironQuality;
+                }
                 if (prodConfig.capacity && document.getElementById('specCapacity')) {
                     document.getElementById('specCapacity').textContent = prodConfig.capacity;
                 }
                 if (prodConfig.dimensions && document.getElementById('specDimensions')) {
                     document.getElementById('specDimensions').textContent = prodConfig.dimensions;
                 }
-                if (prodConfig.warranty && document.getElementById('specWarranty')) {
-                    document.getElementById('specWarranty').textContent = prodConfig.warranty;
+                if (prodConfig.warranty) {
+                    if (document.getElementById('specWarranty')) document.getElementById('specWarranty').textContent = prodConfig.warranty;
+                    if (document.getElementById('warrantyBadge')) document.getElementById('warrantyBadge').textContent = '🛡️ ' + prodConfig.warranty;
                 }
-                if (prodConfig.price && typeof baseProductPrice !== 'undefined') {
-                    baseProductPrice = parseInt(prodConfig.price) || 1800;
-                    if (typeof updateOrderSummary === 'function') updateOrderSummary();
+                if (prodConfig.stockStatus && document.getElementById('stockBadge')) {
+                    document.getElementById('stockBadge').textContent = '✓ ' + prodConfig.stockStatus;
+                }
+                if (prodConfig.price) {
+                    productBasePrice = parseInt(prodConfig.price) || 1800;
+                    updateQtyOptions(productBasePrice);
+                    if (typeof updatePricing === 'function') updatePricing();
+                }
+
+                // Dynamic Gallery Images (from Admin upload or URLs)
+                if (Array.isArray(prodConfig.images) && prodConfig.images.length > 0) {
+                    productImages = [...prodConfig.images];
+                    currentImgIndex = 0;
+                    syncThumbnails();
+                    for (let i = 0; i < productImages.length && i < 3; i++) {
+                        const thumb = document.getElementById(`thumbImg${i + 1}`);
+                        if (thumb) thumb.src = productImages[i];
+                    }
                 }
             }
-        } catch(e) {}
+        } catch(e) {
+            console.log('Error applying active product config:', e);
+        }
     </script>
 </body>
 </html>

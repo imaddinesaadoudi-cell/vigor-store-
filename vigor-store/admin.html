@@ -209,60 +209,204 @@
 
             </section>
 
-            <!-- ===================== SECTION 2: PRODUCTS ===================== -->
-            <section id="section-products" class="hidden space-y-6">
+            <!-- ===================== SECTION 2: PRODUCTS CATALOG & CMS ===================== -->
+            <section id="section-products" class="hidden space-y-8">
                 
-                <div class="bg-white rounded-3xl p-5 sm:p-8 border border-neutral-200/80 shadow-sm space-y-6 max-w-2xl mx-auto">
-                    <div class="border-b border-neutral-100 pb-4 space-y-1">
-                        <h2 class="text-xl font-bold text-neutral-900">تعديل المنتج الحالي (بار فيكس الغرفة)</h2>
-                        <p class="text-xs text-neutral-500">عدّل أي معلومة هنا وسيتم تحديث المتجر مباشرة أمام الزبائن</p>
+                <!-- 1. Catalog Header & Products List -->
+                <div class="bg-white rounded-3xl p-5 sm:p-7 border border-neutral-200/80 shadow-sm space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-100 pb-5">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h2 class="text-xl font-bold text-neutral-900">كتالوج المنتجات المعروضة</h2>
+                                <span id="productsCountBadge" class="bg-brand/10 text-brand text-xs font-bold px-2.5 py-0.5 rounded-full">1 منتج</span>
+                            </div>
+                            <p class="text-xs text-neutral-500 mt-0.5">يمكنك إضافة منتجات جديدة، تغيير الصور بالرفع المباشر، وتعديل أي تفصيلة بضغطة زر</p>
+                        </div>
+                        <button type="button" onclick="prepareNewProductForm()" 
+                                class="inline-flex items-center justify-center gap-2 bg-brand hover:bg-brand-hover text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            <span>+ إضافة منتج جديد</span>
+                        </button>
                     </div>
 
-                    <form id="productForm" onsubmit="saveProductSettings(event)" class="space-y-4">
+                    <!-- Products Grid / Cards -->
+                    <div id="productsCatalogContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- 2. Full Product Editor & Image Changer -->
+                <div id="productEditorBox" class="bg-white rounded-3xl p-5 sm:p-8 border border-neutral-200/80 shadow-sm space-y-6 scroll-mt-20">
+                    <div class="flex items-center justify-between border-b border-neutral-100 pb-4">
                         <div>
-                            <label class="block text-xs font-bold text-neutral-700 mb-1.5">عنوان المنتج الرئيسي *</label>
-                            <input type="text" id="prodTitle" required 
-                                   class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            <h3 id="editorFormHeading" class="text-lg font-bold text-neutral-900">تعديل المنتج الحالي (بار فيكس الغرفة)</h3>
+                            <p class="text-xs text-neutral-500">عدّل أي معلومة، ارفع صوراً جديدة مباشرة من جهازك، وستنشر التعديلات فوراً في المتجر</p>
+                        </div>
+                        <button type="button" onclick="cancelProductEdit()" class="text-xs text-neutral-400 hover:text-neutral-700 font-medium">
+                            ✖️ إغلاق المحرر
+                        </button>
+                    </div>
+
+                    <form id="productForm" onsubmit="saveProductSettings(event)" class="space-y-6">
+                        <input type="hidden" id="editingProductId" value="vigor-pullup-bar">
+
+                        <!-- SECTION A: PRODUCT IMAGES (3 IMAGES WITH INSTANT UPLOAD) -->
+                        <div class="space-y-3 bg-neutral-50 p-4 sm:p-5 rounded-2xl border border-neutral-200/70">
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-bold text-neutral-800 flex items-center gap-1.5">
+                                    <span>📸 صور المنتج الثلاثة (رفع مباشر من الهاتف أو الحاسوب)</span>
+                                </label>
+                                <span class="text-[11px] text-neutral-400">تدعم JPG, PNG, WEBP</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <!-- Image 1 (Main) -->
+                                <div class="bg-white p-3 rounded-xl border border-neutral-200 space-y-2 text-center">
+                                    <span class="block text-[11px] font-bold text-brand">الصورة 1 (الرئيسية) *</span>
+                                    <div class="aspect-[3/4] bg-neutral-100 rounded-lg overflow-hidden border border-neutral-150 flex items-center justify-center relative group">
+                                        <img id="previewImg1" src="assets/product-1.jpg" alt="صورة 1" class="w-full h-full object-cover">
+                                    </div>
+                                    <input type="file" id="fileInput1" accept="image/*" class="hidden" onchange="handleImageUpload(event, 1)">
+                                    <div class="flex gap-1.5">
+                                        <button type="button" onclick="document.getElementById('fileInput1').click()" 
+                                                class="flex-1 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-[11px] font-bold rounded-lg transition">
+                                            📁 تغيير الصورة
+                                        </button>
+                                        <button type="button" onclick="clearImageSlot(1)" title="حذف" class="px-2 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs rounded-lg transition">
+                                            🗑️
+                                        </button>
+                                    </div>
+                                    <input type="text" id="urlInput1" placeholder="أو رابط URL للصورة" 
+                                           onchange="updateImageFromUrl(1, this.value)" 
+                                           class="w-full text-[10px] bg-neutral-50 border border-neutral-200 rounded px-2 py-1 text-neutral-700">
+                                </div>
+
+                                <!-- Image 2 -->
+                                <div class="bg-white p-3 rounded-xl border border-neutral-200 space-y-2 text-center">
+                                    <span class="block text-[11px] font-bold text-neutral-700">الصورة 2 (زاوية جانبية)</span>
+                                    <div class="aspect-[3/4] bg-neutral-100 rounded-lg overflow-hidden border border-neutral-150 flex items-center justify-center relative group">
+                                        <img id="previewImg2" src="assets/product-2.jpg" alt="صورة 2" class="w-full h-full object-cover">
+                                    </div>
+                                    <input type="file" id="fileInput2" accept="image/*" class="hidden" onchange="handleImageUpload(event, 2)">
+                                    <div class="flex gap-1.5">
+                                        <button type="button" onclick="document.getElementById('fileInput2').click()" 
+                                                class="flex-1 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-[11px] font-bold rounded-lg transition">
+                                            📁 تغيير الصورة
+                                        </button>
+                                        <button type="button" onclick="clearImageSlot(2)" title="حذف" class="px-2 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs rounded-lg transition">
+                                            🗑️
+                                        </button>
+                                    </div>
+                                    <input type="text" id="urlInput2" placeholder="أو رابط URL للصورة" 
+                                           onchange="updateImageFromUrl(2, this.value)" 
+                                           class="w-full text-[10px] bg-neutral-50 border border-neutral-200 rounded px-2 py-1 text-neutral-700">
+                                </div>
+
+                                <!-- Image 3 -->
+                                <div class="bg-white p-3 rounded-xl border border-neutral-200 space-y-2 text-center">
+                                    <span class="block text-[11px] font-bold text-neutral-700">الصورة 3 (تفاصيل الاستخدام)</span>
+                                    <div class="aspect-[3/4] bg-neutral-100 rounded-lg overflow-hidden border border-neutral-150 flex items-center justify-center relative group">
+                                        <img id="previewImg3" src="assets/product-3.jpg" alt="صورة 3" class="w-full h-full object-cover">
+                                    </div>
+                                    <input type="file" id="fileInput3" accept="image/*" class="hidden" onchange="handleImageUpload(event, 3)">
+                                    <div class="flex gap-1.5">
+                                        <button type="button" onclick="document.getElementById('fileInput3').click()" 
+                                                class="flex-1 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-[11px] font-bold rounded-lg transition">
+                                            📁 تغيير الصورة
+                                        </button>
+                                        <button type="button" onclick="clearImageSlot(3)" title="حذف" class="px-2 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs rounded-lg transition">
+                                            🗑️
+                                        </button>
+                                    </div>
+                                    <input type="text" id="urlInput3" placeholder="أو رابط URL للصورة" 
+                                           onchange="updateImageFromUrl(3, this.value)" 
+                                           class="w-full text-[10px] bg-neutral-50 border border-neutral-200 rounded px-2 py-1 text-neutral-700">
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- SECTION B: BASIC DETAILS -->
+                        <div class="space-y-4">
                             <div>
-                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">السعر الأساسي (دج) *</label>
-                                <input type="number" id="prodPrice" required 
+                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">عنوان المنتج الرئيسي *</label>
+                                <input type="text" id="prodTitle" required 
                                        class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
                             </div>
-                            <div>
-                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">فترة الضمان *</label>
-                                <input type="text" id="prodWarranty" required placeholder="عام كامل (12 شهر)" 
-                                       class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-neutral-700 mb-1.5">السعر الحالي (دج) *</label>
+                                    <input type="number" id="prodPrice" required 
+                                           class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-neutral-700 mb-1.5">السعر القديم المشطوب (دج)</label>
+                                    <input type="number" id="prodOldPrice" placeholder="2500" 
+                                           class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-neutral-700 mb-1.5">حالة التوفر بالمخزون</label>
+                                    <select id="prodStockStatus" 
+                                            class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                                        <option value="متوفر في المخزون">✓ متوفر في المخزون</option>
+                                        <option value="كمية محدودة جداً">⚡ كمية محدودة جداً</option>
+                                        <option value="قريباً ينفد">⏳ قريباً ينفد</option>
+                                        <option value="نفذ المخزون">❌ نفذ المخزون</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- SECTION C: SPECIFICATIONS BADGES -->
+                        <div class="space-y-3 bg-neutral-50 p-4 sm:p-5 rounded-2xl border border-neutral-200/70">
+                            <label class="text-xs font-bold text-neutral-800 block">المواصفات التقنية الأربعة (تظهر تحت الصور)</label>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-neutral-600 mb-1">نوعية الحديد / المادة</label>
+                                    <input type="text" id="prodIronQuality" placeholder="فولاذ خشين فائق الصلابة" 
+                                           class="w-full bg-white border border-neutral-200 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 focus:outline-none focus:border-brand transition">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-neutral-600 mb-1">قدرة التحمل</label>
+                                    <input type="text" id="prodCapacity" placeholder="يرفد حتى 200 كلغ" 
+                                           class="w-full bg-white border border-neutral-200 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 focus:outline-none focus:border-brand transition">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-neutral-600 mb-1">الأبعاد الهندسية</label>
+                                    <input type="text" id="prodDimensions" placeholder="80 cm × 32 cm" 
+                                           class="w-full bg-white border border-neutral-200 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 focus:outline-none focus:border-brand transition">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-neutral-600 mb-1">فترة الضمان</label>
+                                    <input type="text" id="prodWarranty" placeholder="عام كامل (12 شهر)" 
+                                           class="w-full bg-white border border-neutral-200 rounded-xl px-3.5 py-2.5 text-xs text-neutral-900 focus:outline-none focus:border-brand transition">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION D: MARKETING DESCRIPTION -->
                         <div>
                             <label class="block text-xs font-bold text-neutral-700 mb-1.5">نص الوصف التسويقي *</label>
-                            <textarea id="prodDescription" rows="3" required 
+                            <textarea id="prodDescription" rows="4" required 
                                       class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition leading-relaxed"></textarea>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">قدرة التحمل</label>
-                                <input type="text" id="prodCapacity" placeholder="يرفد حتى 200 كلغ" 
-                                       class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                        <!-- SUBMIT BUTTONS -->
+                        <div class="pt-4 flex flex-wrap items-center justify-between gap-3 border-t border-neutral-100">
+                            <div class="flex items-center gap-3">
+                                <button type="submit" 
+                                        class="bg-brand hover:bg-brand-hover active:scale-[0.99] text-white font-bold text-sm py-3 px-7 rounded-xl shadow-md shadow-brand/20 transition flex items-center gap-2">
+                                    <span>💾 حفظ ونشر المنتج في المتجر</span>
+                                </button>
+                                <button type="button" onclick="cancelProductEdit()" 
+                                        class="py-3 px-5 text-sm font-semibold text-neutral-600 hover:bg-neutral-100 rounded-xl transition">
+                                    إلغاء
+                                </button>
                             </div>
-                            <div>
-                                <label class="block text-xs font-bold text-neutral-700 mb-1.5">الأبعاد الهندسية</label>
-                                <input type="text" id="prodDimensions" placeholder="80 cm × 32 cm" 
-                                       class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
-                            </div>
-                        </div>
-
-                        <div class="pt-3 flex items-center justify-between">
-                            <button type="submit" 
-                                    class="bg-brand hover:bg-brand-hover active:scale-[0.99] text-white font-bold text-sm py-3 px-6 rounded-xl shadow-md shadow-brand/20 transition flex items-center gap-2">
-                                <span>💾 حفظ التعديلات</span>
-                            </button>
-                            <span id="prodSaveSuccess" class="hidden text-xs font-bold text-emerald-600">✓ تم حفظ ونشر التعديلات بنجاح!</span>
+                            <span id="prodSaveSuccess" class="hidden text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                                ✓ تم حفظ ونشر المنتج بنجاح في المتجر!
+                            </span>
                         </div>
                     </form>
                 </div>
@@ -504,41 +648,277 @@
             document.body.removeChild(link);
         }
 
-        // Product Settings CMS
-        function loadProductSettings() {
-            const defaultProd = {
+        // ======================== PRODUCT CATALOG & CMS LOGIC ========================
+        const DEFAULT_PRODUCTS = [
+            {
+                id: "vigor-pullup-bar",
                 title: "بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!",
                 price: 1800,
-                warranty: "عام كامل (12 شهر)",
+                oldPrice: 2500,
+                stockStatus: "متوفر في المخزون",
+                ironQuality: "فولاذ خشين فائق الصلابة",
                 capacity: "يرفد حتى 200 كلغ",
                 dimensions: "80 cm × 32 cm",
-                description: "مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى 200 كلغ في الميزان وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ 180 ألف (1,800 دج) مع ضمان عام كامل!"
-            };
+                warranty: "عام كامل (12 شهر)",
+                description: "مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى 200 كلغ في الميزان وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ 180 ألف (1,800 دج) مع ضمان عام كامل!",
+                images: [
+                    "assets/product-1.jpg",
+                    "assets/product-2.jpg",
+                    "assets/product-3.jpg"
+                ],
+                isActive: true
+            }
+        ];
 
-            const saved = JSON.parse(localStorage.getItem('vigor_product_config') || 'null') || defaultProd;
-            document.getElementById('prodTitle').value = saved.title;
-            document.getElementById('prodPrice').value = saved.price;
-            document.getElementById('prodWarranty').value = saved.warranty;
-            document.getElementById('prodCapacity').value = saved.capacity;
-            document.getElementById('prodDimensions').value = saved.dimensions;
-            document.getElementById('prodDescription').value = saved.description;
+        let currentUploadedImages = ["assets/product-1.jpg", "assets/product-2.jpg", "assets/product-3.jpg"];
+
+        function getStoredProducts() {
+            try {
+                const list = JSON.parse(localStorage.getItem('vigor_products_catalog'));
+                if (Array.isArray(list) && list.length > 0) return list;
+            } catch (e) {}
+            return DEFAULT_PRODUCTS;
         }
 
+        function saveStoredProducts(list) {
+            localStorage.setItem('vigor_products_catalog', JSON.stringify(list));
+            // Find active product and mirror to vigor_active_product for storefront
+            const active = list.find(p => p.isActive) || list[0];
+            if (active) {
+                localStorage.setItem('vigor_active_product', JSON.stringify(active));
+                localStorage.setItem('vigor_product_config', JSON.stringify(active));
+            }
+            renderProductsCatalog();
+        }
+
+        function loadProductSettings() {
+            renderProductsCatalog();
+            const products = getStoredProducts();
+            const active = products.find(p => p.isActive) || products[0];
+            if (active) {
+                populateProductEditor(active);
+            }
+        }
+
+        function renderProductsCatalog() {
+            const products = getStoredProducts();
+            const container = document.getElementById('productsCatalogContainer');
+            const badge = document.getElementById('productsCountBadge');
+            if (badge) badge.textContent = `${products.length} منتج`;
+
+            if (!container) return;
+            container.innerHTML = products.map((prod) => {
+                const mainImg = (prod.images && prod.images[0]) ? prod.images[0] : 'assets/product-1.jpg';
+                const isActive = !!prod.isActive;
+                return `
+                    <div class="bg-neutral-50 rounded-2xl p-4 border ${isActive ? 'border-brand/40 ring-2 ring-brand/10 bg-brand/[0.02]' : 'border-neutral-200/80'} flex flex-col justify-between space-y-4 hover:shadow-md transition">
+                        <div class="space-y-3">
+                            <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-white border border-neutral-200">
+                                <img src="${mainImg}" alt="${prod.title}" class="w-full h-full object-cover">
+                                <div class="absolute top-2 right-2">
+                                    ${isActive 
+                                        ? `<span class="bg-brand text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">⭐ معروض في المتجر</span>`
+                                        : `<span class="bg-neutral-800/80 text-white text-[10px] font-medium px-2 py-0.5 rounded-full backdrop-blur">مسودة</span>`
+                                    }
+                                </div>
+                                <div class="absolute bottom-2 left-2 bg-neutral-950/80 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg backdrop-blur">
+                                    ${Number(prod.price || 0).toLocaleString()} دج
+                                    ${prod.oldPrice ? `<span class="line-through text-neutral-400 text-[10px] mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : ''}
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-bold text-neutral-900 text-sm line-clamp-2 leading-snug">${prod.title}</h4>
+                                <p class="text-[11px] text-neutral-500 mt-1 flex items-center gap-1.5">
+                                    <span class="inline-block w-2 h-2 rounded-full ${prod.stockStatus && prod.stockStatus.includes('نفذ') ? 'bg-red-500' : 'bg-emerald-500'}"></span>
+                                    <span>${prod.stockStatus || 'متوفر في المخزون'}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 border-t border-neutral-200/60 flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-1.5">
+                                <button type="button" onclick="editProduct('${prod.id}')" 
+                                        class="px-3 py-1.5 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-bold rounded-lg transition flex items-center gap-1">
+                                    <span>✏️ تعديل ومحرر الصور</span>
+                                </button>
+                                ${!isActive ? `
+                                    <button type="button" onclick="setActiveProduct('${prod.id}')" 
+                                            class="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg transition" title="عرض هذا المنتج في واجهة المتجر">
+                                        ⭐ تفعيل
+                                    </button>
+                                ` : ''}
+                            </div>
+                            ${products.length > 1 ? `
+                                <button type="button" onclick="deleteProduct('${prod.id}')" title="حذف المنتج" 
+                                        class="p-1.5 text-neutral-400 hover:text-red-600 transition">
+                                    🗑️
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function populateProductEditor(prod) {
+            document.getElementById('editingProductId').value = prod.id;
+            document.getElementById('editorFormHeading').textContent = `تعديل: ${prod.title.slice(0, 35)}...`;
+            document.getElementById('prodTitle').value = prod.title || '';
+            document.getElementById('prodPrice').value = prod.price || 1800;
+            document.getElementById('prodOldPrice').value = prod.oldPrice || '';
+            document.getElementById('prodStockStatus').value = prod.stockStatus || 'متوفر في المخزون';
+            document.getElementById('prodIronQuality').value = prod.ironQuality || '';
+            document.getElementById('prodCapacity').value = prod.capacity || '';
+            document.getElementById('prodDimensions').value = prod.dimensions || '';
+            document.getElementById('prodWarranty').value = prod.warranty || '';
+            document.getElementById('prodDescription').value = prod.description || '';
+
+            // Set images
+            const imgs = (Array.isArray(prod.images) && prod.images.length > 0) 
+                ? prod.images 
+                : ["assets/product-1.jpg", "assets/product-2.jpg", "assets/product-3.jpg"];
+            currentUploadedImages = [...imgs];
+
+            for (let i = 1; i <= 3; i++) {
+                const imgVal = currentUploadedImages[i - 1] || 'assets/product-1.jpg';
+                document.getElementById(`previewImg${i}`).src = imgVal;
+                document.getElementById(`urlInput${i}`).value = imgVal.startsWith('data:') ? '' : imgVal;
+            }
+        }
+
+        function editProduct(id) {
+            const products = getStoredProducts();
+            const prod = products.find(p => p.id === id);
+            if (prod) {
+                populateProductEditor(prod);
+                document.getElementById('productEditorBox').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function prepareNewProductForm() {
+            const newId = 'prod_' + Date.now();
+            document.getElementById('editingProductId').value = newId;
+            document.getElementById('editorFormHeading').textContent = 'إضافة منتج جديد للكتالوج';
+            document.getElementById('prodTitle').value = '';
+            document.getElementById('prodPrice').value = '';
+            document.getElementById('prodOldPrice').value = '';
+            document.getElementById('prodStockStatus').value = 'متوفر في المخزون';
+            document.getElementById('prodIronQuality').value = '';
+            document.getElementById('prodCapacity').value = '';
+            document.getElementById('prodDimensions').value = '';
+            document.getElementById('prodWarranty').value = 'عام كامل (12 شهر)';
+            document.getElementById('prodDescription').value = '';
+
+            currentUploadedImages = ["assets/product-1.jpg", "assets/product-2.jpg", "assets/product-3.jpg"];
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`previewImg${i}`).src = currentUploadedImages[i - 1];
+                document.getElementById(`urlInput${i}`).value = '';
+            }
+
+            document.getElementById('productEditorBox').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('prodTitle').focus();
+        }
+
+        function cancelProductEdit() {
+            const products = getStoredProducts();
+            const active = products.find(p => p.isActive) || products[0];
+            if (active) populateProductEditor(active);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setActiveProduct(id) {
+            const products = getStoredProducts();
+            products.forEach(p => p.isActive = (p.id === id));
+            saveStoredProducts(products);
+        }
+
+        function deleteProduct(id) {
+            let products = getStoredProducts();
+            if (products.length <= 1) {
+                alert("لا يمكنك حذف المنتج الوحيد في المتجر!");
+                return;
+            }
+            if (confirm("هل أنت متأكد من رغبتك في حذف هذا المنتج من الكتالوج؟")) {
+                const wasActive = products.find(p => p.id === id)?.isActive;
+                products = products.filter(p => p.id !== id);
+                if (wasActive && products.length > 0) {
+                    products[0].isActive = true;
+                }
+                saveStoredProducts(products);
+                const active = products.find(p => p.isActive) || products[0];
+                if (active) populateProductEditor(active);
+            }
+        }
+
+        // Image Upload & Conversion Logic
+        function handleImageUpload(event, slot) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64 = e.target.result;
+                currentUploadedImages[slot - 1] = base64;
+                document.getElementById(`previewImg${slot}`).src = base64;
+                document.getElementById(`urlInput${slot}`).value = '';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateImageFromUrl(slot, url) {
+            if (!url || !url.trim()) return;
+            currentUploadedImages[slot - 1] = url.trim();
+            document.getElementById(`previewImg${slot}`).src = url.trim();
+        }
+
+        function clearImageSlot(slot) {
+            currentUploadedImages[slot - 1] = 'assets/logo.png';
+            document.getElementById(`previewImg${slot}`).src = 'assets/logo.png';
+            document.getElementById(`urlInput${slot}`).value = '';
+        }
+
+        // Save Form
         function saveProductSettings(e) {
             e.preventDefault();
-            const config = {
+            const id = document.getElementById('editingProductId').value || ('prod_' + Date.now());
+            const products = getStoredProducts();
+
+            const existingIndex = products.findIndex(p => p.id === id);
+            const wasActive = existingIndex !== -1 ? products[existingIndex].isActive : true;
+
+            const productData = {
+                id: id,
                 title: document.getElementById('prodTitle').value.trim(),
                 price: parseInt(document.getElementById('prodPrice').value) || 1800,
-                warranty: document.getElementById('prodWarranty').value.trim(),
+                oldPrice: parseInt(document.getElementById('prodOldPrice').value) || null,
+                stockStatus: document.getElementById('prodStockStatus').value,
+                ironQuality: document.getElementById('prodIronQuality').value.trim(),
                 capacity: document.getElementById('prodCapacity').value.trim(),
                 dimensions: document.getElementById('prodDimensions').value.trim(),
-                description: document.getElementById('prodDescription').value.trim()
+                warranty: document.getElementById('prodWarranty').value.trim(),
+                description: document.getElementById('prodDescription').value.trim(),
+                images: [...currentUploadedImages],
+                isActive: wasActive
             };
 
-            localStorage.setItem('vigor_product_config', JSON.stringify(config));
+            if (existingIndex !== -1) {
+                products[existingIndex] = productData;
+            } else {
+                // If it's a new product, make it active
+                products.forEach(p => p.isActive = false);
+                productData.isActive = true;
+                products.unshift(productData);
+            }
+
+            saveStoredProducts(products);
+
             const msg = document.getElementById('prodSaveSuccess');
             msg.classList.remove('hidden');
-            setTimeout(() => msg.classList.add('hidden'), 3500);
+            setTimeout(() => msg.classList.add('hidden'), 4000);
+
+            // Smooth scroll back to catalog
+            document.getElementById('section-products').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Pixels Configuration
