@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منتجات VIGOR | عتاد الكاليسثنيكس والرياضة المنزلية</title>
+    
+    <!-- Google Fonts: IBM Plex Sans Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#ba5926',
+                            hover: '#a04a1e',
+                            light: '#fdf6f0',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        heading: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#faf9f6] text-neutral-800 antialiased selection:bg-brand selection:text-white min-h-screen flex flex-col justify-between">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-neutral-900 text-neutral-200 text-xs py-2 px-4 text-center select-none border-b border-neutral-800">
+        <span>⚡ توصيل سريع لـ 58 ولاية • الدفع نقداً عند الاستلام بعد المعاينة باليد • ضمان عام كامل 🛡️</span>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-md border-b border-neutral-100 sticky top-0 z-30 shadow-xs">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain transition group-hover:scale-105">
+                <div>
+                    <span class="text-xl font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
+                    <span class="block text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-1">Calisthenics Gear</span>
+                </div>
+            </a>
+
+            <a href="index.html" 
+               class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-neutral-700 hover:text-brand bg-neutral-100 hover:bg-neutral-200/80 px-3.5 py-2 rounded-xl transition active:scale-95">
+                <span>العودة للمتجر</span>
+                <span class="text-base">↩</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12 flex-1 w-full space-y-8">
+        
+        <!-- Page Title & Intro -->
+        <div class="text-center max-w-xl mx-auto space-y-2">
+            <div class="inline-flex items-center gap-2 bg-brand/10 text-brand px-3 py-1 rounded-full text-xs font-bold">
+                <span>📦 كتالوج المنتجات الرسمية</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-heading font-bold text-neutral-900">
+                عتاد VIGOR الأصلي للتمارين المنزلية
+            </h1>
+            <p class="text-xs sm:text-sm text-neutral-500 leading-relaxed">
+                حديد خشين فائق الصلابة مصمم للتحمل الشاق. اختر عتادك وادفع نقداً عند الاستلام.
+            </p>
+        </div>
+
+        <!-- Products Grid Container -->
+        <div id="productsCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Populated dynamically via JS -->
+        </div>
+
+        <!-- Trust Badges Section -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-neutral-200/60 text-center">
+            <div class="bg-white p-4 rounded-2xl border border-neutral-150 shadow-xs space-y-1">
+                <span class="text-2xl">📦</span>
+                <h4 class="font-bold text-neutral-900 text-xs">الدفع عند الاستلام</h4>
+                <p class="text-[11px] text-neutral-400">افحص سلعتك بيدك قبل أن تدفع ديناراً واحداً</p>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-neutral-150 shadow-xs space-y-1">
+                <span class="text-2xl">🛡️</span>
+                <h4 class="font-bold text-neutral-900 text-xs">ضمان حقيقي عام كامل</h4>
+                <p class="text-[11px] text-neutral-400">استبدال فوري وخدمة ما بعد البيع في الخدمة</p>
+            </div>
+            <div class="bg-white p-4 rounded-2xl border border-neutral-150 shadow-xs space-y-1">
+                <span class="text-2xl">⚡</span>
+                <h4 class="font-bold text-neutral-900 text-xs">توصيل لـ 58 ولاية</h4>
+                <p class="text-[11px] text-neutral-400">لباب المنزل أو للمكتب عبر Anderson Express</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-neutral-200/60 bg-white py-8 text-center text-xs text-neutral-400 space-y-1">
+        <p>© 2026 VIGOR Calisthenics Gear. جميع الحقوق محفوظة.</p>
+        <p>التوصيل السريع لـ 58 ولاية عبر شبكة Anderson Express.</p>
+    </footer>
+
+    <!-- Dynamic Products Loader Script -->
+    <script>
+        const DEFAULT_STORE_PRODUCTS = [
+            {
+                id: "vigor-pullup-bar",
+                title: "بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!",
+                price: 1800,
+                oldPrice: 2500,
+                stockStatus: "متوفر في المخزون",
+                ironQuality: "فولاذ خشين فائق الصلابة",
+                capacity: "يرفد حتى 200 كلغ",
+                dimensions: "80 cm × 32 cm",
+                warranty: "عام كامل (12 شهر)",
+                description: "مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى 200 كلغ في الميزان وبأعلى درجات الأمان. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي غير بـ 180 ألف مع ضمان عام كامل!",
+                images: [
+                    "assets/product-1.jpg",
+                    "assets/product-2.jpg",
+                    "assets/product-3.jpg"
+                ],
+                isActive: true
+            }
+        ];
+
+        function getProductsList() {
+            try {
+                const raw = localStorage.getItem('vigor_products_catalog');
+                if (raw) {
+                    const list = JSON.parse(raw);
+                    if (Array.isArray(list) && list.length > 0) {
+                        const valid = list.filter(p => p && typeof p === 'object' && p.title && String(p.title).trim().length > 0);
+                        if (valid.length > 0) return valid;
+                    }
+                }
+            } catch (e) {}
+            return DEFAULT_STORE_PRODUCTS;
+        }
+
+        function renderProductsGrid() {
+            const grid = document.getElementById('productsCatalogGrid');
+            if (!grid) return;
+
+            const products = getProductsList();
+            
+            grid.innerHTML = products.map(prod => {
+                const mainImg = (prod.images && prod.images[0]) ? prod.images[0] : 'assets/product-1.jpg';
+                const safeTitle = (prod.title || '').replace(/"/g, '&quot;');
+                const priceFormatted = Number(prod.price || 1800).toLocaleString();
+                const oldPriceFormatted = prod.oldPrice ? `<span class="line-through text-neutral-400 text-xs mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : '';
+                const capacityTag = prod.capacity ? `<span class="bg-neutral-100 text-neutral-700 text-[11px] font-medium px-2 py-0.5 rounded-md border border-neutral-200">💪 ${prod.capacity}</span>` : '';
+                const warrantyTag = prod.warranty ? `<span class="bg-neutral-100 text-neutral-700 text-[11px] font-medium px-2 py-0.5 rounded-md border border-neutral-200">🛡️ ${prod.warranty}</span>` : '';
+
+                return `
+                    <div class="bg-white rounded-3xl p-4 sm:p-5 border border-neutral-200/90 shadow-sm hover:shadow-lg hover:border-brand/50 transition-all duration-300 flex flex-col justify-between space-y-4 group">
+                        
+                        <div class="space-y-3 cursor-pointer" onclick="orderProduct('${prod.id}')">
+                            <!-- Image Container -->
+                            <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-150">
+                                <img src="${mainImg}" alt="${safeTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                
+                                <span class="absolute top-2.5 right-2.5 bg-emerald-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-sm">
+                                    ✓ ${prod.stockStatus || 'متوفر في المخزون'}
+                                </span>
+                            </div>
+
+                            <!-- Badges -->
+                            <div class="flex flex-wrap items-center gap-1.5 pt-1">
+                                ${capacityTag}
+                                ${warrantyTag}
+                            </div>
+
+                            <!-- Title -->
+                            <h3 class="font-bold text-neutral-900 text-base leading-snug group-hover:text-brand transition">
+                                ${safeTitle}
+                            </h3>
+
+                            <!-- Price -->
+                            <div class="flex items-baseline gap-2 pt-1">
+                                <span class="font-bold text-brand text-xl font-heading">${priceFormatted} دج</span>
+                                ${oldPriceFormatted}
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <button type="button" onclick="orderProduct('${prod.id}')" 
+                                class="w-full py-3.5 px-4 bg-brand hover:bg-brand-hover active:scale-[0.99] text-white text-sm font-bold font-heading rounded-xl shadow-md shadow-brand/20 transition flex items-center justify-center gap-2">
+                            <span>طلب هذا المنتج الآن</span>
+                            <span class="text-base">🛒</span>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function orderProduct(productId) {
+            const products = getProductsList();
+            const prod = products.find(p => p.id === productId) || products[0];
+            if (prod) {
+                // Set as active product
+                localStorage.setItem('vigor_active_product', JSON.stringify(prod));
+            }
+            // Navigate directly to landing page and jump to the order form
+            window.location.href = 'index.html#order-form';
+        }
+
+        // Render on load
+        renderProductsGrid();
+
+        // Real-time synchronization if Admin updates products in another tab
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'vigor_products_catalog') {
+                renderProductsGrid();
+            }
+        });
+    </script>
+</body>
+</html>
