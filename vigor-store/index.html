@@ -144,19 +144,19 @@
                 </div>
                 
                 <div class="flex items-center gap-2">
-                    <!-- Products Catalog Button -->
-                    <button type="button" onclick="openCatalogModal()" 
-                            class="inline-flex items-center gap-1.5 bg-brand hover:bg-brand-hover text-white text-xs sm:text-sm font-bold px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl shadow-sm shadow-brand/20 transition active:scale-95">
-                        <svg class="w-4 h-4 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7" />
-                        </svg>
-                        <span>المنتجات</span>
-                        <span id="headerProductsBadge" class="hidden bg-white/20 text-white text-[10px] px-1.5 py-0.5 rounded-full font-mono">1</span>
-                    </button>
-
                     <div class="text-xs text-neutral-500 font-medium hidden sm:flex items-center gap-1.5 bg-neutral-100 px-3 py-1.5 rounded-xl border border-neutral-200">
                         <span>⚡ توصيل 58 ولاية</span>
                     </div>
+
+                    <!-- Hamburger Menu Button (قائمة جانبية احترافية) -->
+                    <button type="button" onclick="openSideDrawer()" 
+                            class="p-2 sm:px-3 sm:py-2 rounded-xl text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100 border border-neutral-200 transition active:scale-95 flex items-center gap-1.5" 
+                            aria-label="القائمة الجانبية">
+                        <svg class="w-6 h-6 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <span class="text-xs font-bold font-heading hidden sm:inline">القائمة</span>
+                    </button>
                 </div>
             </div>
         </header>
@@ -406,50 +406,100 @@
             </div>
         </section>
 
-        <!-- Other Products Showcase Section -->
-        <section id="otherProductsSection" class="bg-white p-6 md:p-8 rounded-3xl border border-neutral-150 shadow-sm space-y-5">
-            <div class="border-b border-neutral-100 pb-3 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <span class="text-xl">📦</span>
-                    <h3 class="text-lg md:text-xl font-bold font-heading text-neutral-900">جميع منتجات VIGOR المتوفرة</h3>
-                </div>
-                <span class="text-xs text-brand font-bold bg-brand/10 px-2.5 py-1 rounded-full">الدفع عند الاستلام</span>
-            </div>
-            <div id="bottomCatalogGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- Populated dynamically via JS -->
-            </div>
-        </section>
-
     </main>
 
-    <!-- Products Catalog Modal / Slide-over -->
-    <div id="catalogModal" 
-         class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
-        <div class="bg-[#faf9f6] w-full max-w-2xl max-h-[85vh] rounded-3xl border border-neutral-200 shadow-2xl overflow-hidden flex flex-col" onclick="event.stopPropagation()">
-            <!-- Modal Header -->
-            <div class="p-4 sm:p-5 bg-white border-b border-neutral-100 flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-2xl">📦</span>
-                    <div>
-                        <h3 class="text-base sm:text-lg font-bold font-heading text-neutral-900">كتالوج منتجات VIGOR</h3>
-                        <p class="text-xs text-neutral-500">اختر المنتج الذي ترغب في طلبه وسيتم تجهيز الاستمارة له مباشرة</p>
-                    </div>
-                </div>
-                <button type="button" onclick="closeCatalogModal()" class="p-2 rounded-xl text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition" title="إغلاق">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
+    <!-- Side Drawer Backdrop -->
+    <div id="drawerBackdrop" 
+         onclick="closeSideDrawer()" 
+         class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden opacity-0 transition-opacity duration-300"></div>
 
-            <!-- Modal Products List -->
-            <div class="p-4 sm:p-6 overflow-y-auto flex-1">
-                <div id="modalCatalogContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <!-- Off-Canvas Side Drawer (قائمة جانبية عصرية وسلسة) -->
+    <aside id="sideDrawer" 
+           aria-label="القائمة الجانبية للمتجر"
+           class="fixed inset-y-0 right-0 z-50 w-84 max-w-[85vw] bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out border-l border-neutral-100">
+        
+        <!-- Drawer Header -->
+        <div class="p-4 sm:p-5 border-b border-neutral-100 flex items-center justify-between bg-[#faf9f6]">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Vigor Logo" class="h-8 w-auto object-contain">
+                <div>
+                    <span class="text-lg font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
+                    <span class="block text-[9px] text-neutral-400 font-sans tracking-wider uppercase -mt-0.5">Calisthenics Gear</span>
+                </div>
+            </div>
+            <button type="button" onclick="closeSideDrawer()" 
+                    class="p-2 rounded-xl text-neutral-400 hover:text-neutral-700 hover:bg-neutral-200/60 transition" 
+                    aria-label="إغلاق القائمة">
+                <svg class="w-5 h-5 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Drawer Navigation & Content -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-2">
+            
+            <!-- Home Link -->
+            <a href="#productHeroSection" onclick="closeSideDrawer()" 
+               class="flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-bold text-neutral-800 hover:bg-neutral-100 hover:text-brand transition">
+                <span class="text-lg">🏠</span>
+                <span>الرئيسية</span>
+            </a>
+
+            <!-- Products Accordion / Button -->
+            <div class="rounded-2xl border border-neutral-200/80 bg-neutral-50/70 overflow-hidden">
+                <button type="button" onclick="toggleDrawerProducts()" 
+                        class="w-full flex items-center justify-between px-3.5 py-3.5 text-sm font-bold text-neutral-900 hover:bg-neutral-100 transition select-none">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">📦</span>
+                        <span class="text-brand">المنتجات المتوفرة</span>
+                        <span id="drawerProductsCountBadge" class="bg-brand text-white text-[10px] px-2 py-0.5 rounded-full font-mono font-bold">1</span>
+                    </div>
+                    <svg id="drawerProductsChevron" class="w-4 h-4 text-neutral-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+
+                <!-- Products List Container (Expands when clicked) -->
+                <div id="drawerProductsList" class="p-3 pt-1 space-y-3 hidden border-t border-neutral-200/60 bg-white">
                     <!-- Populated dynamically via JS -->
                 </div>
             </div>
+
+            <!-- Guarantees & Benefits Links -->
+            <a href="#order-form" onclick="closeSideDrawer()" 
+               class="flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-brand transition">
+                <span class="text-lg">🛡️</span>
+                <span>الضمان والاستبدال (عام كامل)</span>
+            </a>
+
+            <a href="#order-form" onclick="closeSideDrawer()" 
+               class="flex items-center gap-3 px-3.5 py-3 rounded-2xl text-sm font-medium text-neutral-700 hover:bg-neutral-100 hover:text-brand transition">
+                <span class="text-lg">⚡</span>
+                <span>التوصيل لـ 58 ولاية (أندرسون)</span>
+            </a>
+
+            <!-- Contact / WhatsApp -->
+            <div class="pt-4 border-t border-neutral-100 mt-4 space-y-2">
+                <p class="text-[11px] font-bold text-neutral-400 uppercase tracking-wider px-3">خدمة الزبائن</p>
+                <a href="https://wa.me/213550000000" target="_blank" rel="noopener" 
+                   class="flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-100 hover:bg-emerald-100 transition">
+                    <div class="flex items-center gap-2">
+                        <span class="text-base">💬</span>
+                        <span>تواصل عبر واتساب</span>
+                    </div>
+                    <span class="text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded-full font-sans">متاح الآن</span>
+                </a>
+            </div>
+
         </div>
-        <!-- Outside click closes -->
-        <div class="absolute inset-0 -z-10" onclick="closeCatalogModal()"></div>
-    </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-4 border-t border-neutral-100 bg-[#faf9f6] text-center text-xs text-neutral-500">
+            <p class="font-bold text-neutral-800">الدفع نقداً عند الاستلام (COD)</p>
+            <p class="text-[11px] text-neutral-400 mt-0.5">افحص عتادك وتأكد من جودته قبل الدفع</p>
+        </div>
+    </aside>
 
     <footer class="border-t border-neutral-200/60 bg-white py-8 pb-28 text-center text-xs text-neutral-400 space-y-1">
         <p>© 2026 VIGOR Calisthenics Gear. جميع الحقوق محفوظة.</p>
@@ -589,6 +639,13 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const drawer = document.getElementById('sideDrawer');
+                if (drawer && !drawer.classList.contains('translate-x-full')) {
+                    closeSideDrawer();
+                    return;
+                }
+            }
             const modal = document.getElementById('imageLightbox');
             if (!modal || modal.classList.contains('hidden')) return;
             if (e.key === 'Escape') closeLightbox();
@@ -1040,22 +1097,54 @@
             return DEFAULT_STORE_PRODUCTS;
         }
 
-        function openCatalogModal() {
+        function openSideDrawer() {
             renderStoreProductsCatalog();
-            const modal = document.getElementById('catalogModal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            const drawer = document.getElementById('sideDrawer');
+            const backdrop = document.getElementById('drawerBackdrop');
+            if (backdrop) {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+            }
+            if (drawer) {
+                drawer.classList.remove('translate-x-full');
+            }
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSideDrawer() {
+            const drawer = document.getElementById('sideDrawer');
+            const backdrop = document.getElementById('drawerBackdrop');
+            if (drawer) {
+                drawer.classList.add('translate-x-full');
+            }
+            if (backdrop) {
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => {
+                    backdrop.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            } else {
+                document.body.style.overflow = '';
             }
         }
 
-        function closeCatalogModal() {
-            const modal = document.getElementById('catalogModal');
-            if (modal) {
-                modal.classList.add('opacity-0');
-                setTimeout(() => modal.classList.add('hidden'), 200);
+        function toggleDrawerProducts() {
+            const list = document.getElementById('drawerProductsList');
+            const chevron = document.getElementById('drawerProductsChevron');
+            if (!list) return;
+            const isHidden = list.classList.contains('hidden');
+            if (isHidden) {
+                list.classList.remove('hidden');
+                if (chevron) chevron.classList.add('rotate-180');
+            } else {
+                list.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
             }
         }
+
+        // Backward compatibility aliases
+        function openCatalogModal() { openSideDrawer(); }
+        function closeCatalogModal() { closeSideDrawer(); }
 
         function selectProductToOrder(productId) {
             const products = getStoreProductsCatalog();
@@ -1066,13 +1155,15 @@
             localStorage.setItem('vigor_active_product', JSON.stringify(prod));
             applyActiveProductData(prod);
 
-            // Close modal if open
-            closeCatalogModal();
+            // Close side drawer immediately
+            closeSideDrawer();
 
             // Scroll smoothly to order form
             const formSection = document.getElementById('order-form');
             if (formSection) {
-                formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                setTimeout(() => {
+                    formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 150);
             }
         }
 
@@ -1121,37 +1212,37 @@
 
         function renderStoreProductsCatalog() {
             const products = getStoreProductsCatalog();
-            const modalContainer = document.getElementById('modalCatalogContainer');
-            const bottomContainer = document.getElementById('bottomCatalogGrid');
-            const badge = document.getElementById('headerProductsBadge');
-            if (badge) {
-                badge.textContent = products.length;
-                badge.classList.remove('hidden');
+            const drawerContainer = document.getElementById('drawerProductsList');
+            const drawerBadge = document.getElementById('drawerProductsCountBadge');
+            
+            if (drawerBadge) {
+                drawerBadge.textContent = `${products.length}`;
             }
+
+            if (!drawerContainer) return;
 
             const cardsHtml = products.map(prod => {
                 const mainImg = (prod.images && prod.images[0]) ? prod.images[0] : 'assets/product-1.jpg';
                 const safeTitle = (prod.title || '').replace(/"/g, '&quot;');
                 const priceFormatted = Number(prod.price || 1800).toLocaleString();
-                const oldPriceFormatted = prod.oldPrice ? `<span class="line-through text-neutral-400 text-xs mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : '';
+                const oldPriceFormatted = prod.oldPrice ? `<span class="line-through text-neutral-400 text-[10px] mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : '';
 
                 return `
-                    <div class="bg-white rounded-2xl p-4 border border-neutral-200/90 shadow-sm hover:shadow-md hover:border-brand/50 transition flex flex-col justify-between space-y-3 group text-right">
-                        <div class="space-y-3 cursor-pointer" onclick="selectProductToOrder('${prod.id}')">
-                            <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-neutral-100 border border-neutral-150">
-                                <img src="${mainImg}" alt="${safeTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                                <span class="absolute top-2 right-2 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
-                                    ${prod.stockStatus || 'متوفر في المخزون'}
-                                </span>
+                    <div class="bg-white rounded-xl p-3 border border-neutral-200/90 hover:border-brand/50 shadow-xs transition text-right space-y-2.5">
+                        <div class="flex items-center gap-3 cursor-pointer" onclick="selectProductToOrder('${prod.id}')">
+                            <div class="w-14 h-14 rounded-lg overflow-hidden bg-neutral-100 border border-neutral-150 shrink-0">
+                                <img src="${mainImg}" alt="${safeTitle}" class="w-full h-full object-cover">
                             </div>
-                            <h4 class="font-bold text-neutral-900 text-sm leading-snug line-clamp-2 group-hover:text-brand transition">${safeTitle}</h4>
-                            <div class="flex items-baseline gap-1.5">
-                                <span class="font-bold text-brand text-base">${priceFormatted} دج</span>
-                                ${oldPriceFormatted}
+                            <div class="min-w-0 flex-1">
+                                <h5 class="font-bold text-neutral-900 text-xs leading-snug line-clamp-2">${safeTitle}</h5>
+                                <div class="flex items-baseline gap-1 mt-1">
+                                    <span class="font-bold text-brand text-xs font-heading">${priceFormatted} دج</span>
+                                    ${oldPriceFormatted}
+                                </div>
                             </div>
                         </div>
                         <button type="button" onclick="selectProductToOrder('${prod.id}')" 
-                                class="w-full py-2.5 px-4 bg-brand hover:bg-brand-hover active:scale-[0.99] text-white text-xs font-bold rounded-xl shadow-sm shadow-brand/20 transition flex items-center justify-center gap-1.5">
+                                class="w-full py-2 px-3 bg-brand hover:bg-brand-hover active:scale-[0.99] text-white text-[11px] font-bold rounded-lg shadow-xs shadow-brand/20 transition flex items-center justify-center gap-1.5">
                             <span>طلب هذا المنتج</span>
                             <span>🛒</span>
                         </button>
@@ -1159,8 +1250,7 @@
                 `;
             }).join('');
 
-            if (modalContainer) modalContainer.innerHTML = cardsHtml;
-            if (bottomContainer) bottomContainer.innerHTML = cardsHtml;
+            drawerContainer.innerHTML = cardsHtml;
         }
 
         // Apply active product on load
