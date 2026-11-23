@@ -945,52 +945,65 @@
             }
         } catch(e) {}
 
-        // 2. Dynamic Product Settings & Images from Admin CMS
-        try {
-            const prodConfig = JSON.parse(localStorage.getItem('vigor_active_product') || localStorage.getItem('vigor_product_config') || 'null');
-            if (prodConfig) {
-                if (prodConfig.title && document.getElementById('mainProductTitle')) {
-                    document.getElementById('mainProductTitle').textContent = prodConfig.title;
-                }
-                if (prodConfig.description && document.getElementById('mainProductDesc')) {
-                    document.getElementById('mainProductDesc').textContent = prodConfig.description;
-                }
-                if (prodConfig.ironQuality && document.getElementById('specIronQuality')) {
-                    document.getElementById('specIronQuality').textContent = prodConfig.ironQuality;
-                }
-                if (prodConfig.capacity && document.getElementById('specCapacity')) {
-                    document.getElementById('specCapacity').textContent = prodConfig.capacity;
-                }
-                if (prodConfig.dimensions && document.getElementById('specDimensions')) {
-                    document.getElementById('specDimensions').textContent = prodConfig.dimensions;
-                }
-                if (prodConfig.warranty) {
-                    if (document.getElementById('specWarranty')) document.getElementById('specWarranty').textContent = prodConfig.warranty;
-                    if (document.getElementById('warrantyBadge')) document.getElementById('warrantyBadge').textContent = '🛡️ ' + prodConfig.warranty;
-                }
-                if (prodConfig.stockStatus && document.getElementById('stockBadge')) {
-                    document.getElementById('stockBadge').textContent = '✓ ' + prodConfig.stockStatus;
-                }
-                if (prodConfig.price) {
-                    productBasePrice = parseInt(prodConfig.price) || 1800;
-                    updateQtyOptions(productBasePrice);
-                    if (typeof updatePricing === 'function') updatePricing();
-                }
+        // 2. Dynamic Product Settings & Images from Admin CMS (with Real-time Live Sync)
+        function applyActiveProductConfig() {
+            try {
+                const prodConfig = JSON.parse(localStorage.getItem('vigor_active_product') || localStorage.getItem('vigor_product_config') || 'null');
+                if (prodConfig) {
+                    if (prodConfig.title && document.getElementById('mainProductTitle')) {
+                        document.getElementById('mainProductTitle').textContent = prodConfig.title;
+                        document.title = prodConfig.title + " | VIGOR Calisthenics Gear";
+                    }
+                    if (prodConfig.description && document.getElementById('mainProductDesc')) {
+                        document.getElementById('mainProductDesc').textContent = prodConfig.description;
+                    }
+                    if (prodConfig.ironQuality && document.getElementById('specIronQuality')) {
+                        document.getElementById('specIronQuality').textContent = prodConfig.ironQuality;
+                    }
+                    if (prodConfig.capacity && document.getElementById('specCapacity')) {
+                        document.getElementById('specCapacity').textContent = prodConfig.capacity;
+                    }
+                    if (prodConfig.dimensions && document.getElementById('specDimensions')) {
+                        document.getElementById('specDimensions').textContent = prodConfig.dimensions;
+                    }
+                    if (prodConfig.warranty) {
+                        if (document.getElementById('specWarranty')) document.getElementById('specWarranty').textContent = prodConfig.warranty;
+                        if (document.getElementById('warrantyBadge')) document.getElementById('warrantyBadge').textContent = '🛡️ ' + prodConfig.warranty;
+                    }
+                    if (prodConfig.stockStatus && document.getElementById('stockBadge')) {
+                        document.getElementById('stockBadge').textContent = '✓ ' + prodConfig.stockStatus;
+                    }
+                    if (prodConfig.price) {
+                        productBasePrice = parseInt(prodConfig.price) || 1800;
+                        updateQtyOptions(productBasePrice);
+                        if (typeof updatePricing === 'function') updatePricing();
+                    }
 
-                // Dynamic Gallery Images (from Admin upload or URLs)
-                if (Array.isArray(prodConfig.images) && prodConfig.images.length > 0) {
-                    productImages = [...prodConfig.images];
-                    currentImgIndex = 0;
-                    syncThumbnails();
-                    for (let i = 0; i < productImages.length && i < 3; i++) {
-                        const thumb = document.getElementById(`thumbImg${i + 1}`);
-                        if (thumb) thumb.src = productImages[i];
+                    // Dynamic Gallery Images (from Admin upload or URLs)
+                    if (Array.isArray(prodConfig.images) && prodConfig.images.length > 0) {
+                        productImages = [...prodConfig.images];
+                        currentImgIndex = 0;
+                        syncThumbnails();
+                        for (let i = 0; i < productImages.length && i < 3; i++) {
+                            const thumb = document.getElementById(`thumbImg${i + 1}`);
+                            if (thumb) thumb.src = productImages[i];
+                        }
                     }
                 }
+            } catch(e) {
+                console.log('Error applying active product config:', e);
             }
-        } catch(e) {
-            console.log('Error applying active product config:', e);
         }
+
+        // Apply immediately on load
+        applyActiveProductConfig();
+
+        // Real-time synchronization across browser tabs (Live Sync!)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'vigor_active_product' || e.key === 'vigor_product_config') {
+                applyActiveProductConfig();
+            }
+        });
     </script>
 </body>
 </html>
