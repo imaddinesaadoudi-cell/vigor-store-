@@ -85,52 +85,151 @@
         </div>
     </div>
 
-    <!-- 2. لوحة التحكم الرئيسية (تظهر بعد الدخول الصحيح) -->
-    <div id="adminPanel" class="hidden flex-1 flex flex-col">
+    <!-- 2. لوحة التحكم الرئيسية بنمط زد وسلة (Salla & Zid Pro Sidebar Layout) -->
+    <div id="adminPanel" class="hidden min-h-screen bg-[#f8fafc] text-neutral-800 flex flex-col md:flex-row">
         
-        <!-- Top Navbar -->
-        <header class="bg-white border-b border-neutral-200/80 sticky top-0 z-30 shadow-xs">
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain">
-                    <div>
-                        <span class="text-lg font-bold font-heading text-neutral-900">VIGOR ADMIN</span>
-                        <span class="block text-[10px] text-emerald-600 font-medium">● متصل ومحمي</span>
-                    </div>
-                </div>
+        <!-- Mobile Sidebar Overlay Backdrop -->
+        <div id="sidebarBackdrop" onclick="toggleAdminSidebar()" 
+             class="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs hidden md:hidden opacity-0 transition-opacity duration-300"></div>
 
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <a href="/" target="_blank" 
-                       class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition flex items-center gap-1">
-                        <span>معاينة المتجر</span>
-                        <span>↗</span>
-                    </a>
-                    <button onclick="logoutAdmin()" 
-                            class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition">
-                        خروج 🚪
+        <!-- Modern Salla / Zid RTL Sidebar -->
+        <aside id="adminSidebar" 
+               class="fixed inset-y-0 right-0 z-50 w-72 bg-[#0f172a] text-neutral-300 flex flex-col justify-between shadow-2xl transition-transform duration-300 transform translate-x-full md:translate-x-0 md:static md:z-auto md:shadow-none border-l border-neutral-800 select-none">
+            
+            <!-- Sidebar Brand Header -->
+            <div>
+                <div class="p-5 border-b border-neutral-800 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-neutral-800/80 border border-neutral-700/60 p-1 flex items-center justify-center">
+                            <img src="assets/logo.png" alt="Vigor Logo" class="h-full w-auto object-contain">
+                        </div>
+                        <div>
+                            <span class="text-base font-bold font-heading text-white tracking-wide block">VIGOR ADMIN</span>
+                            <span class="text-[11px] text-emerald-400 font-medium flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span>لوحة الإدارة ستايل Zid / Salla</span>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Close button for mobile -->
+                    <button type="button" onclick="toggleAdminSidebar()" class="md:hidden p-2 text-neutral-400 hover:text-white rounded-lg">
+                        <svg class="w-5 h-5 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>
+
+                <!-- Vertical Navigation Links (واحدة تحت واحدة) -->
+                <nav class="p-3.5 space-y-1.5">
+                    <p class="text-[10px] font-bold text-neutral-500 uppercase tracking-wider px-3 pt-2 pb-1">الرئيسية والإدارة</p>
+
+                    <!-- 1. إدارة الطلبيات -->
+                    <button type="button" onclick="switchSidebarTab('orders')" id="tab-orders" 
+                            class="side-tab w-full flex items-center justify-between px-3.5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-brand text-white shadow-sm shadow-brand/30">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">📋</span>
+                            <span>إدارة الطلبيات</span>
+                        </div>
+                        <span id="sideOrdersBadge" class="bg-white/20 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-full">0</span>
+                    </button>
+
+                    <!-- 2. إدارة وتعديل المنتجات -->
+                    <button type="button" onclick="switchSidebarTab('products')" id="tab-products" 
+                            class="side-tab w-full flex items-center justify-between px-3.5 py-3 rounded-xl font-medium text-xs sm:text-sm text-neutral-400 hover:text-white hover:bg-neutral-800/60 transition-all duration-200">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">📦</span>
+                            <span>إدارة وتعديل المنتجات</span>
+                        </div>
+                        <span id="sideProductsBadge" class="bg-neutral-800 text-neutral-400 text-[10px] font-mono px-2 py-0.5 rounded-full">1</span>
+                    </button>
+
+                    <!-- 3. البيكسل والإعلانات -->
+                    <button type="button" onclick="switchSidebarTab('pixels')" id="tab-pixels" 
+                            class="side-tab w-full flex items-center justify-between px-3.5 py-3 rounded-xl font-medium text-xs sm:text-sm text-neutral-400 hover:text-white hover:bg-neutral-800/60 transition-all duration-200">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">🎯</span>
+                            <span>البيكسل والإعلانات</span>
+                        </div>
+                        <span class="text-[10px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full">Meta & TT</span>
+                    </button>
+
+                    <div class="pt-4 border-t border-neutral-800/80 my-2"></div>
+                    <p class="text-[10px] font-bold text-neutral-500 uppercase tracking-wider px-3 pb-1">روابط سريعة</p>
+
+                    <!-- 4. ملف Google Sheets المباشر -->
+                    <a href="https://docs.google.com/spreadsheets/d/1HXOs6EvlmueZZhALs6Hd9mAUlcvszFOCOoZVh2nPhak/edit?gid=0#gid=0" 
+                       target="_blank" rel="noopener noreferrer"
+                       class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-emerald-400 hover:bg-emerald-950/40 border border-emerald-900/40 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-base">📊</span>
+                            <span>ملف Google Sheets</span>
+                        </div>
+                        <span class="text-xs">↗</span>
+                    </a>
+
+                    <!-- 5. زيارة واجهة المتجر -->
+                    <a href="/" target="_blank" 
+                       class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-800/60 transition">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-base">🌐</span>
+                            <span>زيارة واجهة المتجر</span>
+                        </div>
+                        <span class="text-xs">↗</span>
+                    </a>
+                </nav>
             </div>
 
-            <!-- Navigation Tabs -->
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 flex gap-1 border-t border-neutral-100 overflow-x-auto text-xs sm:text-sm font-bold text-neutral-600">
-                <button onclick="switchTab('orders')" id="tab-orders" class="tab-btn active px-4 py-3 rounded-t-lg transition flex items-center gap-2 whitespace-nowrap">
-                    <span>📋</span>
-                    <span>إدارة الطلبيات</span>
-                </button>
-                <button onclick="switchTab('products')" id="tab-products" class="tab-btn px-4 py-3 rounded-t-lg transition flex items-center gap-2 whitespace-nowrap">
-                    <span>📦</span>
-                    <span>تعديل وإضافة المنتجات</span>
-                </button>
-                <button onclick="switchTab('pixels')" id="tab-pixels" class="tab-btn px-4 py-3 rounded-t-lg transition flex items-center gap-2 whitespace-nowrap">
-                    <span>🎯</span>
-                    <span>البيكسل والإعلانات</span>
+            <!-- Sidebar Footer (Admin Profile & Logout) -->
+            <div class="p-4 border-t border-neutral-800 bg-neutral-950/40 flex items-center justify-between">
+                <div class="flex items-center gap-2.5 min-w-0">
+                    <div class="w-8 h-8 rounded-full bg-brand/20 border border-brand/40 text-brand font-bold flex items-center justify-center text-xs">
+                        V
+                    </div>
+                    <div class="min-w-0">
+                        <span class="text-xs font-bold text-white block truncate">مدير متجر VIGOR</span>
+                        <span class="text-[10px] text-neutral-500 block truncate">لوحة تحكم مؤمنة</span>
+                    </div>
+                </div>
+                <button type="button" onclick="logoutAdmin()" title="تسجيل الخروج" 
+                        class="p-2 text-neutral-400 hover:text-red-400 hover:bg-red-950/40 rounded-lg transition">
+                    🚪
                 </button>
             </div>
-        </header>
+        </aside>
 
-        <!-- Main Workspace -->
-        <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full space-y-6">
+        <!-- Main Workspace Area -->
+        <div class="flex-1 flex flex-col min-w-0">
+            
+            <!-- Top Workspace Header -->
+            <header class="bg-white border-b border-neutral-200/80 sticky top-0 z-30 shadow-2xs">
+                <div class="px-4 sm:px-8 py-3.5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <!-- Mobile Hamburger Button -->
+                        <button type="button" onclick="toggleAdminSidebar()" 
+                                class="md:hidden p-2 rounded-xl text-neutral-700 hover:bg-neutral-100 border border-neutral-200 transition">
+                            <svg class="w-5 h-5 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        </button>
+                        <div>
+                            <h1 id="topSectionHeading" class="text-lg sm:text-xl font-bold font-heading text-neutral-900">إدارة الطلبيات</h1>
+                            <p id="topSectionSubheading" class="text-xs text-neutral-500 hidden sm:block">سجل جميع الطلبيات الواردة مع إمكانية التأكيد السريع عبر واتساب</p>
+                        </div>
+                    </div>
+
+                    <!-- Top Bar Actions -->
+                    <div class="flex items-center gap-2">
+                        <a href="https://docs.google.com/spreadsheets/d/1HXOs6EvlmueZZhALs6Hd9mAUlcvszFOCOoZVh2nPhak/edit?gid=0#gid=0" 
+                           target="_blank" rel="noopener noreferrer" 
+                           class="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-xl transition">
+                            <span>📊 Google Sheets</span>
+                        </a>
+                        <a href="/" target="_blank" 
+                           class="inline-flex items-center gap-1.5 text-xs font-bold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 px-3 py-1.5 rounded-xl transition">
+                            <span>المتجر ↗</span>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Container -->
+            <main class="flex-1 p-4 sm:p-8 space-y-8 max-w-7xl w-full">
 
             <!-- ===================== SECTION 1: ORDERS ===================== -->
             <section id="section-orders" class="space-y-6">
@@ -465,12 +564,12 @@
 
             </section>
 
-        </main>
+            </main>
 
-        <footer class="border-t border-neutral-200/60 bg-white py-4 text-center text-xs text-neutral-400">
-            لوحة تحكم VIGOR Calisthenics Gear | نظام مؤمن بنجاح
-        </footer>
-
+            <footer class="border-t border-neutral-200/60 bg-white py-4 px-6 text-center text-xs text-neutral-400">
+                لوحة تحكم VIGOR Calisthenics Gear | معمارية Zid & Salla مؤمنة
+            </footer>
+        </div>
     </div>
 
     <!-- Script Logic -->
@@ -537,25 +636,73 @@
             window.location.reload();
         }
 
-        // Tab Switching
+        // Sidebar & Tab Switching (Salla & Zid Architecture)
+        function switchSidebarTab(tabName) {
+            switchTab(tabName);
+            // Auto close sidebar on mobile screen
+            const sidebar = document.getElementById('adminSidebar');
+            if (window.innerWidth < 768 && sidebar && !sidebar.classList.contains('translate-x-full')) {
+                toggleAdminSidebar();
+            }
+        }
+
         function switchTab(tabName) {
             ['orders', 'products', 'pixels'].forEach(t => {
                 const sec = document.getElementById(`section-${t}`);
                 if (sec) sec.classList.add('hidden');
                 const tab = document.getElementById(`tab-${t}`);
-                if (tab) tab.classList.remove('active');
+                if (tab) {
+                    tab.classList.remove('bg-brand', 'text-white', 'shadow-sm', 'shadow-brand/30', 'font-bold');
+                    tab.classList.add('text-neutral-400', 'hover:text-white', 'hover:bg-neutral-800/60', 'font-medium');
+                }
             });
+
             const targetSec = document.getElementById(`section-${tabName}`);
             if (targetSec) targetSec.classList.remove('hidden');
-            const targetTab = document.getElementById(`tab-${tabName}`);
-            if (targetTab) targetTab.classList.add('active');
 
-            if (tabName === 'products') {
+            const targetTab = document.getElementById(`tab-${tabName}`);
+            if (targetTab) {
+                targetTab.classList.remove('text-neutral-400', 'hover:text-white', 'hover:bg-neutral-800/60', 'font-medium');
+                targetTab.classList.add('bg-brand', 'text-white', 'shadow-sm', 'shadow-brand/30', 'font-bold');
+            }
+
+            // Update top header titles
+            const heading = document.getElementById('topSectionHeading');
+            const sub = document.getElementById('topSectionSubheading');
+            if (tabName === 'orders') {
+                if (heading) heading.textContent = 'إدارة الطلبيات';
+                if (sub) sub.textContent = 'سجل جميع الطلبيات الواردة مع إمكانية التأكيد السريع عبر واتساب وتصدير أندرسون';
+            } else if (tabName === 'products') {
+                if (heading) heading.textContent = 'إدارة وتعديل المنتجات';
+                if (sub) sub.textContent = 'كتالوج المنتجات المعروضة، تعديل ورفع الصور، وروابط الإعلانات لفيسبوك وتيك توك';
                 renderProductsCatalog();
                 const editor = document.getElementById('productEditorBox');
                 if (editor) {
                     editor.classList.add('hidden');
                     editor.style.display = 'none';
+                }
+            } else if (tabName === 'pixels') {
+                if (heading) heading.textContent = 'البيكسل والإعلانات';
+                if (sub) sub.textContent = 'ربط وتتبع أحداث الشراء والتحويل عبر فيسبوك وتيك توك بيكسل';
+            }
+        }
+
+        function toggleAdminSidebar() {
+            const sidebar = document.getElementById('adminSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            if (!sidebar) return;
+            const isClosed = sidebar.classList.contains('translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('translate-x-full');
+                if (backdrop) {
+                    backdrop.classList.remove('hidden');
+                    setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+                }
+            } else {
+                sidebar.classList.add('translate-x-full');
+                if (backdrop) {
+                    backdrop.classList.add('opacity-0');
+                    setTimeout(() => backdrop.classList.add('hidden'), 300);
                 }
             }
         }
@@ -586,8 +733,10 @@
             const emptyNotice = document.getElementById('emptyOrdersNotice');
             const search = document.getElementById('orderSearch')?.value.toLowerCase().trim() || '';
 
-            // Update KPIs
+            // Update KPIs & Sidebar Badge
             document.getElementById('kpiTotalOrders').textContent = orders.length;
+            const sideOrdersBadge = document.getElementById('sideOrdersBadge');
+            if (sideOrdersBadge) sideOrdersBadge.textContent = orders.length;
             const revenue = orders.reduce((acc, o) => {
                 const num = parseInt((o.totalPrice || '0').replace(/[^0-9]/g, '')) || 0;
                 return acc + num;
@@ -748,6 +897,8 @@
                 const container = document.getElementById('productsCatalogContainer');
                 const badge = document.getElementById('productsCountBadge');
                 if (badge) badge.textContent = `${products.length} منتج`;
+                const sideProductsBadge = document.getElementById('sideProductsBadge');
+                if (sideProductsBadge) sideProductsBadge.textContent = products.length;
 
                 if (!container) return;
                 container.innerHTML = products.map((prod) => {
