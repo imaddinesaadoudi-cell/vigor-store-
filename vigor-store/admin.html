@@ -92,105 +92,73 @@
         <div id="sidebarBackdrop" onclick="toggleAdminSidebar()" 
              class="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs hidden md:hidden opacity-0 transition-opacity duration-300"></div>
 
-        <!-- Modern Salla / Zid RTL Sidebar -->
+        <!-- Clean White Minimal Sidebar (RTL) -->
         <aside id="adminSidebar" 
-               class="fixed inset-y-0 right-0 z-50 w-72 bg-[#0f172a] text-neutral-300 flex flex-col justify-between shadow-2xl transition-transform duration-300 transform translate-x-full md:translate-x-0 md:static md:z-auto md:shadow-none border-l border-neutral-800 select-none">
+               class="fixed inset-y-0 right-0 z-50 w-64 bg-white text-neutral-800 flex flex-col justify-between shadow-xl transition-transform duration-300 transform translate-x-full md:translate-x-0 md:static md:z-auto md:shadow-none border-l border-neutral-200/80 select-none">
             
-            <!-- Sidebar Brand Header -->
+            <!-- Sidebar Header -->
             <div>
-                <div class="p-5 border-b border-neutral-800 flex items-center justify-between">
+                <div class="p-5 border-b border-neutral-100 flex items-center justify-between">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-neutral-800/80 border border-neutral-700/60 p-1 flex items-center justify-center">
-                            <img src="assets/logo.png" alt="Vigor Logo" class="h-full w-auto object-contain">
-                        </div>
+                        <img src="assets/logo.png" alt="Vigor Logo" class="h-8 w-auto object-contain">
                         <div>
-                            <span class="text-base font-bold font-heading text-white tracking-wide block">VIGOR ADMIN</span>
-                            <span class="text-[11px] text-emerald-400 font-medium flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                <span>لوحة الإدارة ستايل Zid / Salla</span>
-                            </span>
+                            <span class="text-base font-bold font-heading text-neutral-900 tracking-wide block">VIGOR</span>
+                            <span class="text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-0.5 block">لوحة التحكم</span>
                         </div>
                     </div>
                     <!-- Close button for mobile -->
-                    <button type="button" onclick="toggleAdminSidebar()" class="md:hidden p-2 text-neutral-400 hover:text-white rounded-lg">
+                    <button type="button" onclick="toggleAdminSidebar()" class="md:hidden p-2 text-neutral-400 hover:text-neutral-700 rounded-lg">
                         <svg class="w-5 h-5 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
                 </div>
 
-                <!-- Vertical Navigation Links (واحدة تحت واحدة) -->
-                <nav class="p-3.5 space-y-1.5">
-                    <p class="text-[10px] font-bold text-neutral-500 uppercase tracking-wider px-3 pt-2 pb-1">الرئيسية والإدارة</p>
-
-                    <!-- 1. إدارة الطلبيات -->
+                <!-- Minimal Navigation Links -->
+                <nav class="p-3 space-y-1">
+                    <!-- 1. الطلبيات -->
                     <button type="button" onclick="switchSidebarTab('orders')" id="tab-orders" 
-                            class="side-tab w-full flex items-center justify-between px-3.5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-brand text-white shadow-sm shadow-brand/30">
-                        <div class="flex items-center gap-3">
-                            <span class="text-lg">📋</span>
-                            <span>إدارة الطلبيات</span>
-                        </div>
+                            class="side-tab w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-brand text-white shadow-xs">
+                        <span>الطلبيات</span>
                         <span id="sideOrdersBadge" class="bg-white/20 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-full">0</span>
                     </button>
 
-                    <!-- 2. إدارة وتعديل المنتجات -->
+                    <!-- 2. المنتجات -->
                     <button type="button" onclick="switchSidebarTab('products')" id="tab-products" 
-                            class="side-tab w-full flex items-center justify-between px-3.5 py-3 rounded-xl font-medium text-xs sm:text-sm text-neutral-400 hover:text-white hover:bg-neutral-800/60 transition-all duration-200">
-                        <div class="flex items-center gap-3">
-                            <span class="text-lg">📦</span>
-                            <span>إدارة وتعديل المنتجات</span>
-                        </div>
-                        <span id="sideProductsBadge" class="bg-neutral-800 text-neutral-400 text-[10px] font-mono px-2 py-0.5 rounded-full">1</span>
+                            class="side-tab w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs sm:text-sm text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition-all duration-200">
+                        <span>المنتجات</span>
+                        <span id="sideProductsBadge" class="bg-neutral-100 text-neutral-600 text-[10px] font-mono px-2 py-0.5 rounded-full">1</span>
                     </button>
 
                     <!-- 3. البيكسل والإعلانات -->
                     <button type="button" onclick="switchSidebarTab('pixels')" id="tab-pixels" 
-                            class="side-tab w-full flex items-center justify-between px-3.5 py-3 rounded-xl font-medium text-xs sm:text-sm text-neutral-400 hover:text-white hover:bg-neutral-800/60 transition-all duration-200">
-                        <div class="flex items-center gap-3">
-                            <span class="text-lg">🎯</span>
-                            <span>البيكسل والإعلانات</span>
-                        </div>
-                        <span class="text-[10px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-full">Meta & TT</span>
+                            class="side-tab w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-xs sm:text-sm text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition-all duration-200">
+                        <span>البيكسل والإعلانات</span>
                     </button>
 
-                    <div class="pt-4 border-t border-neutral-800/80 my-2"></div>
-                    <p class="text-[10px] font-bold text-neutral-500 uppercase tracking-wider px-3 pb-1">روابط سريعة</p>
+                    <div class="pt-2 border-t border-neutral-100 my-2"></div>
 
-                    <!-- 4. ملف Google Sheets المباشر -->
+                    <!-- 4. Google Sheets -->
                     <a href="https://docs.google.com/spreadsheets/d/1HXOs6EvlmueZZhALs6Hd9mAUlcvszFOCOoZVh2nPhak/edit?gid=0#gid=0" 
                        target="_blank" rel="noopener noreferrer"
-                       class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-emerald-400 hover:bg-emerald-950/40 border border-emerald-900/40 transition">
-                        <div class="flex items-center gap-2.5">
-                            <span class="text-base">📊</span>
-                            <span>ملف Google Sheets</span>
-                        </div>
-                        <span class="text-xs">↗</span>
+                       class="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-medium text-neutral-600 hover:text-emerald-700 hover:bg-emerald-50 transition">
+                        <span>Google Sheets</span>
+                        <span class="text-neutral-400 text-xs">↗</span>
                     </a>
 
-                    <!-- 5. زيارة واجهة المتجر -->
+                    <!-- 5. المتجر -->
                     <a href="/" target="_blank" 
-                       class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-800/60 transition">
-                        <div class="flex items-center gap-2.5">
-                            <span class="text-base">🌐</span>
-                            <span>زيارة واجهة المتجر</span>
-                        </div>
-                        <span class="text-xs">↗</span>
+                       class="flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-medium text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition">
+                        <span>المتجر</span>
+                        <span class="text-neutral-400 text-xs">↗</span>
                     </a>
                 </nav>
             </div>
 
-            <!-- Sidebar Footer (Admin Profile & Logout) -->
-            <div class="p-4 border-t border-neutral-800 bg-neutral-950/40 flex items-center justify-between">
-                <div class="flex items-center gap-2.5 min-w-0">
-                    <div class="w-8 h-8 rounded-full bg-brand/20 border border-brand/40 text-brand font-bold flex items-center justify-center text-xs">
-                        V
-                    </div>
-                    <div class="min-w-0">
-                        <span class="text-xs font-bold text-white block truncate">مدير متجر VIGOR</span>
-                        <span class="text-[10px] text-neutral-500 block truncate">لوحة تحكم مؤمنة</span>
-                    </div>
-                </div>
-                <button type="button" onclick="logoutAdmin()" title="تسجيل الخروج" 
-                        class="p-2 text-neutral-400 hover:text-red-400 hover:bg-red-950/40 rounded-lg transition">
-                    🚪
+            <!-- Minimal Footer -->
+            <div class="p-3 border-t border-neutral-100">
+                <button type="button" onclick="logoutAdmin()" 
+                        class="w-full py-2 px-3 text-xs font-medium text-red-600 hover:bg-red-50 rounded-xl transition flex items-center justify-between">
+                    <span>تسجيل الخروج</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                 </button>
             </div>
         </aside>
@@ -652,8 +620,8 @@
                 if (sec) sec.classList.add('hidden');
                 const tab = document.getElementById(`tab-${t}`);
                 if (tab) {
-                    tab.classList.remove('bg-brand', 'text-white', 'shadow-sm', 'shadow-brand/30', 'font-bold');
-                    tab.classList.add('text-neutral-400', 'hover:text-white', 'hover:bg-neutral-800/60', 'font-medium');
+                    tab.classList.remove('bg-brand', 'text-white', 'shadow-xs', 'shadow-sm', 'shadow-brand/30', 'font-bold');
+                    tab.classList.add('text-neutral-600', 'hover:text-neutral-900', 'hover:bg-neutral-100', 'font-medium');
                 }
             });
 
@@ -662,8 +630,8 @@
 
             const targetTab = document.getElementById(`tab-${tabName}`);
             if (targetTab) {
-                targetTab.classList.remove('text-neutral-400', 'hover:text-white', 'hover:bg-neutral-800/60', 'font-medium');
-                targetTab.classList.add('bg-brand', 'text-white', 'shadow-sm', 'shadow-brand/30', 'font-bold');
+                targetTab.classList.remove('text-neutral-600', 'hover:text-neutral-900', 'hover:bg-neutral-100', 'font-medium');
+                targetTab.classList.add('bg-brand', 'text-white', 'shadow-xs', 'font-bold');
             }
 
             // Update top header titles
