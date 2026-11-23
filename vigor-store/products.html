@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منتجات VIGOR | عتاد الكاليسثنيكس والرياضة المنزلية</title>
+    <title>VIGOR Calisthenics Gear | المتجر الرسمي لعتاد الرياضة والكاليسثنيكس</title>
     
-    <!-- Google Fonts: IBM Plex Sans Arabic -->
+    <!-- Google Fonts: IBM Plex Sans Arabic (خط منصة زد) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,59 +21,142 @@
                             DEFAULT: '#ba5926',
                             hover: '#a04a1e',
                             light: '#fdf6f0',
+                            dark: '#93431b'
                         }
                     },
                     fontFamily: {
                         sans: ['"IBM Plex Sans Arabic"', 'sans-serif'],
-                        heading: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        heading: ['"IBM Plex Sans Arabic"', 'sans-serif']
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+        body { 
+            font-family: 'IBM Plex Sans Arabic', sans-serif; 
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Infinite Smooth Marquee Ticker (شريط إخباري متحرك مستمر لا نهائي) */
+        @keyframes tickerMarquee {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(-100%, 0, 0);
+            }
+        }
+        .ticker-wrapper {
+            width: 100%;
+            display: flex;
+            overflow: hidden;
+            direction: ltr !important;
+        }
+        .ticker-track {
+            display: flex;
+            flex-shrink: 0;
+            white-space: nowrap;
+            animation: tickerMarquee 26s linear infinite;
+            will-change: transform;
+        }
+        .ticker-wrapper:hover .ticker-track {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="bg-[#faf9f6] text-neutral-800 antialiased selection:bg-brand selection:text-white min-h-screen flex flex-col justify-between">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-neutral-900 text-neutral-200 text-xs py-2 px-4 text-center select-none border-b border-neutral-800">
-        <span>⚡ توصيل سريع لـ 58 ولاية • الدفع نقداً عند الاستلام بعد المعاينة باليد • ضمان عام كامل 🛡️</span>
+    <!-- Sticky Top Navigation & Infinite News Ticker Wrapper -->
+    <div class="sticky top-0 z-40 shadow-xs">
+        
+        <!-- Top Announcement Bar (شريط إخباري متحرك مستمر لا نهائي) -->
+        <div class="bg-neutral-900 text-neutral-200 text-xs sm:text-sm py-2 overflow-hidden border-b border-neutral-800 select-none">
+            <div class="ticker-wrapper" dir="ltr">
+                <div class="ticker-track items-center">
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                </div>
+                <div class="ticker-track items-center" aria-hidden="true">
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Minimal Header -->
+        <header class="bg-white/95 backdrop-blur-md border-b border-neutral-100">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain transition group-hover:scale-105">
+                    <div>
+                        <span class="text-xl font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
+                        <span class="block text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-1">Calisthenics Gear</span>
+                    </div>
+                </a>
+
+                <div class="flex items-center gap-2">
+                    <div class="text-xs text-neutral-600 font-medium flex items-center gap-1.5 bg-neutral-100 px-3.5 py-1.5 rounded-xl border border-neutral-200">
+                        <span>⚡ توصيل 58 ولاية (أندرسون)</span>
+                    </div>
+                </div>
+            </div>
+        </header>
     </div>
 
-    <!-- Header -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-neutral-100 sticky top-0 z-30 shadow-xs">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain transition group-hover:scale-105">
-                <div>
-                    <span class="text-xl font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
-                    <span class="block text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-1">Calisthenics Gear</span>
-                </div>
-            </a>
-
-            <a href="index.html" 
-               class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-neutral-700 hover:text-brand bg-neutral-100 hover:bg-neutral-200/80 px-3.5 py-2 rounded-xl transition active:scale-95">
-                <span>العودة للمتجر</span>
-                <span class="text-base">↩</span>
-            </a>
-        </div>
-    </header>
-
     <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12 flex-1 w-full space-y-8">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12 flex-1 w-full space-y-10">
         
-        <!-- Page Title & Intro -->
-        <div class="text-center max-w-xl mx-auto space-y-2">
-            <div class="inline-flex items-center gap-2 bg-brand/10 text-brand px-3 py-1 rounded-full text-xs font-bold">
-                <span>📦 كتالوج المنتجات الرسمية</span>
+        <!-- Hero Section for Store Catalog -->
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+            <div class="inline-flex items-center gap-2 bg-brand/10 text-brand px-3.5 py-1 rounded-full text-xs font-bold border border-brand/20">
+                <span>📦 كتالوج متجر VIGOR الرسمي</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-heading font-bold text-neutral-900">
-                عتاد VIGOR الأصلي للتمارين المنزلية
+            <h1 class="text-2xl sm:text-4xl font-heading font-bold text-neutral-900 leading-tight">
+                عتاد الكاليسثنيكس والتمارين المنزلية الأصلي
             </h1>
-            <p class="text-xs sm:text-sm text-neutral-500 leading-relaxed">
-                حديد خشين فائق الصلابة مصمم للتحمل الشاق. اختر عتادك وادفع نقداً عند الاستلام.
+            <p class="text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-lg mx-auto">
+                حديد خشين فائق الصلابة يتحمل حتى 200 كلغ. اختر المنتج واطلبه مباشرة بالدفع عند الاستلام مع ضمان عام كامل واستبدال فوري.
             </p>
         </div>
 
@@ -83,21 +166,21 @@
         </div>
 
         <!-- Trust Badges Section -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-neutral-200/60 text-center">
-            <div class="bg-white p-4 rounded-2xl border border-neutral-150 shadow-xs space-y-1">
-                <span class="text-2xl">📦</span>
-                <h4 class="font-bold text-neutral-900 text-xs">الدفع عند الاستلام</h4>
-                <p class="text-[11px] text-neutral-400">افحص سلعتك بيدك قبل أن تدفع ديناراً واحداً</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-neutral-200/60 text-center">
+            <div class="bg-white p-5 rounded-2xl border border-neutral-150 shadow-xs space-y-1.5">
+                <span class="text-3xl">📦</span>
+                <h4 class="font-bold text-neutral-900 text-sm">الدفع نقداً عند الاستلام (COD)</h4>
+                <p class="text-xs text-neutral-400">افحص سلعتك وتأكد من جودتها بيدك قبل أن تدفع ديناراً واحداً</p>
             </div>
-            <div class="bg-white p-4 rounded-2xl border border-neutral-150 shadow-xs space-y-1">
-                <span class="text-2xl">🛡️</span>
-                <h4 class="font-bold text-neutral-900 text-xs">ضمان حقيقي عام كامل</h4>
-                <p class="text-[11px] text-neutral-400">استبدال فوري وخدمة ما بعد البيع في الخدمة</p>
+            <div class="bg-white p-5 rounded-2xl border border-neutral-150 shadow-xs space-y-1.5">
+                <span class="text-3xl">🛡️</span>
+                <h4 class="font-bold text-neutral-900 text-sm">ضمان حقيقي لمدة عام كامل</h4>
+                <p class="text-xs text-neutral-400">استبدال فوري وخدمة ما بعد البيع مرافقة لك على مدار السنة</p>
             </div>
-            <div class="bg-white p-4 rounded-2xl border border-neutral-150 shadow-xs space-y-1">
-                <span class="text-2xl">⚡</span>
-                <h4 class="font-bold text-neutral-900 text-xs">توصيل لـ 58 ولاية</h4>
-                <p class="text-[11px] text-neutral-400">لباب المنزل أو للمكتب عبر Anderson Express</p>
+            <div class="bg-white p-5 rounded-2xl border border-neutral-150 shadow-xs space-y-1.5">
+                <span class="text-3xl">⚡</span>
+                <h4 class="font-bold text-neutral-900 text-sm">توصيل سريع لـ 58 ولاية</h4>
+                <p class="text-xs text-neutral-400">لباب المنزل أو لـ 126 مكتب ستوب ديسك عبر شبكة Anderson Express</p>
             </div>
         </div>
 
@@ -109,7 +192,7 @@
         <p>التوصيل السريع لـ 58 ولاية عبر شبكة Anderson Express.</p>
     </footer>
 
-    <!-- Dynamic Products Loader Script -->
+    <!-- Dynamic Store Script -->
     <script>
         const DEFAULT_STORE_PRODUCTS = [
             {
@@ -156,14 +239,14 @@
                 const mainImg = (prod.images && prod.images[0]) ? prod.images[0] : 'assets/product-1.jpg';
                 const safeTitle = (prod.title || '').replace(/"/g, '&quot;');
                 const priceFormatted = Number(prod.price || 1800).toLocaleString();
-                const oldPriceFormatted = prod.oldPrice ? `<span class="line-through text-neutral-400 text-xs mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : '';
+                const oldPriceFormatted = prod.oldPrice ? `<span class="line-through text-neutral-400 text-xs mr-1 font-mono">${Number(prod.oldPrice).toLocaleString()} دج</span>` : '';
                 const capacityTag = prod.capacity ? `<span class="bg-neutral-100 text-neutral-700 text-[11px] font-medium px-2 py-0.5 rounded-md border border-neutral-200">💪 ${prod.capacity}</span>` : '';
                 const warrantyTag = prod.warranty ? `<span class="bg-neutral-100 text-neutral-700 text-[11px] font-medium px-2 py-0.5 rounded-md border border-neutral-200">🛡️ ${prod.warranty}</span>` : '';
 
                 return `
                     <div class="bg-white rounded-3xl p-4 sm:p-5 border border-neutral-200/90 shadow-sm hover:shadow-lg hover:border-brand/50 transition-all duration-300 flex flex-col justify-between space-y-4 group">
                         
-                        <div class="space-y-3 cursor-pointer" onclick="orderProduct('${prod.id}')">
+                        <a href="product.html?id=${prod.id}" class="space-y-3 block">
                             <!-- Image Container -->
                             <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-150">
                                 <img src="${mainImg}" alt="${safeTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
@@ -189,28 +272,17 @@
                                 <span class="font-bold text-brand text-xl font-heading">${priceFormatted} دج</span>
                                 ${oldPriceFormatted}
                             </div>
-                        </div>
+                        </a>
 
                         <!-- Action Button -->
-                        <button type="button" onclick="orderProduct('${prod.id}')" 
-                                class="w-full py-3.5 px-4 bg-brand hover:bg-brand-hover active:scale-[0.99] text-white text-sm font-bold font-heading rounded-xl shadow-md shadow-brand/20 transition flex items-center justify-center gap-2">
+                        <a href="product.html?id=${prod.id}" 
+                           class="w-full py-3.5 px-4 bg-brand hover:bg-brand-hover active:scale-[0.99] text-white text-sm font-bold font-heading rounded-xl shadow-md shadow-brand/20 transition flex items-center justify-center gap-2">
                             <span>طلب هذا المنتج الآن</span>
                             <span class="text-base">🛒</span>
-                        </button>
+                        </a>
                     </div>
                 `;
             }).join('');
-        }
-
-        function orderProduct(productId) {
-            const products = getProductsList();
-            const prod = products.find(p => p.id === productId) || products[0];
-            if (prod) {
-                // Set as active product
-                localStorage.setItem('vigor_active_product', JSON.stringify(prod));
-            }
-            // Navigate directly to landing page and jump to the order form
-            window.location.href = 'index.html#order-form';
         }
 
         // Render on load
@@ -222,6 +294,30 @@
                 renderProductsGrid();
             }
         });
+
+        // Dynamic Pixel Injection (Meta & TikTok Pixels)
+        try {
+            const pixelConfig = JSON.parse(localStorage.getItem('vigor_pixels_config') || '{}');
+            if (pixelConfig.fbPixel) {
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', pixelConfig.fbPixel);
+                fbq('track', 'PageView');
+            }
+            if (pixelConfig.ttPixel) {
+                !function (w, d, t) {
+                    w.TiktokAnalyticsObject=t;var tt=w[t]=w[t]||[];tt.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],tt.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<tt.methods.length;i++)tt.setAndDefer(e,tt.methods[i]);tt.instance=function(t){for(var e=tt._i[t]||[],n=0;n<tt.methods.length;n++)tt.setAndDefer(e,tt.methods[n]);return e},tt.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";tt._i=tt._i||{},tt._i[e]=[],tt._i[e]._u=i,s=d.createElement("script"),s.type="text/javascript",s.async=!0,s.src=i+"?sdkid="+e+"&lib="+t;var c=d.getElementsByTagName("script")[0];c.parentNode.insertBefore(s,c)};
+                    tt.load(pixelConfig.ttPixel);
+                    tt.page();
+                }(window, document, 'ttq');
+            }
+        } catch(e) {}
     </script>
 </body>
 </html>

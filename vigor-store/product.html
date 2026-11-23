@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vigor | بار العقلة المنزلي الفاخر (Pull-up Bar)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: IBM Plex Sans Arabic (خط منصة زد) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#ba5926',
+                            hover: '#d06730',
+                            light: '#fdf6f0',
+                            dark: '#93431b',
+                            subtle: '#ba592625'
+                        },
+                        dark: {
+                            bg: '#0f1115',
+                            card: '#161920',
+                            surface: '#1c202a',
+                            border: '#262b37',
+                            muted: '#9ca3af'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        heading: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        display: ['"IBM Plex Sans Arabic"', 'sans-serif'],
+                        text: ['"IBM Plex Sans Arabic"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Infinite Smooth Marquee Ticker */
+        @keyframes tickerMarquee {
+            0% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(-100%, 0, 0);
+            }
+        }
+        .ticker-wrapper {
+            width: 100%;
+            display: flex;
+            overflow: hidden;
+            direction: ltr !important;
+        }
+        .ticker-track {
+            display: flex;
+            flex-shrink: 0;
+            white-space: nowrap;
+            animation: tickerMarquee 26s linear infinite;
+            will-change: transform;
+        }
+        .ticker-wrapper:hover .ticker-track {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="bg-[#faf9f6] text-neutral-800 antialiased selection:bg-brand selection:text-white">
+
+    <!-- Sticky Top Navigation & Infinite News Ticker Wrapper -->
+    <div class="sticky top-0 z-40 shadow-xs">
+        <!-- Top Announcement Bar (شريط إخباري متحرك مستمر لا نهائي) -->
+        <div class="bg-neutral-900 text-neutral-200 text-xs sm:text-sm py-2 overflow-hidden border-b border-neutral-800 select-none">
+            <div class="ticker-wrapper" dir="ltr">
+                <div class="ticker-track items-center">
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                </div>
+                <div class="ticker-track items-center" aria-hidden="true">
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>⚡ توصيل سريع لـ 58 ولاية عبر شبكة أندرسون إكسبريس</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>🛡️ ضمان حقيقي لمدة عام كامل (12 شهر) واستبدال فوري</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>📦 الدفع نقداً عند الاستلام بعد فحص المنتج ومعاينته باليد</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                    <span dir="rtl" class="inline-flex items-center gap-2 mx-5">
+                        <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
+                        <span>💪 فولاذ صلب وخشين يرفد حتى 200 كلغ في الميزان</span>
+                    </span>
+                    <span class="text-neutral-600">✦</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Minimal Header -->
+        <header class="bg-white/95 backdrop-blur-md border-b border-neutral-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <img src="assets/logo.png" alt="Vigor Logo" class="h-9 w-auto object-contain transition group-hover:scale-105">
+                    <div>
+                        <span class="text-xl font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
+                        <span class="block text-[10px] text-neutral-400 font-sans tracking-wider uppercase -mt-1">Calisthenics Gear</span>
+                    </div>
+                </a>
+                
+                <div class="flex items-center gap-2">
+                    <div class="text-xs text-neutral-500 font-medium hidden sm:flex items-center gap-1.5 bg-neutral-100 px-3 py-1.5 rounded-xl border border-neutral-200">
+                        <span>⚡ توصيل 58 ولاية</span>
+                    </div>
+
+                    <!-- Hamburger Menu Button (قائمة جانبية احترافية) -->
+                    <button type="button" onclick="openSideDrawer()" 
+                            class="p-2 sm:px-3 sm:py-2 rounded-xl text-neutral-700 hover:text-neutral-900 hover:bg-neutral-100 border border-neutral-200 transition active:scale-95 flex items-center gap-1.5" 
+                            aria-label="القائمة الجانبية">
+                        <svg class="w-6 h-6 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <span class="text-xs font-bold font-heading hidden sm:inline">القائمة</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <main class="max-w-3xl mx-auto px-4 md:px-6 py-6 md:py-10 space-y-10">
+
+        <!-- Minimalist Product Hero -->
+        <section id="productHeroSection" class="bg-white p-5 md:p-8 rounded-3xl border border-neutral-150 shadow-sm space-y-6">
+            
+            <!-- Title & Trust Highlights (Placed cleanly above images) -->
+            <div class="border-b border-neutral-100 pb-5 space-y-2">
+                <h1 id="mainProductTitle" class="text-2xl md:text-3xl font-heading font-bold text-neutral-900 leading-tight">
+                    بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!
+                </h1>
+                <div class="flex flex-wrap items-center gap-2.5 text-xs font-medium pt-1">
+                    <span id="stockBadge" class="text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+                        ✓ متوفر في المخزون
+                    </span>
+                    <span id="warrantyBadge" class="text-neutral-700 bg-neutral-100 px-2.5 py-1 rounded-full border border-neutral-200">
+                        🛡️ ضمان عام كامل
+                    </span>
+                    <span class="text-brand font-bold bg-brand/10 px-2.5 py-1 rounded-full border border-brand/20">
+                        ⚡ توصيل سريع لـ 58 ولاية
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                
+                <!-- Product Image Gallery -->
+                <div class="w-full md:w-1/2 space-y-3">
+                    <div onclick="openLightbox()" 
+                         class="relative bg-neutral-100 rounded-2xl overflow-hidden border border-neutral-200 aspect-[3/4] flex items-center justify-center group cursor-zoom-in">
+                        <img id="mainProductImg" src="assets/product-1.jpg" alt="بار فيكس الغرفة Vigor" 
+                             class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
+                        
+                        <!-- Hint to enlarge -->
+                        <div class="absolute bottom-3 left-3 bg-neutral-900/75 hover:bg-neutral-900 text-white text-[11px] font-medium px-3 py-1.5 rounded-full backdrop-blur flex items-center gap-1.5 shadow transition">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+                            </svg>
+                            <span>اضغط لتكبير الصورة</span>
+                        </div>
+                    </div>
+
+                    <!-- Thumbnails -->
+                    <div class="grid grid-cols-3 gap-2">
+                        <button type="button" onclick="changeImageByIndex(0, this)" 
+                                class="thumb-btn border-2 border-brand rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition hover:opacity-90">
+                            <img id="thumbImg1" src="assets/product-1.jpg" alt="صورة 1" class="w-full h-full object-cover rounded-lg">
+                        </button>
+                        <button type="button" onclick="changeImageByIndex(1, this)" 
+                                class="thumb-btn border-2 border-transparent hover:border-brand/40 rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition">
+                            <img id="thumbImg2" src="assets/product-2.jpg" alt="صورة 2" class="w-full h-full object-cover rounded-lg">
+                        </button>
+                        <button type="button" onclick="changeImageByIndex(2, this)" 
+                                class="thumb-btn border-2 border-transparent hover:border-brand/40 rounded-xl overflow-hidden aspect-[3/4] p-0.5 bg-white transition">
+                            <img id="thumbImg3" src="assets/product-3.jpg" alt="صورة 3" class="w-full h-full object-cover rounded-lg">
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="w-full md:w-1/2 space-y-5">
+                    <p id="mainProductDesc" class="text-neutral-600 text-sm leading-relaxed font-text">
+                        مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى <strong>200 كلغ في الميزان</strong> وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ <strong>180 ألف (1,800 دج)</strong> مع ضمان عام كامل!
+                    </p>
+
+                    <!-- Specifications Badges -->
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
+                            <span class="text-neutral-400 block text-[10px]">نوعية الحديد</span>
+                            <span id="specIronQuality" class="font-bold text-neutral-800">فولاذ خشين فائق الصلابة</span>
+                        </div>
+                        <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
+                            <span class="text-neutral-400 block text-[10px]">قدرة التحمل</span>
+                            <span id="specCapacity" class="font-bold text-neutral-800">يرفد حتى 200 كلغ</span>
+                        </div>
+                        <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
+                            <span class="text-neutral-400 block text-[10px]">الأبعاد الهندسية</span>
+                            <span id="specDimensions" class="font-bold text-neutral-800">80 cm × 32 cm</span>
+                        </div>
+                        <div class="bg-neutral-50 p-2.5 rounded-xl border border-neutral-100">
+                            <span class="text-neutral-400 block text-[10px]">فترة الضمان</span>
+                            <span id="specWarranty" class="font-bold text-emerald-700">عام كامل (12 شهر)</span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Minimalist High-Converting Order Form -->
+        <section id="order-form" class="bg-white rounded-3xl p-6 md:p-10 border border-neutral-200 shadow-sm relative scroll-mt-24">
+            <div class="max-w-xl mx-auto space-y-6">
+                
+                <div id="formHeader" class="text-center space-y-1">
+                    <h2 class="text-2xl font-heading font-bold text-neutral-900">طلب المنتج عبر الدفع عند الاستلام</h2>
+                    <p class="text-neutral-500 text-xs md:text-sm">املأ البيانات أدناه وسيتكفل فريق Vigor بتأكيد الطلب وشحنه</p>
+                </div>
+
+                <form id="orderForm" class="space-y-4">
+                    
+                    <!-- Full Name -->
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">الاسم واللقب *</label>
+                        <input type="text" id="custName" required placeholder="مثال: يوسف معمري" 
+                               class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                    </div>
+
+                    <!-- Phone Number with Algerian Validation -->
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">رقم الهاتف *</label>
+                        <input type="tel" id="custPhone" required maxlength="10" placeholder="05 / 06 / 07 XX XX XX" 
+                               class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                        
+                        <!-- Error Message (Only shows if there's an error) -->
+                        <div id="phoneError" class="hidden text-xs text-red-600 font-medium mt-2 flex items-center gap-1.5 bg-red-50 p-2.5 rounded-xl border border-red-200">
+                            <span>⚠️</span>
+                            <span id="phoneErrorMsg">يرجى إدخال رقم هاتف جزائري صحيح (10 أرقام يبدأ بـ 05 أو 06 أو 07).</span>
+                        </div>
+                    </div>
+
+                    <!-- Wilaya (58 Wilayas accurately loaded from Excel) -->
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">الولاية (58 ولاية رسمية) *</label>
+                        <select id="custWilaya" required 
+                                class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            <option value="">اختر ولايتك...</option>
+                        </select>
+                    </div>
+
+                    <!-- Delivery Mode Selection (Home vs Stop Desk) -->
+                    <div id="deliveryTypeBlock" class="hidden space-y-2 pt-1">
+                        <label class="block text-xs font-semibold text-neutral-700">طريقة التوصيل المتاحة مع أندرسون *</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="delivery-option flex items-center justify-between p-3.5 bg-neutral-50 border border-neutral-200 rounded-xl cursor-pointer hover:border-brand transition">
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="deliveryType" value="domicile" checked class="text-brand focus:ring-brand">
+                                    <span class="text-xs font-medium text-neutral-800">توصيل للمنزل</span>
+                                </div>
+                                <span id="homePriceBadge" class="text-xs font-bold text-brand">-- دج</span>
+                            </label>
+
+                            <label class="delivery-option flex items-center justify-between p-3.5 bg-neutral-50 border border-neutral-200 rounded-xl cursor-pointer hover:border-brand transition">
+                                <div class="flex items-center gap-2">
+                                    <input type="radio" name="deliveryType" value="stopdesk" class="text-brand focus:ring-brand">
+                                    <span class="text-xs font-medium text-neutral-800">استلام من المكتب (Stop Desk)</span>
+                                </div>
+                                <span id="deskPriceBadge" class="text-xs font-bold text-neutral-600">-- دج</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Commune / Address (For Home Delivery) -->
+                    <div id="communeBlock">
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">البلدية أو العنوان التفصيلي *</label>
+                        <input type="text" id="custCommune" placeholder="اسم البلدية أو الحي السكني" 
+                               class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                    </div>
+
+                    <!-- Anderson Station Dropdown (For Stop Desk) -->
+                    <div id="stationBlock" class="hidden">
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">اختر مكتب أندرسون المتاح في ولايتك *</label>
+                        <select id="custStation" 
+                                class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            <option value="">اختر أقرب مكتب أندرسون إليك...</option>
+                        </select>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1.5">الكمية</label>
+                        <select id="custQty" class="w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition">
+                            <option value="1">1 قطعة (1,800 دج)</option>
+                            <option value="2">2 قطع (3,400 دج - تخفيض)</option>
+                            <option value="3">3 قطع (5,000 دج - عرض الجملة)</option>
+                        </select>
+                    </div>
+
+                    <!-- Live Summary Calculation -->
+                    <div class="bg-neutral-50 p-4 rounded-2xl border border-neutral-150 space-y-2 text-xs">
+                        <div class="flex justify-between text-neutral-500">
+                            <span>سعر المنتج:</span>
+                            <span id="sumProductPrice" class="font-semibold text-neutral-800">1,800 دج</span>
+                        </div>
+                        <div class="flex justify-between text-neutral-500">
+                            <span>تكلفة التوصيل (أندرسون):</span>
+                            <span id="sumDeliveryPrice" class="font-semibold text-neutral-800">اختر الولاية أولاً</span>
+                        </div>
+                        <div class="border-t border-neutral-200 pt-2 flex justify-between text-sm font-bold text-neutral-900">
+                            <span>المبلغ الإجمالي عند الاستلام:</span>
+                            <span id="sumTotalPrice" class="text-brand font-heading text-lg">1,800 دج</span>
+                        </div>
+                    </div>
+
+                    <!-- Trust Note -->
+                    <div class="pt-2 text-center text-xs text-neutral-500 flex items-center justify-center gap-1.5">
+                        <span>🔒</span>
+                        <span>الدفع نقداً عند استلام المنتج وفحصه باليد | خدمة التوصيل متوفرة لـ 58 ولاية</span>
+                    </div>
+
+                </form>
+
+                <!-- Order Success State (Thank You Page) -->
+                <div id="orderSuccess" class="hidden min-h-[340px] flex flex-col items-center justify-center text-center py-6 px-4 space-y-4">
+                    <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl font-bold border-2 border-emerald-200 shadow-sm">
+                        ✓
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <h3 class="text-2xl font-heading font-bold text-neutral-900">شكراً لك! تم استلام طلبك بنجاح</h3>
+                        <p class="text-neutral-500 text-xs">سيتصل بك فريقنا هاتفياً قريباً لتأكيد موعد التوصيل.</p>
+                    </div>
+
+                    <!-- Order Summary Box (بدون أي صور) -->
+                    <div id="confirmedOrderSummary" class="w-full max-w-xs mx-auto bg-neutral-50 rounded-2xl p-4 border border-neutral-200 text-xs space-y-2 text-right">
+                        <div class="flex justify-between border-b border-neutral-200/80 pb-1.5">
+                            <span class="text-neutral-400">الاسم:</span>
+                            <span id="summaryCustName" class="font-bold text-neutral-800">--</span>
+                        </div>
+                        <div class="flex justify-between border-b border-neutral-200/80 pb-1.5">
+                            <span class="text-neutral-400">الهاتف:</span>
+                            <span id="summaryCustPhone" class="font-bold text-neutral-800 dir-ltr">--</span>
+                        </div>
+                        <div class="flex justify-between border-b border-neutral-200/80 pb-1.5">
+                            <span class="text-neutral-400">الولاية:</span>
+                            <span id="summaryCustWilaya" class="font-bold text-neutral-800">--</span>
+                        </div>
+                        <div class="flex justify-between pt-1 text-sm">
+                            <span class="font-bold text-neutral-900">المبلغ الإجمالي:</span>
+                            <span id="summaryCustTotal" class="font-heading font-bold text-emerald-700 text-base">-- دج</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-1">
+                        <button type="button" onclick="window.location.reload()" 
+                                class="text-xs font-semibold px-5 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition">
+                            طلب جديد ↺
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Side Drawer Backdrop -->
+    <div id="drawerBackdrop" 
+         onclick="closeSideDrawer()" 
+         class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs hidden opacity-0 transition-opacity duration-300"></div>
+
+    <!-- Off-Canvas Side Drawer (قائمة جانبية عصرية وسلسة) -->
+    <aside id="sideDrawer" 
+           aria-label="القائمة الجانبية للمتجر"
+           class="fixed inset-y-0 right-0 z-50 w-84 max-w-[85vw] bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out border-l border-neutral-100">
+        
+        <!-- Drawer Header -->
+        <div class="p-4 sm:p-5 border-b border-neutral-100 flex items-center justify-between bg-[#faf9f6]">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Vigor Logo" class="h-8 w-auto object-contain">
+                <div>
+                    <span class="text-lg font-bold tracking-widest uppercase font-heading text-neutral-900">VIGOR</span>
+                    <span class="block text-[9px] text-neutral-400 font-sans tracking-wider uppercase -mt-0.5">Calisthenics Gear</span>
+                </div>
+            </div>
+            <button type="button" onclick="closeSideDrawer()" 
+                    class="p-2 rounded-xl text-neutral-400 hover:text-neutral-700 hover:bg-neutral-200/60 transition" 
+                    aria-label="إغلاق القائمة">
+                <svg class="w-5 h-5 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Drawer Navigation & Content (Strictly KISS: Only the Products button to dedicated page) -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-3">
+            
+            <!-- Products Catalog Direct Link -->
+            <a href="index.html" 
+               class="flex items-center justify-between px-4 py-4 rounded-2xl border border-neutral-200/80 bg-neutral-50/70 hover:bg-neutral-100 hover:border-brand/40 transition text-sm font-bold text-neutral-900 group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">📦</span>
+                    <span class="font-heading text-base group-hover:text-brand transition">كتالوج كل المنتجات</span>
+                </div>
+                <svg class="w-5 h-5 text-neutral-400 group-hover:text-brand -rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
+
+        </div>
+    </aside>
+
+    <footer class="border-t border-neutral-200/60 bg-white py-8 pb-28 text-center text-xs text-neutral-400 space-y-1">
+        <p>© 2026 VIGOR Calisthenics Gear. جميع الحقوق محفوظة.</p>
+        <p>التوصيل السريع لـ 58 ولاية عبر شبكة Anderson Express.</p>
+    </footer>
+
+    <!-- Sticky Action Button (كبير ومستطيل مع تدوير خفيف وعائم بدون شريط خلفي) -->
+    <div id="stickyBottomBar" 
+         class="fixed bottom-4 md:bottom-6 left-0 right-0 z-40 px-4 pointer-events-none transition-all duration-300">
+        <div class="max-w-xl mx-auto pointer-events-auto">
+            <button id="stickyActionBtn" onclick="handleStickyButtonClick()" 
+                    class="w-full bg-brand hover:bg-brand-hover active:scale-[0.99] text-white font-heading font-bold text-lg md:text-xl py-4 px-6 rounded-xl shadow-xl shadow-brand/25 transition-all duration-200 flex items-center justify-center gap-2.5">
+                <span id="stickyActionText" class="inline-flex items-center justify-center gap-2.5">
+                    <svg class="w-6 h-6 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <span>اشتري الآن</span>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Image Lightbox Modal with Blurred Backdrop -->
+    <div id="imageLightbox" 
+         class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-200 flex items-center justify-center p-4">
+        
+        <!-- Close Button -->
+        <button onclick="closeLightbox()" 
+                class="absolute top-5 right-5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition z-20"
+                title="إغلاق (Esc)">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Previous Button (Right in RTL / Next image) -->
+        <button onclick="prevLightboxImage()" 
+                class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white bg-white/10 hover:bg-white/25 active:scale-95 p-3 md:p-4 rounded-full backdrop-blur transition z-20"
+                title="الصورة السابقة">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+
+        <!-- Next Button (Left in RTL / Next image) -->
+        <button onclick="nextLightboxImage()" 
+                class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white bg-white/10 hover:bg-white/25 active:scale-95 p-3 md:p-4 rounded-full backdrop-blur transition z-20"
+                title="الصورة التالية">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+
+        <!-- Image Container -->
+        <div class="relative max-w-4xl max-h-[85vh] flex items-center justify-center" onclick="event.stopPropagation()">
+            <img id="lightboxImg" src="assets/product-1.jpg" alt="تكبير الصورة" 
+                 class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-white/10 transition-all duration-150">
+        </div>
+
+        <!-- Image Counter Indicator -->
+        <div id="lightboxCounter" class="absolute bottom-5 text-xs text-white/90 bg-white/10 border border-white/10 px-4 py-1.5 rounded-full backdrop-blur">
+            1 / 3
+        </div>
+
+        <!-- Outside click closes -->
+        <div class="absolute inset-0 -z-10" onclick="closeLightbox()"></div>
+    </div>
+
+    <!-- Script loading exact 58 wilayas data from JSON -->
+    <script>
+        let productImages = ['assets/product-1.jpg', 'assets/product-2.jpg', 'assets/product-3.jpg'];
+        let currentImgIndex = 0;
+
+        function syncThumbnails() {
+            const currentSrc = productImages[currentImgIndex];
+            document.getElementById('mainProductImg').src = currentSrc;
+            const thumbs = document.querySelectorAll('.thumb-btn');
+            thumbs.forEach((b, idx) => {
+                if (idx === currentImgIndex) {
+                    b.classList.remove('border-transparent');
+                    b.classList.add('border-brand');
+                } else {
+                    b.classList.remove('border-brand');
+                    b.classList.add('border-transparent');
+                }
+            });
+        }
+
+        function changeImageByIndex(idx, btn) {
+            if (idx >= 0 && idx < productImages.length) {
+                currentImgIndex = idx;
+                syncThumbnails();
+            }
+        }
+
+        function changeImage(src, btn) {
+            const idx = productImages.indexOf(src);
+            if (idx !== -1) currentImgIndex = idx;
+            syncThumbnails();
+        }
+
+        function updateLightboxView() {
+            const img = document.getElementById('lightboxImg');
+            img.src = productImages[currentImgIndex];
+            document.getElementById('lightboxCounter').textContent = `${currentImgIndex + 1} / ${productImages.length}`;
+            syncThumbnails();
+        }
+
+        function nextLightboxImage() {
+            currentImgIndex = (currentImgIndex + 1) % productImages.length;
+            updateLightboxView();
+        }
+
+        function prevLightboxImage() {
+            currentImgIndex = (currentImgIndex - 1 + productImages.length) % productImages.length;
+            updateLightboxView();
+        }
+
+        function openLightbox() {
+            const modal = document.getElementById('imageLightbox');
+            updateLightboxView();
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('imageLightbox');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 200);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const drawer = document.getElementById('sideDrawer');
+                if (drawer && !drawer.classList.contains('translate-x-full')) {
+                    closeSideDrawer();
+                    return;
+                }
+            }
+            const modal = document.getElementById('imageLightbox');
+            if (!modal || modal.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') prevLightboxImage();
+            if (e.key === 'ArrowLeft') nextLightboxImage();
+        });
+
+        // Sticky button action & state management
+        let isAtOrderForm = false;
+
+        function handleStickyButtonClick() {
+            if (!isAtOrderForm) {
+                // Scroll down to the form
+                const formSection = document.getElementById('order-form');
+                formSection.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    const nameInput = document.getElementById('custName');
+                    if (nameInput) nameInput.focus();
+                }, 400);
+            } else {
+                // Strict validation before submitting
+                const nameInput = document.getElementById('custName');
+                if (!nameInput.value.trim()) {
+                    nameInput.focus();
+                    nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+
+                if (!checkDzPhoneLive(true)) {
+                    phoneInput.focus();
+                    phoneInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+
+                if (!wilayaSelect.value) {
+                    wilayaSelect.focus();
+                    wilayaSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+
+                const selectedType = document.querySelector('input[name="deliveryType"]:checked')?.value || 'domicile';
+                if (selectedType === 'stopdesk') {
+                    const stationSelect = document.getElementById('custStation');
+                    if (!stationSelect.value) {
+                        stationSelect.focus();
+                        stationSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
+                    }
+                }
+
+                // All valid -> submit form
+                const form = document.getElementById('orderForm');
+                form.requestSubmit();
+            }
+        }
+
+        const orderSection = document.getElementById('order-form');
+        const stickyBtn = document.getElementById('stickyActionBtn');
+        const stickyBtnText = document.getElementById('stickyActionText');
+
+        const buyNowContent = `
+            <svg class="w-6 h-6 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span>اشتري الآن</span>
+        `;
+        const confirmOrderContent = `
+            <svg class="w-6 h-6 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>تأكيد الطلبية</span>
+        `;
+
+        // Dynamically switch button between "اشتري الآن" and "تأكيد الطلبية"
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    isAtOrderForm = true;
+                    stickyBtnText.innerHTML = confirmOrderContent;
+                    stickyBtn.classList.remove('bg-brand', 'hover:bg-brand-hover', 'shadow-brand/25');
+                    stickyBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500', 'shadow-emerald-600/25');
+                } else {
+                    isAtOrderForm = false;
+                    stickyBtnText.innerHTML = buyNowContent;
+                    stickyBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500', 'shadow-emerald-600/25');
+                    stickyBtn.classList.add('bg-brand', 'hover:bg-brand-hover', 'shadow-brand/25');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        if (orderSection) {
+            observer.observe(orderSection);
+        }
+
+        let wilayasData = [];
+        let andersonStations = {};
+        let productBasePrice = 1800;
+
+        function updateQtyOptions(base) {
+            const q = document.getElementById('custQty');
+            if (!q) return;
+            const p1 = base;
+            const p2 = Math.round(base * 1.88);
+            const p3 = Math.round(base * 2.77);
+            q.options[0].textContent = `1 قطعة (${p1.toLocaleString()} دج)`;
+            q.options[1].textContent = `2 قطع (${p2.toLocaleString()} دج - تخفيض خاص) ⭐`;
+            q.options[2].textContent = `3 قطع (${p3.toLocaleString()} دج - أفضل عرض) 🔥`;
+        }
+
+        // Fetch extracted Wilayas & Official Anderson Stations from PDF
+        fetch('wilayas_data.json')
+            .then(res => res.json())
+            .then(data => {
+                wilayasData = data;
+                populateWilayas(data);
+            })
+            .catch(err => console.error("Error loading wilayas", err));
+
+        fetch('anderson_stations.json')
+            .then(res => res.json())
+            .then(data => {
+                andersonStations = data;
+            })
+            .catch(err => console.error("Error loading stations", err));
+
+        function populateWilayas(list) {
+            const select = document.getElementById('custWilaya');
+            list.forEach(w => {
+                const opt = document.createElement('option');
+                opt.value = w.code;
+                opt.textContent = `${w.code} - ${w.name_ar} (${w.name_fr})`;
+                select.appendChild(opt);
+            });
+        }
+
+        const wilayaSelect = document.getElementById('custWilaya');
+        const deliveryBlock = document.getElementById('deliveryTypeBlock');
+        const homeBadge = document.getElementById('homePriceBadge');
+        const deskBadge = document.getElementById('deskPriceBadge');
+        const sumDelivery = document.getElementById('sumDeliveryPrice');
+        const sumTotal = document.getElementById('sumTotalPrice');
+        const sumProduct = document.getElementById('sumProductPrice');
+        const qtySelect = document.getElementById('custQty');
+        const stationBlock = document.getElementById('stationBlock');
+        const stationSelect = document.getElementById('custStation');
+        const communeBlock = document.getElementById('communeBlock');
+        const stopDeskRadio = document.querySelector('input[name="deliveryType"][value="stopdesk"]');
+        const stopDeskLabel = stopDeskRadio ? stopDeskRadio.closest('label') : null;
+
+        function updatePricing() {
+            const selectedCode = parseInt(wilayaSelect.value);
+            const qty = parseInt(qtySelect.value);
+            let productCost = (qty === 1) ? productBasePrice : (qty === 2 ? Math.round(productBasePrice * 1.88) : Math.round(productBasePrice * 2.77));
+            sumProduct.textContent = `${productCost.toLocaleString()} دج`;
+
+            if (!selectedCode) {
+                deliveryBlock.classList.add('hidden');
+                stationBlock.classList.add('hidden');
+                communeBlock.classList.remove('hidden');
+                sumDelivery.textContent = "اختر الولاية أولاً";
+                sumTotal.textContent = `${productCost.toLocaleString()} دج`;
+                return;
+            }
+
+            const w = wilayasData.find(item => item.code === selectedCode);
+            if (w) {
+                deliveryBlock.classList.remove('hidden');
+                homeBadge.textContent = `${w.domicile} دج`;
+
+                // Check Anderson stations for this wilaya
+                const stations = andersonStations[selectedCode] || [];
+                if (stations.length === 0) {
+                    if (stopDeskRadio) {
+                        stopDeskRadio.disabled = true;
+                        if (stopDeskLabel) stopDeskLabel.classList.add('opacity-40', 'cursor-not-allowed');
+                        document.querySelector('input[name="deliveryType"][value="domicile"]').checked = true;
+                    }
+                    deskBadge.textContent = "غير متوفر";
+                } else {
+                    if (stopDeskRadio) {
+                        stopDeskRadio.disabled = false;
+                        if (stopDeskLabel) stopDeskLabel.classList.remove('opacity-40', 'cursor-not-allowed');
+                    }
+                    deskBadge.textContent = `${w.stopdesk} دج`;
+
+                    // Populate matching stations in pure Arabic
+                    stationSelect.innerHTML = '<option value="">اختر أقرب مكتب أندرسون إليك...</option>';
+                    stations.forEach(st => {
+                        const opt = document.createElement('option');
+                        const displayName = st.name_ar || st.name;
+                        const displayCommune = st.commune_ar || st.commune;
+                        opt.value = `${displayName} (${displayCommune})`;
+                        opt.textContent = `📍 ${displayName} - بلدية ${displayCommune}`;
+                        stationSelect.appendChild(opt);
+                    });
+                }
+
+                const selectedType = document.querySelector('input[name="deliveryType"]:checked').value;
+                const shippingCost = (selectedType === 'domicile') ? w.domicile : w.stopdesk;
+                
+                sumDelivery.textContent = `${shippingCost.toLocaleString()} دج`;
+                const total = productCost + shippingCost;
+                sumTotal.textContent = `${total.toLocaleString()} دج`;
+
+                // Toggle Station vs Home Address view
+                if (selectedType === 'stopdesk' && stations.length > 0) {
+                    stationBlock.classList.remove('hidden');
+                    communeBlock.classList.add('hidden');
+                } else {
+                    stationBlock.classList.add('hidden');
+                    communeBlock.classList.remove('hidden');
+                }
+            }
+        }
+
+        wilayaSelect.addEventListener('change', updatePricing);
+        qtySelect.addEventListener('change', updatePricing);
+        document.querySelectorAll('input[name="deliveryType"]').forEach(radio => {
+            radio.addEventListener('change', updatePricing);
+        });
+
+        // Clean Algerian Phone Validation
+        const phoneInput = document.getElementById('custPhone');
+        const phoneError = document.getElementById('phoneError');
+        const phoneErrorMsg = document.getElementById('phoneErrorMsg');
+
+        const normalPhoneClass = "w-full bg-neutral-50 border border-neutral-200 rounded-xl px-4 py-3 text-sm text-neutral-900 focus:bg-white focus:outline-none focus:border-brand transition";
+        const errorPhoneClass = "w-full bg-red-50/50 border-2 border-red-400 rounded-xl px-4 py-3 text-sm text-red-900 focus:outline-none transition";
+
+        function checkDzPhoneLive(showErrors = false) {
+            let val = phoneInput.value.replace(/[^0-9]/g, '');
+            phoneInput.value = val;
+
+            if (!val) {
+                phoneError.classList.add('hidden');
+                phoneInput.className = normalPhoneClass;
+                return false;
+            }
+
+            // Check prefix (must start with 05, 06, or 07)
+            if (val.length >= 2) {
+                const prefix = val.substring(0, 2);
+                if (prefix !== "05" && prefix !== "06" && prefix !== "07") {
+                    if (showErrors || val.length >= 2) {
+                        phoneErrorMsg.textContent = `رقم الهاتف غير صحيح! يجب أن يبدأ بـ 05 أو 06 أو 07.`;
+                        phoneError.classList.remove('hidden');
+                        phoneInput.className = errorPhoneClass;
+                    }
+                    return false;
+                }
+            }
+
+            // Check full length (10 digits)
+            if (val.length === 10) {
+                phoneError.classList.add('hidden');
+                phoneInput.className = normalPhoneClass;
+                return true;
+            } else {
+                if (showErrors) {
+                    phoneErrorMsg.textContent = `رقم الهاتف غير مكتمل! يجب أن يتكون من 10 أرقام.`;
+                    phoneError.classList.remove('hidden');
+                    phoneInput.className = errorPhoneClass;
+                } else {
+                    phoneError.classList.add('hidden');
+                    phoneInput.className = normalPhoneClass;
+                }
+                return false;
+            }
+        }
+
+        phoneInput.addEventListener('input', () => {
+            if (phoneInput.value.length === 10) {
+                checkDzPhoneLive(false);
+            } else if (phoneInput.value.length >= 2) {
+                const prefix = phoneInput.value.substring(0, 2);
+                if (prefix !== "05" && prefix !== "06" && prefix !== "07") {
+                    checkDzPhoneLive(true);
+                } else {
+                    phoneError.classList.add('hidden');
+                    phoneInput.className = normalPhoneClass;
+                }
+            }
+        });
+
+        phoneInput.addEventListener('blur', () => {
+            if (phoneInput.value.length > 0) {
+                checkDzPhoneLive(true);
+            }
+        });
+
+        // Form submission & Center Thank You Page for Mobile & Desktop
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Strict phone check
+            if (!checkDzPhoneLive(true)) {
+                phoneInput.focus();
+                phoneInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            
+            // Populate summary details
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value.trim();
+            const wilayaText = wilayaSelect.options[wilayaSelect.selectedIndex]?.text || '';
+            const total = sumTotal.textContent;
+
+            document.getElementById('summaryCustName').textContent = name;
+            document.getElementById('summaryCustPhone').textContent = phone;
+            document.getElementById('summaryCustWilaya').textContent = wilayaText;
+            document.getElementById('summaryCustTotal').textContent = total;
+
+            const deliveryType = document.querySelector('input[name="deliveryType"]:checked')?.value || 'domicile';
+            let finalAddress = document.getElementById('custCommune').value;
+            if (deliveryType === 'stopdesk') {
+                const stationSelect = document.getElementById('custStation');
+                if (stationSelect.value) {
+                    finalAddress = `مكتب أندرسون: ${stationSelect.value}`;
+                }
+            }
+
+            // Send order data to Google Sheets Webhook in background
+            const currentProdName = document.getElementById('mainProductTitle')?.textContent?.trim() || 'بار فيكس الغرفة';
+            const orderPayload = {
+                productName: currentProdName,
+                name: name,
+                phone: phone,
+                wilaya: wilayaText,
+                commune: finalAddress,
+                deliveryType: deliveryType,
+                quantity: document.getElementById('custQty').value,
+                totalPrice: total
+            };
+
+            // Save order locally for Admin Dashboard
+            try {
+                const existingOrders = JSON.parse(localStorage.getItem('vigor_orders') || '[]');
+                existingOrders.unshift({
+                    id: 'ORD-' + Date.now().toString().slice(-4),
+                    productName: currentProdName,
+                    name: name,
+                    phone: phone,
+                    wilaya: wilayaText,
+                    commune: finalAddress,
+                    deliveryType: deliveryType,
+                    quantity: document.getElementById('custQty').value,
+                    totalPrice: total,
+                    status: 'جديد ⏳',
+                    date: new Date().toLocaleDateString('ar-DZ')
+                });
+                localStorage.setItem('vigor_orders', JSON.stringify(existingOrders));
+            } catch (err) {
+                console.log('Local storage save:', err);
+            }
+
+            // Track Pixel Purchase / Conversion with real order value
+            try {
+                if (window.fbq) {
+                    fbq('track', 'Purchase', { 
+                        content_name: currentProdName,
+                        value: total, 
+                        currency: 'DZD' 
+                    });
+                }
+                if (window.ttq) {
+                    ttq.track('CompletePayment', { 
+                        content_name: currentProdName,
+                        value: total, 
+                        currency: 'DZD' 
+                    });
+                }
+            } catch(e) {}
+
+            // Send order data directly to Google Sheets Webhook
+            const VIGOR_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxMS6bTk_btJzPXnbyndi2HIEVPYdFT-lNYvUgqYv8flh9_PADYvS83GSW20Bl2bM8x/exec";
+            fetch(VIGOR_WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderPayload)
+            }).catch(err => console.log('Sheets Sync:', err));
+
+            // Hide product hero section, form header, form inputs and sticky bottom button
+            document.getElementById('productHeroSection').classList.add('hidden');
+            document.getElementById('formHeader').classList.add('hidden');
+            this.classList.add('hidden');
+            document.getElementById('stickyBottomBar').classList.add('hidden');
+            
+            // Show Thank You Page cleanly
+            const successBox = document.getElementById('orderSuccess');
+            successBox.classList.remove('hidden');
+            
+            // Scroll to top so the Thank You Page is 100% visible and centered!
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 1. Dynamic Pixel Injection (Meta & TikTok Pixels)
+        try {
+            const pixelConfig = JSON.parse(localStorage.getItem('vigor_pixels_config') || '{}');
+            if (pixelConfig.fbPixel) {
+                !function(f,b,e,v,n,t,s)
+                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t,s)}(window, document,'script',
+                'https://connect.facebook.net/en_US/fbevents.js');
+                fbq('init', pixelConfig.fbPixel);
+                fbq('track', 'PageView');
+            }
+            if (pixelConfig.ttPixel) {
+                !function (w, d, t) {
+                    w.TiktokAnalyticsObject=t;var tt=w[t]=w[t]||[];tt.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],tt.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<tt.methods.length;i++)tt.setAndDefer(tt,tt.methods[i]);tt.instance=function(t){for(var e=tt._i[t]||[],n=0;n<tt.methods.length;n++)tt.setAndDefer(e,tt.methods[n]);return e},tt.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";tt._i=tt._i||{},tt._i[e]=[],tt._i[e]._u=i,s=d.createElement("script"),s.type="text/javascript",s.async=!0,s.src=i+"?sdkid="+e+"&lib="+t;var c=d.getElementsByTagName("script")[0];c.parentNode.insertBefore(s,c)};
+                    tt.load(pixelConfig.ttPixel);
+                    tt.page();
+                }(window, document, 'ttq');
+            }
+        } catch(e) {}
+
+        // ================= MULTI-PRODUCT STORE CATALOG & MODAL =================
+        const DEFAULT_STORE_PRODUCTS = [
+            {
+                id: "vigor-pullup-bar",
+                title: "بار فيكس الغرفة: حديد خشين فائق الصلابة يرفد 200 كلغ — غير بـ 180 ألف!",
+                price: 1800,
+                oldPrice: 2500,
+                stockStatus: "متوفر في المخزون",
+                ironQuality: "فولاذ خشين فائق الصلابة",
+                capacity: "يرفد حتى 200 كلغ",
+                dimensions: "80 cm × 32 cm",
+                warranty: "عام كامل (12 شهر)",
+                description: "مخدوم بحديد صلب وخشين فائق المتانة يرفد أوزان ثقيلة حتى 200 كلغ في الميزان وبأعلى درجات الأمان — ماشي كيما السلعة الخفيفة اللي تدور في المارشي. سلعة صحيحة ومضمونة تدوم معك لسنوات وبسعر اقتصادي في متناول الجميع غير بـ 180 ألف (1,800 دج) مع ضمان عام كامل!",
+                images: [
+                    "assets/product-1.jpg",
+                    "assets/product-2.jpg",
+                    "assets/product-3.jpg"
+                ],
+                isActive: true
+            }
+        ];
+
+        function getStoreProductsCatalog() {
+            try {
+                const raw = localStorage.getItem('vigor_products_catalog');
+                if (raw) {
+                    const list = JSON.parse(raw);
+                    if (Array.isArray(list) && list.length > 0) {
+                        const valid = list.filter(p => p && typeof p === 'object' && p.title && String(p.title).trim().length > 0);
+                        if (valid.length > 0) return valid;
+                    }
+                }
+            } catch (e) {}
+            return DEFAULT_STORE_PRODUCTS;
+        }
+
+        function openSideDrawer() {
+            renderStoreProductsCatalog();
+            const drawer = document.getElementById('sideDrawer');
+            const backdrop = document.getElementById('drawerBackdrop');
+            if (backdrop) {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+            }
+            if (drawer) {
+                drawer.classList.remove('translate-x-full');
+            }
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSideDrawer() {
+            const drawer = document.getElementById('sideDrawer');
+            const backdrop = document.getElementById('drawerBackdrop');
+            if (drawer) {
+                drawer.classList.add('translate-x-full');
+            }
+            if (backdrop) {
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => {
+                    backdrop.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleDrawerProducts() {
+            const list = document.getElementById('drawerProductsList');
+            const chevron = document.getElementById('drawerProductsChevron');
+            if (!list) return;
+            const isHidden = list.classList.contains('hidden');
+            if (isHidden) {
+                list.classList.remove('hidden');
+                if (chevron) chevron.classList.add('rotate-180');
+            } else {
+                list.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+            }
+        }
+
+        // Backward compatibility aliases
+        function openCatalogModal() { openSideDrawer(); }
+        function closeCatalogModal() { closeSideDrawer(); }
+
+        function selectProductToOrder(productId) {
+            const products = getStoreProductsCatalog();
+            const prod = products.find(p => p.id === productId) || products[0];
+            if (!prod) return;
+
+            // Set as active in localStorage so it stays active
+            localStorage.setItem('vigor_active_product', JSON.stringify(prod));
+            applyActiveProductData(prod);
+
+            // Close side drawer immediately
+            closeSideDrawer();
+
+            // Scroll smoothly to order form
+            const formSection = document.getElementById('order-form');
+            if (formSection) {
+                setTimeout(() => {
+                    formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 150);
+            }
+        }
+
+        function applyActiveProductData(prod) {
+            if (!prod) return;
+            if (prod.title && document.getElementById('mainProductTitle')) {
+                document.getElementById('mainProductTitle').textContent = prod.title;
+                document.title = prod.title + " | VIGOR Calisthenics Gear";
+            }
+            if (prod.description && document.getElementById('mainProductDesc')) {
+                document.getElementById('mainProductDesc').textContent = prod.description;
+            }
+            if (prod.ironQuality && document.getElementById('specIronQuality')) {
+                document.getElementById('specIronQuality').textContent = prod.ironQuality;
+            }
+            if (prod.capacity && document.getElementById('specCapacity')) {
+                document.getElementById('specCapacity').textContent = prod.capacity;
+            }
+            if (prod.dimensions && document.getElementById('specDimensions')) {
+                document.getElementById('specDimensions').textContent = prod.dimensions;
+            }
+            if (prod.warranty) {
+                if (document.getElementById('specWarranty')) document.getElementById('specWarranty').textContent = prod.warranty;
+                if (document.getElementById('warrantyBadge')) document.getElementById('warrantyBadge').textContent = '🛡️ ' + prod.warranty;
+            }
+            if (prod.stockStatus && document.getElementById('stockBadge')) {
+                document.getElementById('stockBadge').textContent = '✓ ' + prod.stockStatus;
+            }
+            if (prod.price) {
+                productBasePrice = parseInt(prod.price) || 1800;
+                updateQtyOptions(productBasePrice);
+                if (typeof updatePricing === 'function') updatePricing();
+            }
+
+            // Dynamic Gallery Images
+            if (Array.isArray(prod.images) && prod.images.length > 0) {
+                productImages = [...prod.images];
+                currentImgIndex = 0;
+                syncThumbnails();
+                for (let i = 0; i < productImages.length && i < 3; i++) {
+                    const thumb = document.getElementById(`thumbImg${i + 1}`);
+                    if (thumb) thumb.src = productImages[i];
+                }
+            }
+        }
+
+        function renderStoreProductsCatalog() {
+            const products = getStoreProductsCatalog();
+            const drawerContainer = document.getElementById('drawerProductsList');
+            const drawerBadge = document.getElementById('drawerProductsCountBadge');
+            
+            if (drawerBadge) {
+                drawerBadge.textContent = `${products.length}`;
+            }
+
+            if (!drawerContainer) return;
+
+            const cardsHtml = products.map(prod => {
+                const mainImg = (prod.images && prod.images[0]) ? prod.images[0] : 'assets/product-1.jpg';
+                const safeTitle = (prod.title || '').replace(/"/g, '&quot;');
+                const priceFormatted = Number(prod.price || 1800).toLocaleString();
+                const oldPriceFormatted = prod.oldPrice ? `<span class="line-through text-neutral-400 text-[10px] mr-1">${Number(prod.oldPrice).toLocaleString()} دج</span>` : '';
+
+                return `
+                    <div class="bg-white rounded-xl p-3 border border-neutral-200/90 hover:border-brand/50 shadow-xs transition text-right space-y-2.5">
+                        <div class="flex items-center gap-3 cursor-pointer" onclick="selectProductToOrder('${prod.id}')">
+                            <div class="w-14 h-14 rounded-lg overflow-hidden bg-neutral-100 border border-neutral-150 shrink-0">
+                                <img src="${mainImg}" alt="${safeTitle}" class="w-full h-full object-cover">
+                            </div>
+                            <div class="min-w-0 flex-1">
+                                <h5 class="font-bold text-neutral-900 text-xs leading-snug line-clamp-2">${safeTitle}</h5>
+                                <div class="flex items-baseline gap-1 mt-1">
+                                    <span class="font-bold text-brand text-xs font-heading">${priceFormatted} دج</span>
+                                    ${oldPriceFormatted}
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="selectProductToOrder('${prod.id}')" 
+                                class="w-full py-2 px-3 bg-brand hover:bg-brand-hover active:scale-[0.99] text-white text-[11px] font-bold rounded-lg shadow-xs shadow-brand/20 transition flex items-center justify-center gap-1.5">
+                            <span>طلب هذا المنتج</span>
+                            <span>🛒</span>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            drawerContainer.innerHTML = cardsHtml;
+        }
+
+        // Apply active product on load (via URL ?id=... or localStorage)
+        let currentActiveProduct = null;
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryProdId = urlParams.get('id');
+            const allProducts = getStoreProductsCatalog();
+
+            if (queryProdId) {
+                currentActiveProduct = allProducts.find(p => p.id === queryProdId);
+            }
+            if (!currentActiveProduct) {
+                currentActiveProduct = JSON.parse(localStorage.getItem('vigor_active_product') || 'null');
+            }
+            if (!currentActiveProduct) {
+                currentActiveProduct = allProducts[0] || DEFAULT_STORE_PRODUCTS[0];
+            }
+
+            if (currentActiveProduct) {
+                applyActiveProductData(currentActiveProduct);
+                
+                // Track ViewContent for Facebook Ads Media Buying
+                if (window.fbq) {
+                    fbq('track', 'ViewContent', {
+                        content_name: currentActiveProduct.title,
+                        content_ids: [currentActiveProduct.id],
+                        content_type: 'product',
+                        value: currentActiveProduct.price || 1800,
+                        currency: 'DZD'
+                    });
+                }
+            }
+        } catch(e) {
+            console.error('Active product init:', e);
+        }
+
+        // Render catalog on load
+        renderStoreProductsCatalog();
+
+        // Real-time synchronization across browser tabs (Live Sync!)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'vigor_active_product' || e.key === 'vigor_product_config') {
+                try {
+                    const prod = JSON.parse(localStorage.getItem('vigor_active_product') || 'null');
+                    if (prod) applyActiveProductData(prod);
+                } catch(e) {}
+            }
+            if (e.key === 'vigor_products_catalog') {
+                renderStoreProductsCatalog();
+            }
+        });
+    </script>
+</body>
+</html>

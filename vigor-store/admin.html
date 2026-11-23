@@ -781,17 +781,15 @@
                             </div>
 
                             <div class="pt-2 border-t border-neutral-200/60 flex items-center justify-between gap-2" onclick="event.stopPropagation()">
-                                <div class="flex items-center gap-1.5">
+                                <div class="flex items-center gap-1.5 flex-wrap">
                                     <button type="button" onclick="editProduct('${prod.id}')" 
-                                            class="px-3.5 py-1.5 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-lg transition flex items-center gap-1 shadow-sm">
+                                            class="px-3 py-1.5 bg-brand hover:bg-brand-hover text-white text-xs font-bold rounded-lg transition flex items-center gap-1 shadow-sm">
                                         <span>✏️ تعديل ومحرر الصور</span>
                                     </button>
-                                    ${!isActive ? `
-                                        <button type="button" onclick="setActiveProduct('${prod.id}')" 
-                                                class="px-2.5 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold rounded-lg transition" title="عرض هذا المنتج في واجهة المتجر">
-                                            ⭐ تفعيل
-                                        </button>
-                                    ` : ''}
+                                    <button type="button" onclick="copyAdLink('${prod.id}', this)" 
+                                            class="px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold rounded-lg transition flex items-center gap-1" title="نسخ رابط الإعلان المباشر لفيسبوك آدس">
+                                        <span>🔗 رابط الإعلان (FB Ads)</span>
+                                    </button>
                                 </div>
                                 ${products.length > 1 ? `
                                     <button type="button" onclick="deleteProduct('${prod.id}')" title="حذف المنتج" 
@@ -824,6 +822,27 @@
                     }
                 } catch(e) {}
             }
+        }
+
+        function copyAdLink(prodId, btn) {
+            const origin = window.location.origin;
+            let path = window.location.pathname;
+            let dir = path.substring(0, path.lastIndexOf('/'));
+            const fullUrl = `${origin}${dir}/product.html?id=${encodeURIComponent(prodId)}`;
+            
+            navigator.clipboard.writeText(fullUrl).then(() => {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<span>✓ تم النسخ!</span>';
+                btn.classList.remove('bg-blue-50', 'text-blue-700');
+                btn.classList.add('bg-emerald-600', 'text-white');
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.classList.remove('bg-emerald-600', 'text-white');
+                    btn.classList.add('bg-blue-50', 'text-blue-700');
+                }, 2000);
+            }).catch(() => {
+                prompt('انسخ رابط الإعلان التالي لفيسبوك:', fullUrl);
+            });
         }
 
         function populateProductEditor(prod) {
